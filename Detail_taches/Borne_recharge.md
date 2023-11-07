@@ -31,3 +31,11 @@ Chaque opération réalisable par le logiciel sera associée à une instruction 
 
 - Une instruction qui contient une fonction qui permet de consulter l’historique de transaction. Cela peut les aider à suivre et à gérer les opérations passées.
 
+### 4 - Vulnérabilités et solutions
+
+Les bornes de recharge utilisées dans le contexte des cartes à puce peuvent être vulnérables à diverses menaces liées à la sécurité. Voici quelques vulnérabilités courantes associées à une borne de recharge et des mesures pour y remédier :
+
+
+1. **Mauvaise Gestion des Données :** Les bornes de recharge stockent et traitent des données sensibles. Une mauvaise gestion des données peut entraîner des fuites d'informations.
+   - Mesures de sécurité : Utilisez des mécanismes de chiffrement pour protéger les données stockées. Mettez en place des procédures de suppression sécurisée des données.
+
