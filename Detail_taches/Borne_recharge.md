@@ -21,11 +21,11 @@ La classe utilisée par berlicum sera la classe 0x81, 0x82 et 0x83 de l’API du
 
 Chaque opération réalisable par le logiciel sera associée à une instruction de la classe 0x81, 0x82 et 0x83 : . 
 
-- Instruction pour l’*affichage des informations personnelles* : 0x81 0x02
-- Instruction pour l’*affichage des bonus sur la carte* : 0x83 0x01
-- Instruction pour l’*attribution des bonus sur la carte* : 0x83 0x02
-- Instruction pour l’*affichage des crédits disponibles sur la carte* : 0x82 0x01
-- Instruction pour l’*attribution d’argent sur la carte* : 0x82 0x02
+- Instruction pour l’*affichage des informations personnelles* : 0x02 et classe 0x81 
+- Instruction pour l’*affichage des bonus sur la carte* : 0x01 et classe 0x83
+- Instruction pour l’*attribution des bonus sur la carte* : 0x02 et classe 0x83
+- Instruction pour l’*affichage des crédits disponibles sur la carte* : 0x01 et classe 0x82
+- Instruction pour l’*attribution d’argent sur la carte* : 0x02 et classe 0x82
 
 ### 3 - Idées de fonctions à rajouter pour Berlicum
 
