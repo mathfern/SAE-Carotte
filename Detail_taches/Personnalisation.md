@@ -33,11 +33,11 @@ La classe utilisée par Lubiana sera la classe 0x81 de l’API du projet (cf par
 
 Chaque opération réalisable par le logiciel sera associée à une instruction de la classe 0x81. 
 
-Instruction pour l’*affichage de la version* : **0x00**
-Instruction pour l’*affichage des données* : **0x02**
-Instruction pour l’*attribution de la carte* : **0x01**
-Instruction pour l’*attribution du solde de base* : **0x04**
-Instruction pour l’*affichage du solde* : **0x03**
+- Instruction pour l’*affichage de la version* : **0x00**
+- Instruction pour l’*affichage des données* : **0x02**
+- Instruction pour l’*attribution de la carte* : **0x01**
+- Instruction pour l’*attribution du solde de base* : **0x04**
+- Instruction pour l’*affichage du solde* : **0x03**
 
 
 ### 3 - Programmation
