@@ -1,2 +1,5 @@
 # Carotte
-Projet Carotte RT3FA (Boucher, Fernandes, Machard, Namoune)
+Adrien BOUCHER
+Mathias FERNANDES
+Antoine MACHARD
+Djibril NAMOUNE
