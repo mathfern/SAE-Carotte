@@ -5,14 +5,14 @@ La partie personnalisation consiste en général à programmer des données spé
 
 - Le nom, prénom et numéro d’étudiant de chaque titulaire de carte.
 - Le numéro de version de la carte.
-- Le solde à 1.00€ pour la création de la carte.
+- Le solde initial à 0.00€ lors de la création de la carte.
 
 Ainsi, le logiciel Lubiana à pour objectif d’être utilisé par un “agent administratif” et doit être intéractif et simple à utiliser (avec un menu qui permet d’effectuer différentes actions). Les actions proposées par le menu sont : 
 
 - Affichage de la version de la carte à puce. 
 - Affichage des données de la carte à puce.
 - Attribuer la carte à un étudiant
-- Mettre le solde initial de 1.00€
+- Mettre le solde initial de 0.00€
 - Consulter le solde
 
 Détails de chaque action : 
@@ -22,8 +22,6 @@ Détails de chaque action :
 *Affichage des données* : L’affichage des données permet de vérifier si les données telles que Nom, Prénom, Numéro étudiant ont déjà étés ajoutées sur cette carte. Si il existe bien des données sur la carte, le programme devrait les renvoyer sous un message : nom : XXX, prénom : XXX, Numéro Etudiant : XXX. Si ce n’est pas le cas, on devra afficher un message indiquant : carte à puce vierge.
 
 *Attribuer la carte* : Pour ajouter un nom, un prénom et un numéro d’étudiant sur la carte. Cette option devra écrire les données sur la carte.
-
-*Mettre le solde à 1.00€* : Cette option ajoute 1.00€ sur la carte.
 
 *Consulter le solde* : Cette option permet de consulter le solde sur la carte.
 
