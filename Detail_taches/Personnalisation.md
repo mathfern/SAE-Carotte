@@ -49,3 +49,7 @@ pyscard https://pyscard.sourceforge.io/user-guide.html#pyscard-user-guide
 
 ``` test ```
 
+### 4 - Idées de fonctions à rajouter pour Lubiana
+
+- Une instruction en 0x05 qui contient une fonction qui permet de supprimer le contenu de la carte (cette option est nécessaire en cas de réattribution de la carte par exemple si un étudiant quitte l'IUT, on supprime les données de la carte avant de la réattribuer avec l'instruction 0x01).
+- Une instruction en 0x06 qui contient une fonction qui permet de bloquer et de débloquer la carte en cas de perte ou de vol. 
