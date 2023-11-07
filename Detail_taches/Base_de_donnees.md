@@ -25,3 +25,19 @@ Chaque étudiant partira de base avec 1 euro qu'il devra récuperer sur la borne
 ### 2 - Idéé de données a rajouter pour la base de données
 
 - Dans la table étudiant on a décider de rajouter un champ date de naissance.
+  
+### 3 - Vulnérabilités et solutions
+
+Les bases de données MySQL sont sujettes à plusieurs vulnérabilités potentielles qui peuvent mettre en danger la sécurité de vos données. Voici quelques-unes des vulnérabilités courantes et des mesures pour y remédier :
+
+1. **Injection SQL :** Les attaques par injection SQL sont l'une des vulnérabilités les plus courantes. Les attaquants insèrent du code SQL malveillant dans les requêtes pour accéder, modifier ou supprimer des données. Pour y remédier :
+   - Utilisez des requêtes préparées ou des procédures stockées pour éviter l'injection SQL.
+   - Assurez-vous de filtrer et de valider toutes les données utilisateur avant de les utiliser dans des requêtes SQL.
+
+2. **Authentification faible :** Une authentification faible, des mots de passe faibles ou l'utilisation de comptes par défaut peuvent faciliter l'accès non autorisé à la base de données. Pour y remédier :
+   - Utilisez des mots de passe forts et encouragez une politique de gestion des mots de passe.
+   - Limitez l'accès en fonction des principes du moindre privilège, en n'accordant que les autorisations nécessaires à chaque utilisateur.
+
+
+
+
