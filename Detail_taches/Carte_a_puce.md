@@ -38,7 +38,7 @@ Nous avons pensé à séparer les bonus de l’argent provenant des cartes banca
 </ul>
 Nous avons aussi pensé à modifier l’instruction 0x02 de la classe 0x82 afin que l’étudiant puisse choisir la somme qu’il veut ajouter sur sa carte. Nous allons donc utiliser le paramètre P1 qui indiquera la valeur ajoutée par l’étudiant à partir de sa carte bancaire. 
 Voici le tableau des classes et instructions mis à jour : 
-![image](https://github.com/mathfern/SAE-Carotte/assets/150126396/811b870c-2d98-465c-8938-2f7a0fda1d69)
+![image](https://github.com/mathfern/SAE-Carotte/assets/150126396/e1b45a1c-1056-4088-8d9c-81a8ff7f0160)
 
 ### 5- Vulnérabilités
 La vulnérabilité qui peut se présenter au niveau des cartes à puce est physique : si l’élève perd ou se fait voler sa carte. Il suffira donc à l’étudiant d’aller voir l’agent administratif pour qu’il bloque la possibilité de faire des transactions à partir de cette carte. 
