@@ -21,3 +21,7 @@ Le schémas relationnel (MCD) proposé est donné ci-après :
 Cette base de données devra être accessible par le logiciel de gestion Rodelika afin de permettre à l’agent administratif de gérer le suivi des cartes, des bonus, des débit etc. L’étudiant a chaque fois qu’il va insérer sa carte à puces les données de la carte à puces seront stockées dans la base de données.
 
 Chaque étudiant partira de base avec 1 euro qu'il devra récuperer sur la borne de recharge pour en profiter.
+
+### 2 - Idéé de données a rajouter pour la base de données
+
+- Une donnée date de naissance pour les données des étudiants.
