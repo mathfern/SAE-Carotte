@@ -27,7 +27,7 @@ Chaque opération réalisable par le logiciel sera associée à une instruction 
 - Instruction pour l’*affichage des crédits disponibles sur la carte* : 0x82 0x01
 - Instruction pour l’*attribution d’argent sur la carte* : 0x82 0x02
 
-### 3 - Idées de fonctions à rajouter pour Lubiana
+### 3 - Idées de fonctions à rajouter pour Berlicum
 
 - Une instruction qui contient une fonction qui permet de consulter l’historique de transaction. Cela peut les aider à suivre et à gérer les opérations passées.
 
