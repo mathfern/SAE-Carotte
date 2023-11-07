@@ -8,8 +8,8 @@ Une base de données (purple dragon) implémenter en mysql pour les cartes à pu
 
 - Les données du compte qui  représente les opérations effectuées par les utilisateurs, elle est identifiée par la date de l’opération, et contient deux autres 
   champs, le montant de l’opération et sa description. Étant donné que plusieurs utilisateurs peuvent effectuer simultanément différentes opérations, nous avons 
-  choisi d'associer le numéro d'étudiant à la clé primaire en utilisant une relation relative (R). Le montant de l'opération peut être positif en cas de bonus ou de 
-  crédit, ou négatif en cas de débit.
+  choisi d'associer le numéro d'étudiant à la clé primaire en utilisant une relation relative (R). Le montant de l'opération peut être positif en cas de bonus ou 
+  de crédit, ou négatif en cas de débit.
 
 - Les données du type de l’opération qui permet de catégoriser les types d'opérations : Bonus, Bonus transféré, Crédit et Débit.
 
@@ -24,4 +24,4 @@ Chaque étudiant partira de base avec 1 euro qu'il devra récuperer sur la borne
 
 ### 2 - Idéé de données a rajouter pour la base de données
 
-- Une donnée date de naissance pour les données des étudiants.
+- Dans la table étudiant on a décider de rajouter un champ date de naissance.
