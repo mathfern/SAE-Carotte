@@ -19,3 +19,5 @@ Le schémas relationnel (MCD) proposé est donné ci-après :
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150126517/3a7f34bb-3c22-4650-a28d-bbfdfdd74d67)
 
 Cette base de données devra être accessible par le logiciel lubiana pour permettre à la personnalisation de la carte à puces et aussi par le logiciel de gestion Rodelika afin de permettre à l’agent administratif de gérer le suivi des cartes, des bonus, des débit etc.
+
+Chaque étudiant partira de base avec 1 euro qu'il devra récuperer sur la borne de recharge pour en profiter.
