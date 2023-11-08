@@ -107,6 +107,7 @@ void sortir_data()
 uint16_t ee_taille EEMEM=0;
 uint16_t ee_taille2 EEMEM=33;
 uint8_t ee_perso[MAX_PERSO] EEMEM;
+uint8_t ee_perso2[TAILLE_SOLD] EEMEM;
 
 void intro_perso()
 {
@@ -155,22 +156,28 @@ void lire_perso()
 
 void init_sold()
 {
-      int i;
-     	// vérification de la taille
-    	if (p3>TAILLE_SOLD)
-        {
-          sw1=0x6c;	// P3 incorrect
-        	sw2=TAILLE_SOLD;	// sw2 contient l'information de la taille correcte
-          return;
-        }
-      sendbytet0(ins);	// acquitement
-
-      for(i=0;i<p3;i++)	// boucle d'envoi du message
-        {
-          data[i]=recbytet0();
-        }
-      taille=p3; 		// mémorisation de la taille des données lues
-      sw1=0x90;
+	char buffer[TAILLE_SOLD];
+	int i;
+	// contrôle p3
+	if (p3>TAILLE_SOLD)
+    {
+      sw1=0x6c;
+      sw2=TAILLE_SOLD;
+      return;
+    }
+	// acquittement
+	sendbytet0(ins);
+	// traitement de la commande
+	for (i=0;i<p3;i++)
+    {	// lecture des données
+      buffer[i]=recbytet0();
+    }
+	// recopie en eeprom
+	eeprom_write_block(buffer,ee_perso2,p3);
+	// écriture de la taille
+	eeprom_write_word(&ee_taille2,p3);
+	// status word
+	sw1=0x90;
 }  
 
 
@@ -178,17 +185,13 @@ void consult_sold()
 {
   int i;
 	uint8_t taille;
-  uint8_t taille2;
-  uint16_t taille_sum;
 
-  taille=eeprom_read_byte(&ee_taille);
-	taille2=eeprom_read_byte(&ee_taille2);
-  taille_sum = taille + taille2;
+  taille=eeprom_read_byte(&ee_taille2);
 
-	if (p3!=taille_sum)
+	if (p3!=taille)
     {
       sw1=0x6c;
-      sw2=taille_sum;
+      sw2=taille;
       return;
     }
 	sendbytet0(ins);

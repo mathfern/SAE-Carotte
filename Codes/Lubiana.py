@@ -62,19 +62,19 @@ def print_version():
 def print_data():
 	apdu = [0x80, 0x04, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
-	print("sw1 : 0x%02X | sw2 : 0x%02X" % (sw1, sw2))
+	print("sw1 : 0x%02X | taille demandée : sw2 : 0x%02X" % (sw1, sw2))
     # except scardexcp.CardConnectionException as e:
 	#	print("Erreur", e)
-	#	return
-
+	#	returnl
 	apdu.append(sw2)
+	print ("l'APDU pour afficher les données de l'eeprom est :")
 	__print_apdu(apdu)
 
 	data, sw1, sw2 = conn_reader.transmit(apdu)
-	#str = ""
-	#for e in data:
-	#		str += chr(e)
-	#print ("sw1 : 0x%02X | sw2 : 0x%02X | version %s" % (sw1,sw2,str))
+	str = ""
+	for e in data:
+			str += chr(e)
+	print ("sw1 : 0x%02X | sw2 : 0x%02X | Les données sur l'eeprom sont : %s" % (sw1,sw2,str))
 	return
 
 def assign_card():
@@ -99,6 +99,42 @@ def assign_card():
 		print ("Error", e)
 		return
 
+def init_sold():
+	apdu = [0x80, 0x05, 0x00, 0x00]
+	sold = "0.00"
+
+	length = len(sold)
+	apdu.append(length)
+	__print_apdu(apdu)
+
+	for e in sold:
+		apdu.append(ord(e))
+	print (apdu)
+	try:
+		data, sw1, sw2 = conn_reader.transmit(apdu)
+		print ("sw1 : 0x%02X | sw2 : 0x%02X" % (sw1,sw2))
+	except scardexcp.CardConnectionException as e:
+		print ("Error", e)
+		return
+
+def consult_sold():
+	apdu = [0x80, 0x06, 0x00, 0x00]
+	data, sw1, sw2 = conn_reader.transmit(apdu)
+	print("sw1 : 0x%02X | taille demandée : sw2 : 0x%02X" % (sw1, sw2))
+    # except scardexcp.CardConnectionException as e:
+	#	print("Erreur", e)
+	#	returnl
+	apdu.append(sw2)
+	print ("l'APDU pour afficher les données de l'eeprom est :")
+	__print_apdu(apdu)
+
+	data, sw1, sw2 = conn_reader.transmit(apdu)
+	str = ""
+	for e in data:
+			str += chr(e)
+	print ("sw1 : 0x%02X | sw2 : 0x%02X | Les données sur l'eeprom sont : %s" % (sw1,sw2,str))
+	return
+
 def main():
 	print_hello_message()
 	init_smart_card()
@@ -110,6 +146,10 @@ def main():
 		print_data()
 	elif (cmd == 3):
 		assign_card()
+	elif (cmd == 4):
+		init_sold()
+	elif (cmd == 5):
+		consult_sold()
 	elif (cmd == 6):
 		return
 	else :
