@@ -46,3 +46,5 @@ Chaque opération réalisable par le logiciel sera associée à une instruction 
 ### 5- Vulnérabilités sur Rodelika 
 - Il n'y a pas d'users donc un étudiant peut se rajouter de l'argent sans mdp
 - Un hacker peut avoir accès a toutes la base de données (nom, prénom, solde)
+- Possibilité de bloquer la carte
+- Possibilité de bloquer le compte de l'étudiant 
