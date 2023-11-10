@@ -1,9 +1,9 @@
 import mysql.connector
 
-cnx = mysql.connector.connect(user='*****',
-password='******',
+cnx = mysql.connector.connect(user='root',
+password='root',
 host='localhost',
-database='purpledragon')
+database='purpledragon1') #a renommer
 
 def print_hello_message():
     print ("-----------------------------------")
@@ -18,7 +18,7 @@ def print_menu():
     print (" 5 - Quitter")
 
 def get_list_student():
-    sql="select etudiant.* from etudiant"
+    sql="select * from Etudiant"
     cursor = cnx.cursor()
     cursor.execute(sql)
     row = cursor.fetchone()
@@ -51,5 +51,13 @@ def add_bonus():
     # compléter le code
     print ("Bonus + 1.00 euros")
 
-#def main():
-    # compléter le code
+def main():
+    print_hello_message()
+    while True :
+        print_menu()
+        choix = int(input("Quel est votre choix ? : "))
+        if choix == 1:
+            get_list_student()
+        
+    
+main()

@@ -105,19 +105,19 @@ void sortir_data()
 #define MAX_PERSO 32
 #define TAILLE_SOLD 4
 uint16_t ee_taille EEMEM=0;
-uint16_t ee_taille2 EEMEM=33;
-uint8_t ee_perso[MAX_PERSO] EEMEM;
-uint8_t ee_perso2[TAILLE_SOLD] EEMEM;
+uint16_t ee_taille2 EEMEM=32;
+unsigned char ee_perso[MAX_PERSO] EEMEM;
+unsigned char ee_perso2[TAILLE_SOLD] EEMEM;
 
-void intro_perso()
+void intro_perso(int buffsize, uint16_t taille, uint8_t perso)
 {
-	char buffer[MAX_PERSO];
+	char buffer[buffsize];
 	int i;
 	// contrôle p3
-	if (p3>MAX_PERSO)
+	if (p3>buffsize)
     {
       sw1=0x6c;
-      sw2=MAX_PERSO;
+      sw2=buffsize;
       return;
     }
 	// acquittement
@@ -128,80 +128,56 @@ void intro_perso()
       buffer[i]=recbytet0();
     }
 	// recopie en eeprom
-	eeprom_write_block(buffer,ee_perso,p3);
+	eeprom_write_block(buffer,perso,p3);
 	// écriture de la taille
-	eeprom_write_word(&ee_taille,p3);
+	eeprom_write_word(taille,p3);
 	// status word
 	sw1=0x90;
 }
 
-void lire_perso()
-{
-	int i;
-	uint8_t taille;
-	taille=eeprom_read_byte(&ee_taille);
-	if (p3!=taille)
-    {
-      sw1=0x6c;
-      sw2=taille;
-      return;
-    }
-	sendbytet0(ins);
-	for (i=0;i<p3;i++)
-    {
-      sendbytet0(eeprom_read_byte(data+i));
-    }
-	sw1=0x90;
-}
-
-void init_sold()
-{
-	char buffer[TAILLE_SOLD];
-	int i;
-	// contrôle p3
-	if (p3>TAILLE_SOLD)
-    {
-      sw1=0x6c;
-      sw2=TAILLE_SOLD;
-      return;
-    }
-	// acquittement
-	sendbytet0(ins);
-	// traitement de la commande
-	for (i=0;i<p3;i++)
-    {	// lecture des données
-      buffer[i]=recbytet0();
-    }
-	// recopie en eeprom
-	eeprom_write_block(buffer,ee_perso2,p3);
-	// écriture de la taille
-	eeprom_write_word(&ee_taille2,p3);
-	// status word
-	sw1=0x90;
-}  
-
-
-void consult_sold()
+void lire_perso(uint8_t perso, unsigned char test)
 {
   int i;
-	uint8_t taille;
+  char buffer[MAX_PERSO];
+  uint8_t taille;
+  taille = eeprom_read_byte(perso);
+  if (p3 != taille)
+  {
+    sw1 = 0x6c;
+    sw2 = taille;
+    return;
+  }
+  sendbytet0(ins);
+  eeprom_read_block(buffer, test, taille);
 
-  taille=eeprom_read_byte(&ee_taille2);
-
-	if (p3!=taille)
-    {
-      sw1=0x6c;
-      sw2=taille;
-      return;
-    }
-	sendbytet0(ins);
-	for (i=0;i<p3;i++)
-    {
-      sendbytet0(eeprom_read_byte(data+i));
-    }
-	sw1=0x90;
+  for (i = 0; i < p3; i++)
+  {
+    sendbytet0(buffer[i]);
+  }
+  sw1 = 0x90;
 }
 
+
+void delete_data(unsigned char eeperso, uint16_t taille)
+{
+  uint16_t zeros = 0;
+  taille = eeprom_read_byte(eeperso);
+
+  if (p3 != taille)
+  {
+    sw1 = 0x6c;
+    sw2 = taille;
+    return;
+  }
+  
+  // écriture de la taille
+	eeprom_write_word(taille,zeros);
+	// status word
+	// recopie en eeprom
+	eeprom_write_block(taille,eeperso,p3);
+
+	sw1=0x90;
+}
 
   // Programme principal
 //--------------------
@@ -253,19 +229,23 @@ int main(void)
               break;
 
             case 3:
-               intro_perso();
+               intro_perso(MAX_PERSO, &ee_taille, ee_perso);
                break;
 
           case 4:
-               lire_perso();
+               lire_perso(&ee_taille, ee_perso);
+               break;
+
+          case 7:
+               lire_perso(&ee_taille2, ee_perso2);
+               break;
+          
+          case 8:
+               intro_perso(TAILLE_SOLD, &ee_taille2, ee_perso2);
                break;
           
           case 5:
-               init_sold();
-               break;
-
-          case 6:
-               consult_sold();
+               delete_data(ee_perso, &ee_taille);
                break;
 
             default:
