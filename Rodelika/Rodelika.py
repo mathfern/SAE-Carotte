@@ -18,7 +18,7 @@ def print_menu():
     print (" 5 - Quitter")
 
 def get_list_student():
-    sql="select * from Etudiant"
+    sql="select etu_num,etu_nom,etu_prenom from Etudiant"
     cursor = cnx.cursor()
     cursor.execute(sql)
     row = cursor.fetchone()
@@ -60,8 +60,9 @@ def new_student():
     cnx.commit() #Valide les changements effectués dans la base de donnees
 
 def add_bonus():
-    num = input("Num Etudiant : ")
-    com = input("Commentaire : ")
+    num = input("Numéro Etudiant : ")
+    #com = input("Commentaire : ")
+    
     # compléter le code
     print ("Bonus + 1.00 euros")
 
