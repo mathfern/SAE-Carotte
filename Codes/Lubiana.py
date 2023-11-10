@@ -42,7 +42,8 @@ def print_menu():
 	print ("3 - Attribuer la carte")
 	print ("4 - Mettre le solde initial")
 	print ("5 - Consulter le solde")
-	print ("6 - Quitter")
+	print ("6 - Réinitialiser les données de la carte")
+	print ("7 - Quitter")
 
 def print_version():
 	apdu = [0x80, 0x00, 0x00, 0x00, 0x04]
@@ -60,21 +61,18 @@ def print_version():
 	return
 
 def print_data():
-	apdu = [0x80, 0x04, 0x00, 0x00]
-	data, sw1, sw2 = conn_reader.transmit(apdu)
-	print("sw1 : 0x%02X | taille demandée : sw2 : 0x%02X" % (sw1, sw2))
-    # except scardexcp.CardConnectionException as e:
-	#	print("Erreur", e)
-	#	returnl
-	apdu.append(sw2)
-	print ("l'APDU pour afficher les données de l'eeprom est :")
-	__print_apdu(apdu)
 
+	apdu = [0x80, 0x04, 0x00, 0x00, 0x01]
+	data, sw1, sw2 = conn_reader.transmit(apdu)
+	
+	print ("sw1 : 0x%02X | sw2 : 0x%02X" % (sw1,sw2))
+
+	apdu[4] = sw2
 	data, sw1, sw2 = conn_reader.transmit(apdu)
 	str = ""
 	for e in data:
-			str += chr(e)
-	print ("sw1 : 0x%02X | sw2 : 0x%02X | Les données sur l'eeprom sont : %s" % (sw1,sw2,str))
+		str += chr(e)
+	print ("sw1 : 0x%02X | sw2 : 0x%02X | Nom %s" % (sw1,sw2,str))
 	return
 
 def assign_card():
@@ -83,13 +81,16 @@ def assign_card():
 	nom = str(input("saisir nom :"))
 	numero_etudiant = str(input("saisir numero etudiant :"))
 
-	length = len(prenom) + len(nom) + len(numero_etudiant)
+	__print_apdu(apdu)
+
+	infos = prenom + " " + nom + " " + numero_etudiant
+
+	length = len(infos)
 
 	
 	apdu.append(length)
-	__print_apdu(apdu)
 
-	for e in prenom + nom + numero_etudiant:
+	for e in infos:
 		apdu.append(ord(e))
 	print (apdu)
 	try:
@@ -100,7 +101,7 @@ def assign_card():
 		return
 
 def init_sold():
-	apdu = [0x80, 0x05, 0x00, 0x00]
+	apdu = [0x80, 0x08, 0x00, 0x00]
 	sold = "0.00"
 
 	length = len(sold)
@@ -118,7 +119,7 @@ def init_sold():
 		return
 
 def consult_sold():
-	apdu = [0x80, 0x06, 0x00, 0x00]
+	apdu = [0x80, 0x07, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
 	print("sw1 : 0x%02X | taille demandée : sw2 : 0x%02X" % (sw1, sw2))
     # except scardexcp.CardConnectionException as e:
@@ -135,26 +136,45 @@ def consult_sold():
 	print ("sw1 : 0x%02X | sw2 : 0x%02X | Les données sur l'eeprom sont : %s" % (sw1,sw2,str))
 	return
 
+def delete_data():
+	apdu = [0x80, 0x05, 0x00, 0x00]
+	data, sw1, sw2 = conn_reader.transmit(apdu)
+	
+	print ("sw1 : 0x%02X | sw2 : 0x%02X" % (sw1,sw2))
+
+	apdu.append(sw2)
+	data, sw1, sw2 = conn_reader.transmit(apdu)
+	str = ""
+	for e in data:
+		str += chr(e)
+	print ("sw1 : 0x%02X | sw2 : 0x%02X | Nom %s" % (sw1,sw2,str))
+	return
+
+
 def main():
 	print_hello_message()
 	init_smart_card()
+	while True:
+		print_menu()
+		cmd = int(input("Choix :"))
+		if (cmd == 1):
+			print_version()		
+		elif (cmd == 2):
+			print_data()
+		elif (cmd == 3):
+			assign_card()
+		elif (cmd == 4):
+			init_sold()
+		elif (cmd == 5):
+			consult_sold()
+		elif (cmd == 6):
+			delete_data()
+		elif (cmd == 7):
+			return
+		else :
+			print ("erreur, saisissez une commande valide")
+			return
 	print_menu()
-	cmd = int(input("Choix :"))
-	if (cmd == 1):
-		print_version()		
-	elif (cmd == 2):
-		print_data()
-	elif (cmd == 3):
-		assign_card()
-	elif (cmd == 4):
-		init_sold()
-	elif (cmd == 5):
-		consult_sold()
-	elif (cmd == 6):
-		return
-	else :
-		print ("erreur, saisissez une commande valide")
-		return
 
 if __name__ == '__main__':
 	main()
