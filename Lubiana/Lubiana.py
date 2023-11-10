@@ -122,9 +122,7 @@ def consult_sold():
 	apdu = [0x80, 0x07, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
 	print("sw1 : 0x%02X | taille demandée : sw2 : 0x%02X" % (sw1, sw2))
-    # except scardexcp.CardConnectionException as e:
-	#	print("Erreur", e)
-	#	returnl
+    
 	apdu.append(sw2)
 	print ("l'APDU pour afficher les données de l'eeprom est :")
 	__print_apdu(apdu)
