@@ -104,12 +104,18 @@ void sortir_data()
 
 #define MAX_PERSO 32
 #define TAILLE_SOLD 4
+#define TAILLE_PIN 4
+#define TAILLE_PUK 4
 uint16_t ee_taille EEMEM=0;
 uint16_t ee_taille2 EEMEM=32;
+uint16_t ee_codePIN EEMEM=36;
+uint16_t ee_codePUK EEMEM=40;
 unsigned char ee_perso[MAX_PERSO] EEMEM;
 unsigned char ee_perso2[TAILLE_SOLD] EEMEM;
+unsigned char ee_perso_PIN[TAILLE_PIN] EEMEM;
+unsigned char ee_perso_PUK[TAILLE_PUK] EEMEM;
 
-void intro_perso(int buffsize, uint16_t taille, uint8_t perso)
+void intro_perso(int buffsize, uint16_t *taille, uint8_t *perso)
 {
 	char buffer[buffsize];
 	int i;
@@ -135,7 +141,7 @@ void intro_perso(int buffsize, uint16_t taille, uint8_t perso)
 	sw1=0x90;
 }
 
-void lire_perso(uint8_t perso, unsigned char test)
+void lire_perso(uint16_t *perso, unsigned char *test)
 {
   int i;
   char buffer[MAX_PERSO];
@@ -158,15 +164,15 @@ void lire_perso(uint8_t perso, unsigned char test)
 }
 
 
-void delete_data(unsigned char eeperso, uint16_t taille)
+void delete_data(unsigned char *eeperso, uint16_t *taille)
 {
   uint16_t zeros = 0;
-  taille = eeprom_read_byte(eeperso);
+  *taille = eeprom_read_byte(eeperso);
 
-  if (p3 != taille)
+  if (p3 != *taille)
   {
     sw1 = 0x6c;
-    sw2 = taille;
+    sw2 = *taille;
     return;
   }
   
@@ -212,51 +218,80 @@ int main(void)
       p2=recbytet0();
       p3=recbytet0();
       sw2=0;
-      switch (cla)
-        {
-        case 0x80:
-		    	switch(ins){
+      switch (cla) {
+    case 0x80:
+        switch (ins) {
             case 0:
-              version(4, "1.00");
-              break;
+                version(4, "1.00");
+                break;
 
             case 1:
-	        		intro_data();
-	        		break;
+                intro_data();
+                break;
 
             case 2:
-              sortir_data();
-              break;
+                sortir_data();
+                break;
 
             case 3:
-               intro_perso(MAX_PERSO, &ee_taille, ee_perso);
-               break;
+                intro_perso(MAX_PERSO, &ee_taille, ee_perso);
+                break;
 
-          case 4:
-               lire_perso(&ee_taille, ee_perso);
-               break;
+            case 4:
+                lire_perso(&ee_taille, ee_perso);
+                break;
 
-          case 7:
-               lire_perso(&ee_taille2, ee_perso2);
-               break;
-          
-          case 8:
-               intro_perso(TAILLE_SOLD, &ee_taille2, ee_perso2);
-               break;
-          
-          case 5:
-               delete_data(ee_perso, &ee_taille);
-               break;
+            case 7:
+                lire_perso(&ee_taille2, ee_perso2);
+                break;
+
+            case 8:
+                intro_perso(TAILLE_SOLD, &ee_taille2, ee_perso2);
+                break;
+
+            case 5:
+                delete_data(ee_perso, &ee_taille);
+                break;
+
+            case 6:
+                intro_perso(TAILLE_PIN, &ee_codePIN, ee_perso_PIN);
+                break;
+
+            case 9:
+                intro_perso(TAILLE_PUK, &ee_codePUK, ee_perso_PUK);
+                break;
 
             default:
-              sw1=0x6d; // code erreur ins inconnu
-        		}
-			break;
-      		default:
-        		sw1=0x6e; // code erreur classe inconnue
-		}
-		sendbytet0(sw1); // envoi du status word
-		sendbytet0(sw2);
+                sw1 = 0x6d; // code erreur ins inconnu
+        }
+        break;
+
+    case 0x81: // Nouvelle classe
+        switch (ins) {
+            // Ajoutez ici le traitement des instructions pour la classe 0x81
+            // case ... :
+            //     // Traitement pour l'instruction spécifique
+
+            case 0:
+                lire_perso(&ee_codePUK, ee_perso_PUK);
+                break;
+            
+            case 1:
+                lire_perso(&ee_codePIN, ee_perso_PIN);
+                break;
+
+            default:
+                sw1 = 0x6d; // code erreur ins inconnu pour la classe 0x81
+        }
+        break;
+
+    default:
+        sw1 = 0x6e; // code erreur classe inconnue
+}
+
+sendbytet0(sw1); // envoi du status word
+sendbytet0(sw2);
+
   	}
   	return 0;
 }
