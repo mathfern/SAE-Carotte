@@ -7,47 +7,96 @@ database='purpledragon1') #a renommer
 
 def print_hello_message():
     print ("-----------------------------------")
-    print ("-- Logiciel de gestion : Rodlika --")
+    print ("-- Logiciel de gestion : Rodelika --")
     print ("-----------------------------------")
 
 def print_menu():
+    print("")
     print (" 1 - Afficher la liste des étudiants ")
     print (" 2 - Afficher le sold des étudiants ")
     print (" 3 - Saisir un nouvel étudiant ")
     print (" 4 - Attribuer un bonus ")
     print (" 5 - Quitter")
 
+from tabulate import tabulate
+
 def get_list_student():
-    sql="select * from Etudiant"
+    sql = "SELECT etu_num, etu_nom, etu_prenom FROM Etudiant"
     cursor = cnx.cursor()
     cursor.execute(sql)
-    row = cursor.fetchone()
-    while row is not None:
-        print(row)
-        row = cursor.fetchone()
+    rows = cursor.fetchall()
+
+    if rows:
+        headers = ["Numéro Etudiant", "Nom", "Prénom"]
+        table = tabulate(rows, headers=headers, tablefmt="pretty")
+        print(table)
+    else:
+        print("Aucun étudiant trouvé dans la base de données.")
 
 def get_list_student_with_sold():
-    sql="""select etudiant.*, sum(compte.opr_montant) as sold from etudiant,
-    compte where etudiant.etu_num = compte.etu_num group by compte.etu_num"""
+    sql = "SELECT etu_num, etu_nom, etu_prenom, etu_solde, etu_bonus FROM Etudiant"
     cursor = cnx.cursor()
     cursor.execute(sql)
-    row = cursor.fetchone()
-    while row is not None:
-        print(row)
-        row = cursor.fetchone()
+    rows = cursor.fetchall()
+
+    if rows:
+        headers = ["Numéro Etudiant", "Nom", "Prénom", "Solde", "Bonus"]
+        table = tabulate(rows, headers=headers, tablefmt="pretty")
+        print(table)
+    else:
+        print("Aucun étudiant trouvé dans la base de données.")
+
 
 def new_student():
-    nom = input("Nom Etudiant : ")
-    pre = input("Pre Etudiant : ")
-    sql = """INSERT INTO etudiant (etu_num, etu_nom, etu_prenom) VALUES (NULL, %s,%s);"""
-    val = (nom, pre)
+    num_etudiant = input("Numéro Etudiant : ")
+
+    # Vérifiez si le numéro d'étudiant existe déjà
+    check_query = "SELECT COUNT(*) FROM Etudiant WHERE etu_num = %s;"
+    check_val = (num_etudiant,)
+
     cursor = cnx.cursor()
-    cursor.execute(sql, val)
-    cnx.commit()
+    cursor.execute(check_query, check_val)
+    result = cursor.fetchone()
+
+    if result[0] > 0:
+        print("Le numéro d'étudiant existe déjà.")
+    else:
+        nom_etudiant = input("Nom Etudiant : ")
+        prenom_etudiant = input("Prénom Etudiant : ")
+        solde_etudiant = input("Solde etudiant : ")
+        bonus_etudiant = input("Bonus_etudiant : ")
+
+        # Ajoute un nouvel étudiant à la BDD
+        sql = """INSERT INTO Etudiant (etu_num, etu_nom, etu_prenom, etu_solde, etu_bonus) VALUES (%s, %s, %s, %s, %s);"""
+        val = (num_etudiant, nom_etudiant, prenom_etudiant, solde_etudiant, bonus_etudiant)
+
+        cursor.execute(sql, val)
+        cnx.commit()
+        print("Nouvel étudiant ajouté avec succès.")
+
+    # N'oubliez pas de fermer le curseur après utilisation.
+    cursor.close()
+
+# Assurez-vous d'avoir la connexion à la base de données (cnx) avant d'appeler la fonction.
+# Remplacez les valeurs entre crochets par les informations appropriées.
+# cnx = mysql.connector.connect(user='[votre_utilisateur]', password='[votre_mot_de_passe]', host='[votre_host]', database='[votre_base_de_donnees]')
+
+# Appelez la fonction
+# new_student()
+
+# N'oubliez pas de fermer la connexion après utilisation.
+# cnx.close()
+
+
 
 def add_bonus():
-    num = input("Num Etudiant : ")
-    com = input("Commentaire : ")
+    num = input("Numéro Etudiant : ")
+    #com = input("Commentaire : ")
+    bonus = 1.00
+    sql = "UPDATE Etudiant SET etu_bonus = etu_bonus + %s WHERE etu_num = %s;"
+    cursor = cnx.cursor()
+    cursor.execute(sql,(bonus,num))
+    cnx.commit()
     # compléter le code
     print ("Bonus + 1.00 euros")
 
@@ -58,6 +107,17 @@ def main():
         choix = int(input("Quel est votre choix ? : "))
         if choix == 1:
             get_list_student()
+        elif choix == 2:
+            get_list_student_with_sold()
+        elif choix == 3:
+            new_student()
+        elif choix == 4:
+            add_bonus()
+        elif choix == 5:
+            print("Au revoir !")
+            break
+        else:
+            print("Numéro invalide. Veuillez entrer 1,2,3,4 ou 5")
         
     
 main()
