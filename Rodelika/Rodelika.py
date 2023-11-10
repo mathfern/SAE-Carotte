@@ -38,8 +38,6 @@ def get_list_student_with_sold():
 
 def new_student():
     num_etudiant = input("Numéro Etudiant : ")
-    nom_etudiant = input(\n"Nom Etudiant : ")
-    prenom_etudiant = input(\n"Prénom Etudiant : ")
 
     #Vérifie si le num-etudiant existe ou non
     check_query = "SELECT COUNT(*) FROM etudiant WHERE etu_num = %s;"
@@ -50,7 +48,10 @@ def new_student():
     if result[0] > 0:
         print("Le numéro d'étudiant existe déja.")
     else
-
+    
+    nom_etudiant = input("Nom Etudiant : ")
+    prenom_etudiant = input("Prénom Etudiant : ")
+    
     #Ajoute un nouvel étudiant à la BDD
     sql = """INSERT INTO etudiant (etu_num, etu_nom, etu_prenom) VALUES (NULL, %s,%s);""" #Requete sql
     val = (num_etudiant, nom_etudiant, prenom_etudiant) #Insere les valeurs dans la base de donnees
