@@ -1,4 +1,6 @@
 function getStudents() {
+    goBack();
+    
     $.ajax({
         type: "POST",
         url: "call_python_function.php",
@@ -14,6 +16,8 @@ function getStudents() {
 }
 
 function getSold() {
+    goBack();
+    
     $.ajax({
         type: "POST",
         url: "call_python_function.php",
@@ -80,6 +84,8 @@ function newStudentForm() {
 }
 
 function newStudent() {
+    goBack();
+    
     var num_etudiant = $("#num_etudiant").val();
     var nom_etudiant = $("#nom_etudiant").val();
     var prenom_etudiant = $("#prenom_etudiant").val();
@@ -110,6 +116,8 @@ function addBonusForm() {
     $("#addBonusForm").toggle();
 }
 function addBonus() {
+    goBack();
+    
     var bonus_num_etudiant = $("#bonus_num_etudiant").val();
 
     $.ajax({
@@ -132,6 +140,7 @@ function addBonus() {
 
 function goBack() {
     $("#result").empty();
+    
     // Masque tous les formulaires
     $("#newStudentForm").hide();
     $("#addBonusForm").hide();
