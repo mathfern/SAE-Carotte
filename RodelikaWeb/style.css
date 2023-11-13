@@ -76,7 +76,7 @@ input {
 }
 
 footer {
-    margin-top: 20px;
+    margin-bottom: auto;
     padding: 10px;
     background-color: #333;
     color: #fff;
