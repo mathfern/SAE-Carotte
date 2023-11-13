@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,33 +9,50 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="scripts.js"></script>
 </head>
+
 <body>
-    <h1>Rodelika Web Interface</h1>
 
-    <button onclick="getStudents()">Afficher la liste des étudiants</button>
+    <header>
+        <h1>Rodelika Web Interface</h1>
+    </header>
 
-    <button onclick="getSold()">Afficher le solde des étudiants</button>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="getStudents()">Liste des étudiants</a></li>
+            <li><a href="#" onclick="getSold()">Solde des étudiants</a></li>
+            <li><a href="#" onclick="newStudentForm()">Nouvel étudiant</a></li>
+            <li><a href="#" onclick="addBonusForm()">Attribuer un bonus</a></li>
+            <li><button onclick="goBack()">Retour</button></li>
+        </ul>
+    </nav>
 
-    <button onclick="newStudentForm()">Saisir un nouvel étudiant</button>
     <div id="newStudentForm" style="display: none;">
         <label for="num_etudiant">Numéro Etudiant:</label>
         <input type="text" id="num_etudiant">
+
         <label for="nom_etudiant">Nom Etudiant:</label>
         <input type="text" id="nom_etudiant">
+
         <label for="prenom_etudiant">Prénom Etudiant:</label>
         <input type="text" id="prenom_etudiant">
+
         <button onclick="newStudent()">Ajouter</button>
     </div>
 
-    <button onclick="addBonusForm()">Attribuer un bonus</button>
     <div id="addBonusForm" style="display: none;">
         <label for="bonus_num_etudiant">Numéro Etudiant:</label>
         <input type="text" id="bonus_num_etudiant">
+
         <button onclick="addBonus()">Ajouter le Bonus</button>
     </div>
-    <button onclick="goBack()">Retour</button>
-    <div id="result"></div>
-</body>
-</html>
 
+    <div id="result"></div>
+
+    <footer>
+        <p>&copy; 2023 Rodelika Web Interface. Adrien Boucher, Mathias Fernandes, Antoine Machard, Djibril Namoune.</p>
+    </footer>
+
+</body>
+
+</html>
 
