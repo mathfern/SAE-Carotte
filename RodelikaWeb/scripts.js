@@ -1,13 +1,20 @@
+function hideResults() {
+    $("#result").empty();
+}
+
 function getStudents() {
-    goBack();
-    
+    hideResults();
+    $("#newStudentForm").hide();
+    $("#addBonusForm").hide();
     $.ajax({
+    	
         type: "POST",
         url: "call_python_function.php",
         data: { choice: 1 },
         dataType: "json",
         success: function (response) {
-            displayResults(response);
+            displayResultsEtudiant(response);
+	    
         },
         error: function (error) {
             console.log("Error:", error);
@@ -16,8 +23,9 @@ function getStudents() {
 }
 
 function getSold() {
-    goBack();
-    
+    hideResults();
+    $("#newStudentForm").hide();
+    $("#addBonusForm").hide();
     $.ajax({
         type: "POST",
         url: "call_python_function.php",
@@ -25,6 +33,7 @@ function getSold() {
         dataType: "json",
         success: function (response) {
             displayResultsSolde(response);
+	    
         },
         error: function (error) {
             console.log("Error:", error);
@@ -32,30 +41,11 @@ function getSold() {
     });
 }
 
-function displayResults(results) {
-    $("#result").empty();
-
-    if (results.length > 0) {
-        var table = "<table border='1'>";
-        table += "<tr><th>Numéro Etudiant</th><th>Nom</th><th>Prénom</th></tr>";
-
-        for (var i = 0; i < results.length; i++) {
-            table += "<tr>";
-            table += "<td>" + results[i].etu_num + "</td>";
-            table += "<td>" + results[i].etu_nom + "</td>";
-            table += "<td>" + results[i].etu_prenom + "</td>";
-            table += "</tr>";
-        }
-
-        table += "</table>";
-        $("#result").html(table);
-    } else {
-        $("#result").html("Aucun résultat trouvé.");
-    }
-}
-
 
 function displayResultsSolde(results) {
+    hideResults();
+    $("#newStudentForm").hide();
+    $("#addBonusForm").hide();
     $("#result").empty();
 
     if (results.length > 0) {
@@ -79,13 +69,39 @@ function displayResultsSolde(results) {
     }
 }
 
+function displayResultsEtudiant(results) {
+    hideResults();
+    $("#newStudentForm").hide();
+    $("#addBonusForm").hide();
+    $("#result").empty();
+
+    if (results.length > 0) {
+        var table = "<table border='1'>";
+        table += "<tr><th>Numéro Etudiant</th><th>Nom</th><th>Prénom</th></tr>";
+
+        for (var i = 0; i < results.length; i++) {
+            table += "<tr>";
+            table += "<td>" + results[i].etu_num + "</td>";
+            table += "<td>" + results[i].etu_nom + "</td>";
+            table += "<td>" + results[i].etu_prenom + "</td>";
+            table += "</tr>";
+        }
+
+        table += "</table>";
+        $("#result").html(table);
+    } else {
+        $("#result").html("Aucun résultat trouvé.");
+    }
+}
 function newStudentForm() {
+    $("#addBonusForm").hide();
+    hideResults();
     $("#newStudentForm").toggle();
 }
 
 function newStudent() {
-    goBack();
-    
+    $("#addBonusForm").hide();
+    hideResults();
     var num_etudiant = $("#num_etudiant").val();
     var nom_etudiant = $("#nom_etudiant").val();
     var prenom_etudiant = $("#prenom_etudiant").val();
@@ -101,10 +117,8 @@ function newStudent() {
         },
         success: function (response) {
             displayMessage(response);
-            // Recharge la liste des étudiants après l'ajout
-            getStudents();
-            // Masque le formulaire après l'ajout
-            goBack();
+	 
+            
         },
         error: function (error) {
             console.log("Error:", error);
@@ -113,11 +127,13 @@ function newStudent() {
 }
 
 function addBonusForm() {
+    $("#newStudentForm").hide();
+    hideResults();
     $("#addBonusForm").toggle();
 }
 function addBonus() {
-    goBack();
-    
+    $("#newStudentForm").hide();
+    hideResults();
     var bonus_num_etudiant = $("#bonus_num_etudiant").val();
 
     $.ajax({
@@ -126,10 +142,8 @@ function addBonus() {
         data: { choice: 4, bonus_num_etudiant: bonus_num_etudiant },
         success: function (response) {
             displayMessage(response);
-            // Recharge la liste des étudiants après l'ajout du bonus
-            getStudents();
-            // Masque le formulaire après l'ajout
-            goBack();
+	    
+           
         },
         error: function (error) {
             console.log("Error:", error);
@@ -140,11 +154,9 @@ function addBonus() {
 
 function goBack() {
     $("#result").empty();
-    
     // Masque tous les formulaires
     $("#newStudentForm").hide();
     $("#addBonusForm").hide();
-
     // Efface les champs de formulaire
     $("#num_etudiant").val("");
     $("#nom_etudiant").val("");
