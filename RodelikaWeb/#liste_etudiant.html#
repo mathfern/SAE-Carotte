@@ -27,7 +27,7 @@
     </nav>
     <div>
       <p>
-	<a href="call"></a>
+	<a href="get_list_student.php"></a>
       </p>
     </div>
     
