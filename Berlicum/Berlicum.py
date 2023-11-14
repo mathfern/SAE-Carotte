@@ -39,7 +39,10 @@ def print_hello_message():
 
 def print_menu():
 	print ("1 - Vérifier l'existance du compte sur la Purple Dragon")
-	print ("2 - Retirer un ou plusieurs bonus")
-	print ("3 - Recharger par la carte")
-	print ("4 - Afficher l'historique des transactions")
-	print ("5 - Quitter")
+	print ("2 - Afficher mes informations")
+	print ("3 - Consulter mes bonus")
+	print ("4 - Transférer mes bonus sur la carte")
+	print ("5 - Consulter mon crédit disponible sur la carte")
+	print ("6 - Recharger par carte bancaire")
+	print ("7 - Afficher l'historique des transactions")
+	print ("8 - Quitter")

@@ -1,6 +1,8 @@
-#include <io.h>
-#include <inttypes.h>
+#include <avr/io.h>
+#include <stdint.h>
 #include <avr/eeprom.h>
+#include <avr/pgmspace.h>
+#include <stdarg.h>
 
 //------------------------------------------------
 // Programme "hello world" pour carte à puce
@@ -38,6 +40,104 @@ void atr(uint8_t n, char* hist)
       sendbytet0(*hist++);
     }
 }
+
+// transactions
+//-------------
+
+// nombre maximal d'opérations par transaction
+#define max_ope		3
+// taille maximale totale des données échangées lors d'une transaction
+#define max_data	64
+// définition de l'état du buffer -- plein est une valeur aléatoire
+typedef enum{vide=0, plein=0x1c} state_t;
+// la variable buffer de transaction mémorisée en eeprom
+struct
+{
+	state_t state;			// etat
+	uint8_t nb_ope;			// nombre d'opération dans la transaction
+	uint8_t taille_ope[max_ope];		// table des tailles des transferts
+	uint8_t*p_dst[max_ope];		// table des adresses de destination des transferts
+	uint8_t buffer[max_data];	// données à transférer
+}
+ee_transfert EEMEM={vide}; // l'état doit être initialisé à "vide"
+
+
+// engagement d'une transaction
+// appel de la forme engage(n1, p_src1, p_dst1, n2, p_src2, p_dst2, ... 0)
+// ni : taille des données à transférer
+// p_srci : adresse des données à transférer
+// p_dsti : destination des données à transférer
+void engage(int taille_ope, ...)
+{
+  va_list args;
+	uint8_t nb_ope;
+	uint8_t*p_src;
+	uint8_t*p_buf;
+
+	// mettre l'état à "vide"
+  // On prend la case state et on la set à la valeur vide = 0
+	eeprom_write_byte((uint8_t*)&ee_transfert.state,vide);
+
+
+	va_start(args,taille_ope);
+	nb_ope=0;
+	p_buf=ee_transfert.buffer;
+	while(taille_ope!=0)
+	{
+		// transférer les données dans le buffer
+		p_src=va_arg(args,uint8_t*);
+		eeprom_write_block(p_src,p_buf,taille_ope);
+		p_buf+=taille_ope;
+		// écriture de l'adresse de destination
+		eeprom_write_word((uint16_t*)&ee_transfert.p_dst[nb_ope],(uint16_t)va_arg(args,uint8_t*));
+		// écriture de la taille des données
+		eeprom_write_byte(&ee_transfert.taille_ope[nb_ope],taille_ope);
+		nb_ope++;
+		taille_ope=va_arg(args,int);	// taille suivante dans la liste
+	}
+	// écriture du nombre de transactions
+	eeprom_write_byte(&ee_transfert.nb_ope,nb_ope);
+	va_end(args);
+	// mettre l'état à "data"
+	eeprom_write_byte((uint8_t*)&ee_transfert.state,plein);
+}
+
+// validation d'une transaction
+void valide()
+{
+	state_t etat;		// état
+	uint8_t nb_ope;		// nombre d'opérations dans la transaction
+	uint8_t*p_src, *p_dst;	// pointeurs sources et destination
+	uint8_t i,j;
+	uint8_t taille_ope;		// taille des données à transférer
+
+	// lecture de l'état du buffer
+	etat=eeprom_read_byte((uint8_t*)&ee_transfert.state);
+	// s'il y a quelque chose dans le buffer, transférer les données aux destinations
+	if (etat==plein)	// un état non plein est interprété comme vide
+	{
+		// lecture du nombre d'opérations à valider
+		nb_ope=eeprom_read_byte(&ee_transfert.nb_ope);
+		p_src=ee_transfert.buffer; // src = contenu du buffer
+		// boucle sur le nombre d'opérations
+		for (i=0;i<nb_ope;i++)
+		{
+			// lecture de la taille à transférer 
+			taille_ope=eeprom_read_byte(&ee_transfert.taille_ope[i]); // taille de l'opération en cours
+			// lecture de la destination
+			p_dst=(uint8_t*)eeprom_read_word((uint16_t*)&ee_transfert.p_dst[i]);
+			// transfert eeprom -> eeprom du buffer vers la destination
+			for(j=0;j<taille_ope;j++)
+			{
+        // pour chaque destinations et sources, on ecrit les adresses ??????????????????????????????????
+				eeprom_write_byte(p_dst++,eeprom_read_byte(p_src++));
+			}
+		}
+	}
+  // a la fin des opérations, mettre l'état vide
+	eeprom_write_byte((uint8_t*)&ee_transfert.state,vide);	
+}
+
 
 
 // émission de la version
@@ -100,6 +200,7 @@ void sortir_data()
     }
   sw1=0x90;
 }
+
 
 
 #define MAX_PERSO 32
