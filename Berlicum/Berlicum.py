@@ -1,6 +1,12 @@
 import smartcard.System as scardsys
 import smartcard.util as scardutil
 import smartcard.Exceptions as scardexcp
+import mysql.connector
+
+cnx = mysql.connector.connect(user='root',
+password ='root',
+host='localhost',
+database= 'purpledragon1')
 
 def init_smart_card():
 	try:

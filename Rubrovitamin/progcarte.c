@@ -216,7 +216,7 @@ unsigned char ee_perso2[TAILLE_SOLD] EEMEM;
 unsigned char ee_perso_PIN[TAILLE_PIN] EEMEM;
 unsigned char ee_perso_PUK[TAILLE_PUK] EEMEM;
 
-void intro_perso(int buffsize, uint16_t *taille, uint8_t *perso)
+void intro_perso(int buffsize, uint16_t *taille, unsigned char *perso)
 {
 	char buffer[buffsize];
 	int i;
@@ -234,10 +234,15 @@ void intro_perso(int buffsize, uint16_t *taille, uint8_t *perso)
     {	// lecture des données
       buffer[i]=recbytet0();
     }
+
+  engage(1, &p3, taille, p3, buffer, ee_perso, 0);
+
+  valide();
+
 	// recopie en eeprom
-	eeprom_write_block(buffer,perso,p3);
+	// eeprom_write_block(buffer,perso,p3);
 	// écriture de la taille
-	eeprom_write_word(taille,p3);
+	// eeprom_write_word(taille,p3);
 	// status word
 	sw1=0x90;
 }

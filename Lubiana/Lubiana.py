@@ -86,7 +86,7 @@ def print_data():
 	str = ""
 	for e in data:
 		str += chr(e)
-	print ("sw1 : 0x%02X | sw2 : 0x%02X | Nom %s" % (sw1,sw2,str))
+	print ("sw1 : 0x%02X | sw2 : 0x%02X | data : %s" % (sw1,sw2,str))
 	return
 
 def assign_card():
