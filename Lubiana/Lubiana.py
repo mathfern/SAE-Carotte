@@ -60,7 +60,7 @@ def print_menu():
 	print ("11 - Quitter")
 
 def print_version():
-	apdu = [0x80, 0x00, 0x00, 0x00, 0x04]
+	apdu = [0x81, 0x00, 0x00, 0x00, 0x04]
 	try:
 		data, sw1, sw2 = conn_reader.transmit(apdu)
 	except scardexcp.Exceptions as e:
@@ -120,7 +120,7 @@ def init_sold():
 	transmit_apdu(apdu)
 
 def consult_sold():
-	apdu = [0x80, 0x07, 0x00, 0x00]
+	apdu = [0x81, 0x03, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
 	print("sw1 : 0x%02X | taille demandée : sw2 : 0x%02X" % (sw1, sw2))
     
