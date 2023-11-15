@@ -176,13 +176,13 @@ void version(int t, char* sv)
 
 
 #define MAX_PERSO 32
-#define TAILLE_SOLD 4
+#define TAILLE_SOLD 8
 #define TAILLE_PIN 4
 #define TAILLE_PUK 4
 uint16_t ee_taille EEMEM=0;
 uint16_t ee_taille2 EEMEM=32;
-uint16_t ee_codePIN EEMEM=36;
-uint16_t ee_codePUK EEMEM=40;
+uint16_t ee_codePIN EEMEM=38;
+uint16_t ee_codePUK EEMEM=42;
 unsigned char ee_perso[MAX_PERSO] EEMEM;
 unsigned char ee_perso2[TAILLE_SOLD] EEMEM;
 unsigned char ee_perso_PIN[TAILLE_PIN] EEMEM;

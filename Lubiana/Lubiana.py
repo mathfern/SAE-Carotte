@@ -121,7 +121,7 @@ def assign_card():
 
 def init_sold():
 	apdu = [0x80, 0x08, 0x00, 0x00]
-	sold = "0.00"
+	sold = "00000.00"
 
 	length = len(sold)
 	apdu.append(length)
