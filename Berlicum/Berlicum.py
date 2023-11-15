@@ -2,6 +2,7 @@ import smartcard.System as scardsys
 import smartcard.util as scardutil
 import smartcard.Exceptions as scardexcp
 import mysql.connector
+from pyfiglet import Figlet
 
 cnx = mysql.connector.connect(user='root',
 password ='root',
@@ -44,11 +45,10 @@ def transmit_apdu(apdu):
         print("Error", e)
         return None, None, None
 
-def print_hello_message():
-	print ("-------------------------------------------------------------------")
-	print ("Bienvenue sur Berlicum, le logiciel de la borne de recharge")
-	print ("-------------------------------------------------------------------")
-	print ("\n")
+def generate_banner(text, font="standard"):
+    f = Figlet(font=font)
+    banner = f.renderText(text)
+    return banner
 
 def print_menu():
 	print ("1 - Afficher mes informations")
@@ -288,7 +288,6 @@ def histo_transac():
 	pass
 
 def main():
-	print_hello_message()
 	init_smart_card()
 	while True:
 		print_menu()
@@ -314,4 +313,7 @@ def main():
 	print_menu()
 
 if __name__ == '__main__':
+	banner_text = "Berlicum"
+	generated_banner = generate_banner(banner_text, font="slant")
+	print(generated_banner)
 	main()

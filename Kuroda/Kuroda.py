@@ -3,6 +3,7 @@ import smartcard.util as scardutil
 import smartcard.Exceptions as scardexcp
 import mysql.connector
 from datetime import datetime
+from pyfiglet import Figlet
 
 cnx = mysql.connector.connect(user='root',
 password ='root',
@@ -37,11 +38,10 @@ def __print_apdu(apdu):
             print("0x%02X" % x, end=' ')
         print("\n")  
 
-def print_hello_message():
-	print ("-------------------------------------------------------------------")
-	print ("Bienvenue sur Kuroda, la borne de paiement de café")
-	print ("-------------------------------------------------------------------")
-	print ("\n")
+def generate_banner(text, font="standard"):
+    f = Figlet(font=font)
+    banner = f.renderText(text)
+    return banner
 
 def print_menu():
     print ("1 - Afficher le solde")
@@ -158,7 +158,6 @@ def debit_sold():
 
 
 def main():
-	print_hello_message()
 	init_smart_card()
 	while True:
 		print_menu()
@@ -176,4 +175,7 @@ def main():
 
 
 if __name__ == '__main__':
+	banner_text = "Kuroda"
+	generated_banner = generate_banner(banner_text, font="slant")
+	print(generated_banner)
 	main()
