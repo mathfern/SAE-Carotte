@@ -167,7 +167,7 @@ def delete_data():
 		str += chr(e)
 	if (sw1 == 0x90):
 		print ("Les données de NOM, PRENOM et N°ETUDIANT ont bien été supprimés")
-	return
+
 
 
 def codePIN():

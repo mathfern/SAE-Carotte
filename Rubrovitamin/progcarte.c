@@ -188,6 +188,7 @@ unsigned char ee_perso2[TAILLE_SOLD] EEMEM;
 unsigned char ee_perso_PIN[TAILLE_PIN] EEMEM;
 unsigned char ee_perso_PUK[TAILLE_PUK] EEMEM;
 
+
 void intro_perso(int buffsize, uint16_t *taille, unsigned char *perso)
 {
 	char buffer[buffsize];
