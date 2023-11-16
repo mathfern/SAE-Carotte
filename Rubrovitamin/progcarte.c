@@ -41,6 +41,19 @@ void atr(uint8_t n, char* hist)
     }
 }
 
+// Gestion des erreurs 
+//-------------
+
+#define ERR_INVALID_SIZE  0x6C
+#define ERR_UNKNOWN_CLASS 0x6E
+#define ERR_UNKNOWN_INS   0x6D
+
+void error(uint8_t error_code) {
+    sendbytet0(error_code);
+    sendbytet0(sw2);
+}
+
+
 // transactions
 //-------------
 
@@ -162,61 +175,20 @@ void version(int t, char* sv)
 }
 
 
-// commande de réception de données
-void intro_data()
-{
-    	int i;
-     	// vérification de la taille
-    	if (p3>MAXI)
-        {
-          sw1=0x6c;	// P3 incorrect
-        	sw2=MAXI;	// sw2 contient l'information de la taille correcte
-          return;
-        }
-      sendbytet0(ins);	// acquitement
-
-      for(i=0;i<p3;i++)	// boucle d'envoi du message
-        {
-          data[i]=recbytet0();
-        }
-      taille=p3; 		// mémorisation de la taille des données lues
-      sw1=0x90;
-}
-
-
-void sortir_data()
-{
-	int i;
-	if (p3!=taille)
-    {
-      sw1=0x6c;
-      sw2=taille;
-      return;
-    }
-	sendbytet0(ins);
-	for(i=0;i<p3;i++)
-    {
-      sendbytet0(data[i]);
-    }
-  sw1=0x90;
-}
-
-
-
 #define MAX_PERSO 32
-#define TAILLE_SOLD 4
+#define TAILLE_SOLD 8
 #define TAILLE_PIN 4
 #define TAILLE_PUK 4
 uint16_t ee_taille EEMEM=0;
 uint16_t ee_taille2 EEMEM=32;
-uint16_t ee_codePIN EEMEM=36;
-uint16_t ee_codePUK EEMEM=40;
+uint16_t ee_codePIN EEMEM=38;
+uint16_t ee_codePUK EEMEM=42;
 unsigned char ee_perso[MAX_PERSO] EEMEM;
 unsigned char ee_perso2[TAILLE_SOLD] EEMEM;
 unsigned char ee_perso_PIN[TAILLE_PIN] EEMEM;
 unsigned char ee_perso_PUK[TAILLE_PUK] EEMEM;
 
-void intro_perso(int buffsize, uint16_t *taille, uint8_t *perso)
+void intro_perso(int buffsize, uint16_t *taille, unsigned char *perso)
 {
 	char buffer[buffsize];
 	int i;
@@ -234,10 +206,15 @@ void intro_perso(int buffsize, uint16_t *taille, uint8_t *perso)
     {	// lecture des données
       buffer[i]=recbytet0();
     }
+
+  engage(1, &p3, taille, p3, buffer, perso, 0);
+
+  valide();
+
 	// recopie en eeprom
-	eeprom_write_block(buffer,perso,p3);
+	// eeprom_write_block(buffer,perso,p3);
 	// écriture de la taille
-	eeprom_write_word(taille,p3);
+	// eeprom_write_word(taille,p3);
 	// status word
 	sw1=0x90;
 }
@@ -256,7 +233,6 @@ void lire_perso(uint16_t *perso, unsigned char *test)
   }
   sendbytet0(ins);
   eeprom_read_block(buffer, test, taille);
-
   for (i = 0; i < p3; i++)
   {
     sendbytet0(buffer[i]);
@@ -264,11 +240,10 @@ void lire_perso(uint16_t *perso, unsigned char *test)
   sw1 = 0x90;
 }
 
-
-void delete_data(unsigned char *eeperso, uint16_t *taille)
+void delete_data(unsigned char *perso, uint16_t *taille)
 {
   uint16_t zeros = 0;
-  *taille = eeprom_read_byte(eeperso);
+  *taille = eeprom_read_byte(perso);
 
   if (p3 != *taille)
   {
@@ -281,7 +256,7 @@ void delete_data(unsigned char *eeperso, uint16_t *taille)
 	eeprom_write_word(taille,zeros);
 	// status word
 	// recopie en eeprom
-	eeprom_write_block(taille,eeperso,p3);
+	eeprom_write_block(taille,perso,p3);
 
 	sw1=0x90;
 }
@@ -326,14 +301,6 @@ int main(void)
                 version(4, "1.00");
                 break;
 
-            case 1:
-                intro_data();
-                break;
-
-            case 2:
-                sortir_data();
-                break;
-
             case 3:
                 intro_perso(MAX_PERSO, &ee_taille, ee_perso);
                 break;
@@ -363,7 +330,7 @@ int main(void)
                 break;
 
             default:
-                sw1 = 0x6d; // code erreur ins inconnu
+                error(ERR_UNKNOWN_INS); // code erreur ins inconnu
         }
         break;
 
@@ -382,12 +349,12 @@ int main(void)
                 break;
 
             default:
-                sw1 = 0x6d; // code erreur ins inconnu pour la classe 0x81
+                error(ERR_UNKNOWN_INS); // code erreur ins inconnu pour la classe 0x81
         }
         break;
 
     default:
-        sw1 = 0x6e; // code erreur classe inconnue
+        error(ERR_UNKNOWN_CLASS); // code erreur classe inconnue
 }
 
 sendbytet0(sw1); // envoi du status word

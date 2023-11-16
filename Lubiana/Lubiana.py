@@ -60,7 +60,7 @@ def print_menu():
 	print ("11 - Quitter")
 
 def print_version():
-	apdu = [0x81, 0x00, 0x00, 0x00, 0x04]
+	apdu = [0x80, 0x00, 0x00, 0x00, 0x04]
 	try:
 		data, sw1, sw2 = conn_reader.transmit(apdu)
 	except scardexcp.Exceptions as e:
@@ -76,18 +76,31 @@ def print_version():
 
 def print_data():
 
-	apdu = [0x80, 0x04, 0x00, 0x00, 0x01]
+	apdu = [0x80, 0x04, 0x00, 0x00, 0x04]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
 	
 	print ("sw1 : 0x%02X | sw2 : 0x%02X" % (sw1,sw2))
 
 	apdu[4] = sw2
-	data, sw1, sw2 = conn_reader.transmit(apdu)
-	str = ""
-	for e in data:
-		str += chr(e)
-	print ("sw1 : 0x%02X | sw2 : 0x%02X | Nom %s" % (sw1,sw2,str))
-	return
+	__print_apdu(apdu)
+
+	if (sw2 != 0x00):
+		data, sw1, sw2 = conn_reader.transmit(apdu)
+		str_data = ""
+		for e in data:
+			str_data += chr(e)
+		student_info = str_data.split()
+		if len(student_info) == 3:
+			print("\nNom de l'étudiant :", student_info[1])
+			print("Prénom de l'étudiant :", student_info[0])
+			print("Numéro de l'étudiant :", student_info[2])
+			print("\n")
+		else:
+			print("erreur de taille de données")
+		# print ("sw1 : 0x%02X | sw2 : 0x%02X | data : %s" % (sw1,sw2,str))
+		return
+	else:
+		print("l'EEPROM est vide, veuillez attribuer la carte")
 
 def assign_card():
 	apdu = [0x80, 0x03, 0x00, 0x00]
@@ -108,7 +121,7 @@ def assign_card():
 
 def init_sold():
 	apdu = [0x80, 0x08, 0x00, 0x00]
-	sold = "9.00"
+	sold = "00000.00"
 
 	length = len(sold)
 	apdu.append(length)
@@ -116,24 +129,30 @@ def init_sold():
 
 	for e in sold:
 		apdu.append(ord(e))
+	print (apdu)
 
 	transmit_apdu(apdu)
 
 def consult_sold():
-	apdu = [0x81, 0x03, 0x00, 0x00]
+	apdu = [0x80, 0x07, 0x00, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
 	print("sw1 : 0x%02X | taille demandée : sw2 : 0x%02X" % (sw1, sw2))
     
-	apdu.append(sw2)
+	apdu[4] = sw2
 	print ("l'APDU pour afficher les données de l'eeprom est :")
 	__print_apdu(apdu)
 
-	data, sw1, sw2 = conn_reader.transmit(apdu)
-	str = ""
-	for e in data:
+	if (sw2 != 0x00):
+		data, sw1, sw2 = conn_reader.transmit(apdu)
+		data_str = ""
+		str = ""
+		for e in data:
 			str += chr(e)
-	print ("sw1 : 0x%02X | sw2 : 0x%02X | Les données sur l'eeprom sont : %s" % (sw1,sw2,str))
-	return
+		print ("sw1 : 0x%02X | sw2 : 0x%02X | data : %s" % (sw1,sw2,str))
+		return
+	else:
+		print("l'EEPROM est vide, veuillez initialisez le solde")
+
 
 def delete_data():
 	apdu = [0x80, 0x05, 0x00, 0x00]
@@ -240,29 +259,29 @@ def main():
 	init_smart_card()
 	while True:
 		print_menu()
-		cmd = int(input("Choix :"))
-		if (cmd == 1):
+		cmd = input("Choix :")
+		if (cmd == '1'):
 			print_version()		
-		elif (cmd == 2):
+		elif (cmd == '2'):
 			print_data()
-		elif (cmd == 3):
+		elif (cmd == '3'):
 			assign_card()
-		elif (cmd == 4):
+		elif (cmd == '4'):
 			init_sold()
-		elif (cmd == 5):
+		elif (cmd == '5'):
 			consult_sold()
-		elif (cmd == 6):
+		elif (cmd == '6'):
 			delete_data()
-		elif (cmd == 7):
+		elif (cmd == '7'):
 			codePIN()
 			codePUK()
-		elif (cmd == 8):
+		elif (cmd == '8'):
 			consult_PUK()
-		elif (cmd == 9):
+		elif (cmd == '9'):
 			modifPIN()
-		elif (cmd == 10):
+		elif (cmd == '10'):
 			consult_PIN()
-		elif (cmd == 11):
+		elif (cmd == '11'):
 			return
 		else :
 			print ("erreur, saisissez une commande valide")
