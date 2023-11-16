@@ -206,8 +206,8 @@ void intro_perso(int buffsize, uint16_t *taille, unsigned char *perso)
     {	// lecture des données
       buffer[i]=recbytet0();
     }
-
-  engage(1, &p3, taille, p3, buffer, perso, 0);
+  uint16_t pp3 = p3;
+  engage(2, &pp3, taille, p3, buffer, perso, 0);
 
   valide();
 
@@ -256,7 +256,7 @@ void delete_data(unsigned char *perso, uint16_t *taille)
 	eeprom_write_word(taille,zeros);
 	// status word
 	// recopie en eeprom
-	eeprom_write_block(taille,perso,p3);
+	eeprom_write_block(0, perso,p3);
 
 	sw1=0x90;
 }
