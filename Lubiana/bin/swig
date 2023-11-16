@@ -1,8 +1,8 @@
-#!/home/user/SAE-Carotte/Rodelika/bin/python3.11
+#!/home/user/SAE-Carotte/Lubiana/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys
-from tabulate import _main
+from swig import swig
 if __name__ == '__main__':
     sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
-    sys.exit(_main())
+    sys.exit(swig())
