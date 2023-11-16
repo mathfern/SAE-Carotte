@@ -26,6 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         case 4:
             addBonus($_POST['bonus_num_etudiant']);
             break;
+        case 5:
+            supprEtudiant($_POST['num_etudiant_suppr']);
+            break;
         default:
             echo "Invalid choice.";
     }
@@ -57,7 +60,6 @@ function getSold() {
     }
 }
 
-
 function newStudent($num_etudiant, $nom_etudiant, $prenom_etudiant) {
     global $cnx;
     $sql = "INSERT INTO Etudiant (etu_num, etu_nom, etu_prenom) VALUES ('$num_etudiant', '$nom_etudiant', '$prenom_etudiant')";
@@ -69,6 +71,7 @@ function newStudent($num_etudiant, $nom_etudiant, $prenom_etudiant) {
         echo "Error: " . $sql . "<br>" . mysqli_error($cnx);
     }
 }
+
 function addBonus($bonus_num_etudiant) {
     global $cnx;
     $sql = "UPDATE Etudiant SET etu_bonus = etu_bonus + 1.00 WHERE etu_num = '$bonus_num_etudiant'";
@@ -78,6 +81,28 @@ function addBonus($bonus_num_etudiant) {
         echo "Bonus added successfully.";
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($cnx);
+    }
+}
+
+function supprEtudiant($num_etudiant) {
+    global $cnx;
+    $check_query = "SELECT COUNT(*) FROM Etudiant WHERE etu_num = '$num_etudiant';";
+    $check_result = mysqli_query($cnx, $check_query);
+    $result = mysqli_fetch_assoc($check_result);
+
+    if ($result['COUNT(*)'] > 0) {
+        $sql_delete_compte = "DELETE FROM Compte WHERE etu_num = '$num_etudiant';";
+        $result_compte = mysqli_query($cnx, $sql_delete_compte);
+        $sql_delete_etudiant = "DELETE FROM Etudiant WHERE etu_num = '$num_etudiant';";
+        $result_etudiant = mysqli_query($cnx, $sql_delete_etudiant);
+
+        if ($result_compte && $result_etudiant) {
+            echo "L'étudiant a bien été supprimé.";
+        } else {
+            echo "Error: " . mysqli_error($cnx);
+        }
+    } else {
+        echo "Le numéro d'étudiant n'existe pas.";
     }
 }
 
