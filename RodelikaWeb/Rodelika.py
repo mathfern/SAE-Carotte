@@ -16,7 +16,8 @@ def print_menu():
     print (" 2 - Afficher le sold des étudiants ")
     print (" 3 - Saisir un nouvel étudiant ")
     print (" 4 - Attribuer un bonus ")
-    print (" 5 - Quitter")
+    print (" 5 - Supprimer un étudiant ")
+    print (" 6 - Quitter")
 
 from tabulate import tabulate
 
@@ -90,6 +91,31 @@ def add_bonus():
     # compléter le code
     print ("Bonus + 1.00 euros")
 
+def suppr_etudiant():
+    num = input("Numéro Etudiant : ")
+    check_query = "SELECT COUNT(*) FROM Etudiant WHERE etu_num = %s;"
+    check_val = (num,)
+
+    cursor = cnx.cursor()
+    cursor.execute(check_query, check_val)
+    result = cursor.fetchone()
+
+    if result[0] > 0:
+        sql_delete_compte = "DELETE FROM Compte WHERE etu_num = %s;"
+        cursor = cnx.cursor()
+        cursor.execute(sql_delete_compte, (num,))
+        cnx.commit()
+
+    
+        sql_delete_etudiant = "DELETE FROM Etudiant WHERE etu_num = %s;"
+        cursor.execute(sql_delete_etudiant, (num,))
+        cnx.commit()
+        print("L'étudiant a bien été supprimer")
+        
+    else:
+        print("Le numéro d'étudiant n'existe pas.")
+    
+    
 def main():
     print_hello_message()
     while True :
@@ -104,6 +130,8 @@ def main():
         elif choix == 4:
             add_bonus()
         elif choix == 5:
+            suppr_etudiant()
+        elif choix == 6:
             print("Au revoir !")
             break
         else:
