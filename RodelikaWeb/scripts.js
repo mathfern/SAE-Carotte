@@ -4,6 +4,7 @@ function hideResults() {
 
 function getStudents() {
     hideResults();
+    $("#supprimerEtudiantForm").hide();
     $("#newStudentForm").hide();
     $("#addBonusForm").hide();
     $.ajax({
@@ -24,6 +25,7 @@ function getStudents() {
 
 function getSold() {
     hideResults();
+    $("#supprimerEtudiantForm").hide();
     $("#newStudentForm").hide();
     $("#addBonusForm").hide();
     $.ajax({
@@ -44,6 +46,7 @@ function getSold() {
 
 function displayResultsSolde(results) {
     hideResults();
+    $("#supprimerEtudiantForm").hide();
     $("#newStudentForm").hide();
     $("#addBonusForm").hide();
     $("#result").empty();
@@ -71,6 +74,7 @@ function displayResultsSolde(results) {
 
 function displayResultsEtudiant(results) {
     hideResults();
+    $("#supprimerEtudiantForm").hide();
     $("#newStudentForm").hide();
     $("#addBonusForm").hide();
     $("#result").empty();
@@ -95,13 +99,17 @@ function displayResultsEtudiant(results) {
 }
 function newStudentForm() {
     $("#addBonusForm").hide();
+    $("#supprimerEtudiantForm").hide();
     hideResults();
+    
     $("#newStudentForm").toggle();
 }
 
 function newStudent() {
     $("#addBonusForm").hide();
+    $("#supprimerEtudiantForm").hide();
     hideResults();
+    
     var num_etudiant = $("#num_etudiant").val();
     var nom_etudiant = $("#nom_etudiant").val();
     var prenom_etudiant = $("#prenom_etudiant").val();
@@ -128,11 +136,13 @@ function newStudent() {
 
 function addBonusForm() {
     $("#newStudentForm").hide();
+    $("#supprimerEtudiantForm").hide();
     hideResults();
     $("#addBonusForm").toggle();
 }
 function addBonus() {
     $("#newStudentForm").hide();
+    $("#supprimerEtudiantForm").hide();
     hideResults();
     var bonus_num_etudiant = $("#bonus_num_etudiant").val();
 
@@ -151,12 +161,42 @@ function addBonus() {
     });
 }
 
+function supprimerEtudiantForm() {
+    hideResults();
+    $("#newStudentForm").hide();
+    $("#addBonusForm").hide();
+
+    $("#supprimerEtudiantForm").toggle();
+}
+
+function supprimerEtudiant() {
+    hideResults();
+    $("#newStudentForm").hide();
+    $("#addBonusForm").hide();
+
+    var num_etudiant_suppr = $("#num_etudiant_suppr").val();
+
+    $.ajax({
+        type: "POST",
+        url: "call_python_function.php",
+        data: { choice: 5, num_etudiant_suppr: num_etudiant_suppr },
+        success: function (response) {
+            displayMessage(response);
+           
+        },
+        error: function (error) {
+            console.log("Error:", error);
+        }
+    });
+}
+
 
 function goBack() {
     $("#result").empty();
     // Masque tous les formulaires
     $("#newStudentForm").hide();
     $("#addBonusForm").hide();
+    $("#supprimerEtudiantForm").hide();
     // Efface les champs de formulaire
     $("#num_etudiant").val("");
     $("#nom_etudiant").val("");

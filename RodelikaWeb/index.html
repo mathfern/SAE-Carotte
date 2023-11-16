@@ -23,6 +23,7 @@
             <li><a href="#" onclick="getSold()">Solde des étudiants</a></li>
             <li><a href="#" onclick="newStudentForm()">Nouvel étudiant</a></li>
             <li><a href="#" onclick="addBonusForm()">Attribuer un bonus</a></li>
+	    <li><a href="#" onclick="supprimerEtudiantForm()">Supprimer un étudiant</a></li> <li><a 
             
         </ul>
     </nav>
@@ -45,6 +46,12 @@
         <input type="text" id="bonus_num_etudiant">
 
         <button onclick="addBonus()">Ajouter le Bonus</button>
+    </div>
+
+    <div id="supprimerEtudiantForm" style="display: none;">
+      <label for="num_etudiant_suppr">Numéro Etudiant :</label>
+      <input type="text" id="num_etudiant_suppr" name="num_etudiant_suppr">
+      <button onclick="supprimerEtudiant()">Supprimer</button>
     </div>
 
     <div id="result"></div>
