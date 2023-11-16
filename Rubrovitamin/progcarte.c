@@ -252,11 +252,15 @@ void delete_data(unsigned char *perso, uint16_t *taille)
     return;
   }
   
+  engage(1, zeros, taille, p3, zeros, perso, 0);
+  valide();
   // écriture de la taille
-	eeprom_write_word(taille,zeros);
+	// eeprom_write_word(taille, zeros);
 	// status word
 	// recopie en eeprom
-	eeprom_write_block(0, perso,p3);
+	// eeprom_write_block(0, perso, p3);
+
+
 
 	sw1=0x90;
 }
