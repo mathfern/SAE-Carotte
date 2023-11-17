@@ -9,13 +9,13 @@
 
 ## III. Organisation et Gestion du projet
 
-### Cahier des charges
+### 1 - Cahier des charges
 
-### Répartition du temps
+### 2 - Répartition du temps
 
-### Mise en place du GitHub
+### 3 - Mise en place du GitHub
 
-### Gestion du Projet avec Jira
+### 4 - Gestion du Projet avec Jira
 
 
 ## IV. Phase de Conception Initiale
