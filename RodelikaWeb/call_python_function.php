@@ -60,29 +60,58 @@ function getSold() {
     }
 }
 
+
+
 function newStudent($num_etudiant, $nom_etudiant, $prenom_etudiant) {
     global $cnx;
-    $sql = "INSERT INTO Etudiant (etu_num, etu_nom, etu_prenom) VALUES ('$num_etudiant', '$nom_etudiant', '$prenom_etudiant')";
-    $result = mysqli_query($cnx, $sql);
+    // Vérifier d'abord si l'étudiant existe
+    $checkSql = "SELECT * FROM Etudiant WHERE etu_num = '$num_etudiant'";
+    $checkResult = mysqli_query($cnx, $checkSql);
 
-    if ($result) {
-        echo "Nouvel étudiant ajouté avec succès.";
+    if ($checkResult && mysqli_num_rows($checkResult) == 0) {
+        // L'étudiant n'existe pas, exécuter la requête
+        $sql = "INSERT INTO Etudiant (etu_num, etu_nom, etu_prenom) VALUES ('$num_etudiant', '$nom_etudiant', '$prenom_etudiant')";
+        $result = mysqli_query($cnx, $sql);
+
+        if ($result) {
+            echo "added successfully.";
+        } else {
+            echo "Error adding student." . mysqli_error($cnx);
+        }
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($cnx);
+        // L'étudiant n'existe pas
+        echo "Error.";
     }
 }
+
+
+
+
+
 
 function addBonus($bonus_num_etudiant) {
     global $cnx;
-    $sql = "UPDATE Etudiant SET etu_bonus = etu_bonus + 1.00 WHERE etu_num = '$bonus_num_etudiant'";
-    $result = mysqli_query($cnx, $sql);
 
-    if ($result) {
-        echo "Bonus added successfully.";
+    // Vérifier d'abord si l'étudiant existe
+    $checkSql = "SELECT * FROM Etudiant WHERE etu_num = '$bonus_num_etudiant'";
+    $checkResult = mysqli_query($cnx, $checkSql);
+
+    if ($checkResult && mysqli_num_rows($checkResult) > 0) {
+        // L'étudiant existe, exécuter la requête de mise à jour
+        $updateSql = "UPDATE Etudiant SET etu_bonus = etu_bonus + 1.00 WHERE etu_num = '$bonus_num_etudiant'";
+        $updateResult = mysqli_query($cnx, $updateSql);
+
+        if ($updateResult) {
+            echo "Bonus added successfully.";
+        } else {
+            echo "Error updating bonus: " . mysqli_error($cnx);
+        }
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($cnx);
+        // L'étudiant n'existe pas
+        echo "Student not found.";
     }
 }
+
 
 function supprEtudiant($num_etudiant) {
     global $cnx;
@@ -98,9 +127,9 @@ function supprEtudiant($num_etudiant) {
 
         if ($result_compte && $result_etudiant) {
             echo "L'étudiant a bien été supprimé.";
-        } else {
-            echo "Error: " . mysqli_error($cnx);
-        }
+        	} else {
+        	echo "Error." . mysqli_error($cnx);
+        	}
     } else {
         echo "Le numéro d'étudiant n'existe pas.";
     }

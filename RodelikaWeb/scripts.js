@@ -123,14 +123,14 @@ function newStudent() {
             nom_etudiant: nom_etudiant,
             prenom_etudiant: prenom_etudiant
         },
-        success: function (response) {
-            displayMessage(response);
-	 
-            
-        },
-        error: function (error) {
-            console.log("Error:", error);
-        }
+	success: function (response) {
+	    console.log(response);
+            if (response === "Error.") {
+		displayErrorMessage("L'étudiant avec ce numéro existe déja.");
+            } else {
+                displayOkMessage("L'étudiant a été ajouté avec succès !");
+            }
+        },	
     });
 }
 
@@ -150,14 +150,15 @@ function addBonus() {
         type: "POST",
         url: "call_python_function.php",
         data: { choice: 4, bonus_num_etudiant: bonus_num_etudiant },
-        success: function (response) {
-            displayMessage(response);
-	   
+	success: function (response) {
+	    console.log(response);
+            if (response === "Student not found.") {
+		displayErrorMessage("L'étudiant avec ce numéro n'existe pas.");
+            } else {
+                displayOkMessage("Le Bonus a été ajouté avec succès !");
+            }
         },
-        error: function (error) {
-            console.log("Error:", error);
-            // $("#confirmationMessage").text("Le bonus n'a pas pu être ajouté !");
-        }
+
     });
 }
 
@@ -180,15 +181,20 @@ function supprimerEtudiant() {
         type: "POST",
         url: "call_python_function.php",
         data: { choice: 5, num_etudiant_suppr: num_etudiant_suppr },
-        success: function (response) {
-            displayMessage(response);
-           
+	success: function (response) {
+	    console.log(response);
+            if (response === "Error.") {
+		displayErrorMessage("L'étudiant avec ce numéro n'existe pas.");
+            } else {
+                displayOkMessage("L'étudiant à bien été supprimé !");
+            }
         },
-        error: function (error) {
-            console.log("Error:", error);
-        }
     });
 }
+
+
+
+
 
 
 function goBack() {
@@ -203,4 +209,15 @@ function goBack() {
     $("#nom_etudiant").val("");
     $("#prenom_etudiant").val("");
     $("#bonus_num_etudiant").val("");
+}
+
+
+function displayOkMessage(message) {
+    $("#result").empty();
+    $("#result").html("<p style='color: green;'>" + message + "</p>").css;
+}
+
+function displayErrorMessage(message) {
+    $("#result").empty();
+    $("#result").html("<p style='color: red;'>" + message + "</p>").css;
 }
