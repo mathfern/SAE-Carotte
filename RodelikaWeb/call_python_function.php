@@ -76,7 +76,7 @@ function newStudent($num_etudiant, $nom_etudiant, $prenom_etudiant) {
         if ($result) {
             echo "added successfully.";
         } else {
-            echo "Error adding student." . mysqli_error($cnx);
+            echo "Error." . mysqli_error($cnx);
         }
     } else {
         // L'étudiant n'existe pas
@@ -104,11 +104,11 @@ function addBonus($bonus_num_etudiant) {
         if ($updateResult) {
             echo "Bonus added successfully.";
         } else {
-            echo "Error updating bonus: " . mysqli_error($cnx);
+            echo "Error." . mysqli_error($cnx);
         }
     } else {
         // L'étudiant n'existe pas
-        echo "Student not found.";
+        echo "Error.";
     }
 }
 
@@ -131,7 +131,7 @@ function supprEtudiant($num_etudiant) {
         	echo "Error." . mysqli_error($cnx);
         	}
     } else {
-        echo "Le numéro d'étudiant n'existe pas.";
+        echo "Error.";
     }
 }
 

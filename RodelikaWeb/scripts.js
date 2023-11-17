@@ -152,7 +152,7 @@ function addBonus() {
         data: { choice: 4, bonus_num_etudiant: bonus_num_etudiant },
 	success: function (response) {
 	    console.log(response);
-            if (response === "Student not found.") {
+            if (response === "Error.") {
 		displayErrorMessage("L'étudiant avec ce numéro n'existe pas.");
             } else {
                 displayOkMessage("Le Bonus a été ajouté avec succès !");
