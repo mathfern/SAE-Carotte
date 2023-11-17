@@ -152,11 +152,11 @@ function addBonus() {
         data: { choice: 4, bonus_num_etudiant: bonus_num_etudiant },
         success: function (response) {
             displayMessage(response);
-	    
-           
+	   
         },
         error: function (error) {
             console.log("Error:", error);
+            // $("#confirmationMessage").text("Le bonus n'a pas pu être ajouté !");
         }
     });
 }
@@ -192,6 +192,7 @@ function supprimerEtudiant() {
 
 
 function goBack() {
+    
     $("#result").empty();
     // Masque tous les formulaires
     $("#newStudentForm").hide();
