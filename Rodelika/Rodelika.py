@@ -1,14 +1,15 @@
 import mysql.connector
+from pyfiglet import Figlet
 
 cnx = mysql.connector.connect(user='root',
 password='root',
 host='localhost',
 database='purpledragon1') #a renommer
 
-def print_hello_message():
-    print ("-----------------------------------")
-    print ("-- Logiciel de gestion : Rodelika --")
-    print ("-----------------------------------")
+def generate_banner(text, font="standard"):
+    f = Figlet(font=font)
+    banner = f.renderText(text)
+    return banner
 
 def print_menu():
     print("")
@@ -22,21 +23,21 @@ def print_menu():
 from tabulate import tabulate
 
 def get_list_student():
-    sql = "SELECT etu_num, etu_nom, etu_prenom FROM Etudiant" // Choisi la colonne etu_num, etu_nom, etu_prenom dans la table etudiant
-    cursor = cnx.cursor() // créé pour interagir avec la base de données
-    cursor.execute(sql) // exécute la requète "sql" 
-    rows = cursor.fetchall() // Stockent les résultats dans la variable "rows"
+    sql = "SELECT etu_num, etu_nom, etu_prenom FROM Etudiant" # Choisi la colonne etu_num, etu_nom, etu_prenom dans la table etudiant
+    cursor = cnx.cursor() # créé pour interagir avec la base de données
+    cursor.execute(sql) # exécute la requète "sql" 
+    rows = cursor.fetchall() #// Stockent les résultats dans la variable "rows"
 
     if rows:
         headers = ["Numéro Etudiant", "Nom", "Prénom"]
-        table = tabulate(rows, headers=headers, tablefmt="pretty") //les données sont formatées en tableau avec des en-têtes spécifiques "Numéro Etudiant", "Nom", "Prénom" à laide de la bibliothèque tabulate
-        print(table) // Affiche le tableau 
+        table = tabulate(rows, headers=headers, tablefmt="pretty") #//les données sont formatées en tableau avec des en-têtes spécifiques "Numéro Etudiant", "Nom", "Prénom" à laide de la bibliothèque tabulate
+        print(table) #// Affiche le tableau 
     else:
         print("Aucun étudiant trouvé dans la base de données.")
 
 def get_list_student_with_sold():
-    sql = "SELECT etu_num, etu_nom, etu_prenom, etu_solde, etu_bonus FROM Etudiant" // Choisi la colonne etu_num, etu_nom, etu_prenom, etu_solde, etu_bonus dans la table etudiant
-    cursor = cnx.cursor() // créé pour interagir avec la base de données
+    sql = "SELECT etu_num, etu_nom, etu_prenom, etu_solde, etu_bonus FROM Etudiant" #// Choisi la colonne etu_num, etu_nom, etu_prenom, etu_solde, etu_bonus dans la table etudiant
+    cursor = cnx.cursor() #// créé pour interagir avec la base de données
     cursor.execute(sql)
     rows = cursor.fetchall()
 
@@ -117,7 +118,6 @@ def suppr_etudiant():
     
     
 def main():
-    print_hello_message()
     while True :
         print_menu()
         choix = int(input("Quel est votre choix ? : "))
@@ -138,4 +138,8 @@ def main():
             print("Numéro invalide. Veuillez entrer 1,2,3,4 ou 5")
         
     
-main()
+if __name__ == '__main__':
+	banner_text = "Rodelika"
+	generated_banner = generate_banner(banner_text, font="slant")
+	print(generated_banner)
+	main()
