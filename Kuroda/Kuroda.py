@@ -44,9 +44,11 @@ def generate_banner(text, font="standard"):
     return banner
 
 def print_menu():
-    print ("1 - Afficher le solde")
-    print ("2 - Acheter un café à 0.20c")
-    print ("3 - Quitter")
+	print ("1 - Afficher le solde")
+	print ("2 - Acheter un café à 0.20c")
+	print ("3 - Acheter un chocolat chaud à 0.20c")
+	print ("4 - Acheter un thé à 0.20c")
+	print ("5 - Quitter")
 
 def PINvalide():
 	global PIN
@@ -183,6 +185,10 @@ def main():
 			elif (cmd == 2):
 				debit_sold()
 			elif (cmd == 3):
+				debit_sold()
+			elif (cmd == 4):
+				debit_sold()
+			elif (cmd == 5):
 				return
 			else:
 				print ("erreur, saisissez une commande valide")

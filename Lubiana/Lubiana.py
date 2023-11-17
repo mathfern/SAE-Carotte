@@ -57,7 +57,8 @@ def print_menu():
 	print ("8 - Consulter le code PUK")
 	print ("9 - Modifier le code PIN")
 	print ("10 - Consulter le code PIN")
-	print ("11 - Quitter")
+	print ("11 - TEST")
+	print ("12 - Quitter")
 
 def print_version():
 	apdu = [0x80, 0x00, 0x00, 0x00, 0x04]
@@ -253,6 +254,21 @@ def modifPIN():
     else:
         print("Code PUK incorrect. La modification du PIN a échoué.")
 
+def password_adm():
+	user_password = input("Saisir le mot de passe administrateur : ")
+	apdu = [0x80, 0x01, 0x00, 0x00]
+
+	length = len(user_password)
+	apdu.append(length)
+	__print_apdu(apdu)
+
+	for e in user_password:
+		apdu.append(ord(e))
+	__print_apdu(apdu)
+	
+	data, sw1, sw2 = transmit_apdu(apdu)
+	print (sw1, sw2)
+
 
 def main():
 	init_smart_card()
@@ -281,6 +297,8 @@ def main():
 		elif (cmd == '10'):
 			consult_PIN()
 		elif (cmd == '11'):
+			password_adm()
+		elif (cmd == '12'):
 			return
 		else :
 			print ("erreur, saisissez une commande valide")

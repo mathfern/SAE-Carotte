@@ -3,9 +3,6 @@
 #include <avr/eeprom.h>
 #include <avr/pgmspace.h>
 #include <stdarg.h>
-#include <stdbool.h>
-
-#define ADMIN_PASSWORD "admin"
 
 //------------------------------------------------
 // Programme "hello world" pour carte à puce
@@ -43,7 +40,6 @@ void atr(uint8_t n, char* hist)
       sendbytet0(*hist++);
     }
 }
-
 
 // Gestion des erreurs 
 //-------------
@@ -178,42 +174,6 @@ void version(int t, char* sv)
     	sw1=0x90;
 }
 
-#define MAX_PASSWORD_LENGTH 16
-
-bool check_password(const char* user_password) {
-    // Comparaison avec le mot de passe administrateur
-    return strcmp(user_password, ADMIN_PASSWORD) == 0;
-}
-
-void get_input_py(int buffsize)
-{
-  char buffer[buffsize];
-	int i;
-	// contrôle p3
-	if (p3>buffsize)
-    {
-      sw1=0x6c;
-      sw2=buffsize;
-      return;
-    }
-	// acquittement
-	sendbytet0(ins);
-	// traitement de la commande
-	for (i=0;i<p3;i++)
-    {	// lecture des données
-      buffer[i]=recbytet0();
-    }
-    if (check_password(buffer))
-    {
-      sw1 = 0x90;
-      return;
-
-    } else {
-      sw1 = 0x6c;
-      return;
-    }
-  sw1 = 0x90;
-}
 
 #define MAX_PERSO 32
 #define TAILLE_SOLD 8
@@ -227,7 +187,6 @@ unsigned char ee_perso[MAX_PERSO] EEMEM;
 unsigned char ee_perso2[TAILLE_SOLD] EEMEM;
 unsigned char ee_perso_PIN[TAILLE_PIN] EEMEM;
 unsigned char ee_perso_PUK[TAILLE_PUK] EEMEM;
-
 
 
 void intro_perso(int buffsize, uint16_t *taille, unsigned char *perso)
@@ -347,10 +306,6 @@ int main(void)
                 version(4, "1.00");
                 break;
 
-            case 1:
-                check_password(MAX_PASSWORD_LENGTH);
-                break;
-
             case 3:
                 intro_perso(MAX_PERSO, &ee_taille, ee_perso);
                 break;
@@ -402,20 +357,6 @@ int main(void)
                 error(ERR_UNKNOWN_INS); // code erreur ins inconnu pour la classe 0x81
         }
         break;
-
-    // case 0x82: // Nouvelle classe
-    //     switch (ins) {
-    //         // Ajoutez ici le traitement des instructions pour la classe 0x81
-    //         // case ... :
-    //         //     // Traitement pour l'instruction spécifique
-
-    //         case 0:
-    //             get_input_py(MAX_PASSWORD_LENGTH);
-    //             break;
-
-    //         default:
-    //             error(ERR_UNKNOWN_INS); // code erreur ins inconnu pour la classe 0x81
-    //     }
 
     default:
         error(ERR_UNKNOWN_CLASS); // code erreur classe inconnue
