@@ -22,21 +22,21 @@ def print_menu():
 from tabulate import tabulate
 
 def get_list_student():
-    sql = "SELECT etu_num, etu_nom, etu_prenom FROM Etudiant"
-    cursor = cnx.cursor()
-    cursor.execute(sql)
-    rows = cursor.fetchall()
+    sql = "SELECT etu_num, etu_nom, etu_prenom FROM Etudiant" // Choisi la colonne etu_num, etu_nom, etu_prenom dans la table etudiant
+    cursor = cnx.cursor() // créé pour interagir avec la base de données
+    cursor.execute(sql) // exécute la requète "sql" 
+    rows = cursor.fetchall() // Stockent les résultats dans la variable "rows"
 
     if rows:
         headers = ["Numéro Etudiant", "Nom", "Prénom"]
-        table = tabulate(rows, headers=headers, tablefmt="pretty")
-        print(table)
+        table = tabulate(rows, headers=headers, tablefmt="pretty") //les données sont formatées en tableau avec des en-têtes spécifiques "Numéro Etudiant", "Nom", "Prénom" à laide de la bibliothèque tabulate
+        print(table) // Affiche le tableau 
     else:
         print("Aucun étudiant trouvé dans la base de données.")
 
 def get_list_student_with_sold():
-    sql = "SELECT etu_num, etu_nom, etu_prenom, etu_solde, etu_bonus FROM Etudiant"
-    cursor = cnx.cursor()
+    sql = "SELECT etu_num, etu_nom, etu_prenom, etu_solde, etu_bonus FROM Etudiant" // Choisi la colonne etu_num, etu_nom, etu_prenom, etu_solde, etu_bonus dans la table etudiant
+    cursor = cnx.cursor() // créé pour interagir avec la base de données
     cursor.execute(sql)
     rows = cursor.fetchall()
 
