@@ -2,28 +2,31 @@
 
 ## I. Introduction
 
-Bref aperçu du sujet traité et objectifs du compte rendu.
 
-## II. Méthodologie
+## II. Objectifs
 
-Description des méthodes utilisées pour collecter les données ou effectuer l'analyse.
 
-## III. Résultats
 
-Présentation des résultats obtenus de manière claire et concise. Utilisation de tableaux, graphiques ou autres éléments visuels si nécessaire.
+## III. Organisation et Gestion du projet
 
-## IV. Discussion
 
-Interprétation des résultats, analyse des implications, comparaison avec la littérature existante, etc.
 
-## V. Conclusion
+## IV. Phase de Conception Initiale
 
-Résumé des principales conclusions et éventuelles recommandations.
 
-## VI. Annexes
 
-Le cas échéant, annexes contenant des informations supplémentaires, des graphiques détaillés, des tableaux, etc.
+## V. Features ajoutées pour chaques applications
 
+
+
+## VI. Évaluation de la Sécurité et analyse des Vulnérabilités
+
+
+
+## VII. Conclusion
+
+
+## VIII. Annexes
 ---
 
 **Remarques importantes :**
