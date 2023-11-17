@@ -45,6 +45,18 @@ def transmit_apdu(apdu):
         print("Error", e)
         return None, None, None
 
+def PINvalide():
+	global PIN
+	PIN = str(input("Saisir le code PIN : "))
+	apdu = [0x81, 0x01, 0x00, 0x00]
+	data, sw1, sw2 = conn_reader.transmit(apdu)
+	apdu.append(sw2)
+	data, sw1, sw2 = conn_reader.transmit(apdu)
+	global pinConsult
+	pinConsult = ""
+	for e in data:
+	    pinConsult += chr(e)	
+
 def generate_banner(text, font="standard"):
     f = Figlet(font=font)
     banner = f.renderText(text)
@@ -289,27 +301,32 @@ def histo_transac():
 
 def main():
 	init_smart_card()
-	while True:
-		print_menu()
-		cmd = int(input("Choix :"))
-		if (cmd == 1):
-			affiche_info()		
-		elif (cmd == 2):
-			affiche_bonus()
-		elif (cmd == 3):
-			transfert_bonus()
-		elif (cmd == 4):
-			consult_sold()
-		elif (cmd == 5):
-			recharger_carte()
-		elif (cmd == 6):
-			histo_transac()
-		elif (cmd == 7):
-			print("Au revoir !!")
-			return
-		else :
-			print ("erreur, saisissez une commande valide")
-			return
+	PINvalide()
+	if PIN == pinConsult:
+		while True:
+			print_menu()
+			cmd = int(input("Choix :"))
+			if (cmd == 1):
+				affiche_info()		
+			elif (cmd == 2):
+				affiche_bonus()
+			elif (cmd == 3):
+				transfert_bonus()
+			elif (cmd == 4):
+				consult_sold()
+			elif (cmd == 5):
+				recharger_carte()
+			elif (cmd == 6):
+				histo_transac()
+			elif (cmd == 7):
+				print("Au revoir !!")
+				return
+			else :
+				print ("erreur, saisissez une commande valide")
+				return
+	else:
+		print ("Code PIN incorrect")
+		return
 	print_menu()
 
 if __name__ == '__main__':

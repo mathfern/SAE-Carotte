@@ -2,6 +2,7 @@ import smartcard.System as scardsys
 import smartcard.util as scardutil
 import smartcard.Exceptions as scardexcp
 import random
+from pyfiglet import Figlet
 
 def init_smart_card():
 	try:
@@ -26,6 +27,11 @@ def init_smart_card():
 		exit()
 	return	 
 
+def generate_banner(text, font="standard"):
+    f = Figlet(font=font)
+    banner = f.renderText(text)
+    return banner
+
 def __print_apdu(apdu):
         for x in apdu:
             print("0x%02X" % x, end=' ')
@@ -39,12 +45,6 @@ def transmit_apdu(apdu):
     except scardexcp.CardConnectionException as e:
         print("Error", e)
         return None, None, None
-
-def print_hello_message():
-	print ("-------------------------------------------------------------------")
-	print ("Bienvenue sur Lubiana, le logiciel de Personnalisation")
-	print ("-------------------------------------------------------------------")
-	print ("\n")
 
 def print_menu():
 	print ("1 - Afficher la version de carte")
@@ -255,7 +255,6 @@ def modifPIN():
 
 
 def main():
-	print_hello_message()
 	init_smart_card()
 	while True:
 		print_menu()
@@ -289,4 +288,7 @@ def main():
 	print_menu()
 
 if __name__ == '__main__':
+	banner_text = "Lubiana"
+	generated_banner = generate_banner(banner_text, font="slant")
+	print(generated_banner)
 	main()
