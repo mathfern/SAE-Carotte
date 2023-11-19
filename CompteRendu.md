@@ -41,72 +41,78 @@ Pour inciter les étudiants à venir récupérer leurs cartes, on leur attribue 
 
 ## IV. Phase de Conception Initiale
 
-Personnalisation (Lubiana)
+### Personnalisation (Lubiana)
 
-Concept de personnalisation de carte à puce
+#### Concept de personnalisation de carte à puce
 
 La personnalisation de la carte à puce dans le logiciel Lubiana consiste à programmer des données spécifiques sur la puce, rendant chaque carte unique. L'objectif est d'initialiser chaque nouvelle carte attribuée à un étudiant avec les paramètres suivants :
 
-Le nom, prénom et numéro d'étudiant de chaque titulaire de carte.
-Le numéro de version de la carte.
-Le solde initial à 0.00€ lors de la création de la carte.
+- Le nom, prénom et numéro d'étudiant de chaque titulaire de carte.
+- Le numéro de version de la carte.
+- Le solde initial à 0.00€ lors de la création de la carte.
+
 Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" de manière interactive et simple, avec un menu offrant différentes actions.
 
-Actions proposées par le menu :
+#### Actions proposées par le menu :
 
-Affichage de la version de la carte à puce :
+1. **Affichage de la version de la carte à puce :**
+   - Vérifie la version actuelle de la carte.
 
-Vérifie la version actuelle de la carte.
-Affichage des données de la carte à puce :
+2. **Affichage des données de la carte à puce :**
+   - Vérifie et affiche les données telles que le nom, le prénom et le numéro d'étudiant sur la carte. Si aucune donnée n'est présente, indique que la carte est vierge.
 
-Vérifie et affiche les données telles que le nom, le prénom et le numéro d'étudiant sur la carte. Si aucune donnée n'est présente, indique que la carte est vierge.
-Attribuer la carte à un étudiant :
+3. **Attribuer la carte à un étudiant :**
+   - Permet d'ajouter le nom, le prénom et le numéro d'étudiant sur la carte.
 
-Permet d'ajouter le nom, le prénom et le numéro d'étudiant sur la carte.
-Mettre le solde initial de 0.00€ :
+4. **Mettre le solde initial de 0.00€ :**
+   - Initialise le solde de la carte à 0.00€.
 
-Initialise le solde de la carte à 0.00€.
-Consulter le solde :
+5. **Consulter le solde :**
+   - Affiche le solde actuel sur la carte.
 
-Affiche le solde actuel sur la carte.
-Réinitialiser les données de la carte :
+6. **Réinitialiser les données de la carte :**
+   - Supprime les données de la carte, nécessaire en cas de réattribution.
 
-Supprime les données de la carte, nécessaire en cas de réattribution.
-Attribuer code PIN/PUK :
+7. **Attribuer code PIN/PUK :**
+   - Permet de définir un nouveau code PIN et génère un code PUK aléatoire.
 
-Permet de définir un nouveau code PIN et génère un code PUK aléatoire.
-Consulter le code PUK :
+8. **Consulter le code PUK :**
+   - Affiche le code PUK actuel.
 
-Affiche le code PUK actuel.
-Modifier le code PIN :
+9. **Modifier le code PIN :**
+   - En cas d'oubli, permet de modifier le code PIN en utilisant le code PUK.
 
-En cas d'oubli, permet de modifier le code PIN en utilisant le code PUK.
-Quitter :
+10. **Quitter :**
+    - Termine l'exécution du programme.
 
-Termine l'exécution du programme.
-Répartition des classes et instructions :
+#### Répartition des classes et instructions :
 
-La classe utilisée par Lubiana sera la classe 0x81 de l'API du projet.
-Chaque opération sera associée à une instruction de la classe 0x81.
-Instructions pour Lubiana :
+- La classe utilisée par Lubiana sera la classe 0x81 de l'API du projet.
+- Chaque opération sera associée à une instruction de la classe 0x81.
 
-Affichage de la version : 0x00 classe 0x81
-Affichage des données : 0x02 classe 0x81
-Attribution de la carte : 0x01 classe 0x81
-Attribution du solde initial : 0x02 classe 0x82
-Affichage du solde : 0x01 classe 0x82
-Réinitialisation des données de la carte : 0x05 classe 0x81
-Attribution code PIN/PUK : 0x06 classe 0x81
-Consultation du code PUK : 0x08 classe 0x81
-Modification du code PIN : 0x09 classe 0x81
-Programmation :
+#### Instructions pour Lubiana :
+
+1. Affichage de la version : `0x00` classe `0x81`
+2. Affichage des données : `0x02` classe `0x81`
+3. Attribution de la carte : `0x01` classe `0x81`
+4. Attribution du solde initial : `0x02` classe `0x82`
+5. Affichage du solde : `0x01` classe `0x82`
+6. Réinitialisation des données de la carte : `0x05` classe `0x81`
+7. Attribution code PIN/PUK : `0x06` classe `0x81`
+8. Consultation du code PUK : `0x08` classe `0x81`
+9. Modification du code PIN : `0x09` classe `0x81`
+
+#### Programmation :
 
 Lubiana sera développé en utilisant la Programmation Orientée Objet (POO) avec Python, en utilisant la librairie pyscard.
 
-Fonctions supplémentaires pour Lubiana :
+#### Fonctions supplémentaires pour Lubiana :
 
-Une instruction en 0x05 pour supprimer le contenu de la carte.
-Une instruction en 0x06 pour bloquer et débloquer la carte en cas de perte ou de vol.
+- Une instruction en `0x05` pour supprimer le contenu de la carte.
+- Une instruction en `0x06` pour bloquer et débloquer la carte en cas de perte ou de vol.
+
+
+
 ## V. Features ajoutées pour chaques applications
 
 
