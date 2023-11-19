@@ -1,7 +1,7 @@
 # Compte Rendu de la SAE-Carotte
 
 ## I. Introduction
-<i>"La Carotte Eléctronique"</i> est le nom de code confidentiel du projet de l'IUT de Vélizy qui consiste à récompenser les étudiants travailleurs et assidus. <br>
+<i>"La Carotte Eléctronique"</i> est le nom de code confidentiel du projet de l'IUT de Vélizy qui consiste à récompenser les étudiants travailleurs et assidus. 
 Ce projet est réalisé dans le cadre des SAE suivantes : <ul>
 <li>SAE 5.01 - Concevoir, réaliser et présenter une solution technique</li>
 <li>SAE 5.02 - Piloter un projet informatique</li>
