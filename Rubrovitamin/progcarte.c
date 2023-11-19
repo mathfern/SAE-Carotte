@@ -6,6 +6,8 @@
 #include <stdbool.h>
 
 #define ADMIN_PASSWORD "admin"
+bool isPasswordCorrect = false;
+bool isPasswordEntered = false;
 
 //------------------------------------------------
 // Programme "hello world" pour carte à puce
@@ -178,42 +180,53 @@ void version(int t, char* sv)
     	sw1=0x90;
 }
 
-#define MAX_PASSWORD_LENGTH 16
+#define MAX_PASSWORD_LENGTH 5
 
-bool check_password(const char* user_password) {
-    // Comparaison avec le mot de passe administrateur
-    return strcmp(user_password, ADMIN_PASSWORD) == 0;
+int compareByteArrays(const void *a, const void *b, size_t size) {
+    const uint8_t *byteArrayA = (const uint8_t *)a;
+    const uint8_t *byteArrayB = (const uint8_t *)b;
+
+    for (size_t i = 0; i < size; i++) {
+        if (byteArrayA[i] != byteArrayB[i]) {
+            return byteArrayA[i] - byteArrayB[i];
+        }
+    }
+
+    return 0;  // Les tableaux sont identiques
 }
 
-void get_input_py(int buffsize)
+
+void get_input_py(int BUFFSIZE)
 {
-  char buffer[buffsize];
-	int i;
-	// contrôle p3
-	if (p3>buffsize)
-    {
-      sw1=0x6c;
-      sw2=buffsize;
-      return;
-    }
-	// acquittement
-	sendbytet0(ins);
-	// traitement de la commande
-	for (i=0;i<p3;i++)
-    {	// lecture des données
-      buffer[i]=recbytet0();
-    }
-    if (check_password(buffer))
-    {
-      sw1 = 0x90;
-      return;
+    char py_pwd[BUFFSIZE];
+    int i;
 
-    } else {
-      sw1 = 0x6c;
-      return;
+    // contrôle p3
+    if (p3 > BUFFSIZE)
+    {
+        sw1 = 0x6c;
+        sw2 = BUFFSIZE;
+        return;
     }
-  sw1 = 0x90;
+    // acquittement
+    sendbytet0(ins);
+    // traitement de la commande
+    for (i = 0; i < p3; i++)
+    { // lecture des données
+        py_pwd[i] = recbytet0();
+    }
+
+    if (compareByteArrays(py_pwd, (const uint8_t *)ADMIN_PASSWORD, BUFFSIZE) != 0) {
+        sw1 = 0x6a;
+        isPasswordCorrect = false;  // Mot de passe incorrect
+        isPasswordEntered = true;   // Mot de passe a été entré (peut être incorrect)
+        return;
+    }
+    isPasswordCorrect = true;  // Mot de passe correct
+    isPasswordEntered = true;  // Mot de passe a été entré et est correct
+    sw1 = 0x90;
 }
+
 
 #define MAX_PERSO 32
 #define TAILLE_SOLD 8
@@ -230,36 +243,75 @@ unsigned char ee_perso_PUK[TAILLE_PUK] EEMEM;
 
 
 
-void intro_perso(int buffsize, uint16_t *taille, unsigned char *perso)
-{
-	char buffer[buffsize];
-	int i;
-	// contrôle p3
-	if (p3>buffsize)
-    {
-      sw1=0x6c;
-      sw2=buffsize;
-      return;
-    }
-	// acquittement
-	sendbytet0(ins);
-	// traitement de la commande
-	for (i=0;i<p3;i++)
-    {	// lecture des données
-      buffer[i]=recbytet0();
-    }
-  uint16_t pp3 = p3;
-  engage(2, &pp3, taille, p3, buffer, perso, 0);
+void intro_perso(int buffsize, uint16_t *taille, unsigned char *perso) {
 
-  valide();
+    if (!isPasswordEntered) {
+        sw1 = 0x6a;  // Mot de passe non entré
+        sw2 = 0x00;
+        return;
+    }
 
-	// recopie en eeprom
-	// eeprom_write_block(buffer,perso,p3);
-	// écriture de la taille
-	// eeprom_write_word(taille,p3);
-	// status word
-	sw1=0x90;
+    char buffer[buffsize];
+    int i;
+    // contrôle p3
+    if (p3 > buffsize) {
+        sw1 = 0x6c;
+        sw2 = buffsize;
+        return;
+    }
+    // acquittement
+    sendbytet0(ins);
+    // traitement de la commande
+    for (i = 0; i < p3; i++) { // lecture des données
+        buffer[i] = recbytet0();
+    }
+    uint16_t pp3 = p3;
+    engage(2, &pp3, taille, p3, buffer, perso, 0);
+
+
+    valide();
+
+    // recopie en eeprom
+    // eeprom_write_block(buffer, perso, p3);
+    // écriture de la taille
+    // eeprom_write_word(taille, p3);
+    
+    // Mise à jour du statut word, car la fonction a réussi
+    sw1 = 0x90;
 }
+
+void intro_perso_sans_mdp(int buffsize, uint16_t *taille, unsigned char *perso) {
+
+    char buffer[buffsize];
+    int i;
+    // contrôle p3
+    if (p3 > buffsize) {
+        sw1 = 0x6c;
+        sw2 = buffsize;
+        return;
+    }
+    // acquittement
+    sendbytet0(ins);
+    // traitement de la commande
+    for (i = 0; i < p3; i++) { // lecture des données
+        buffer[i] = recbytet0();
+    }
+    uint16_t pp3 = p3;
+    engage(2, &pp3, taille, p3, buffer, perso, 0);
+
+
+    valide();
+
+    // recopie en eeprom
+    // eeprom_write_block(buffer, perso, p3);
+    // écriture de la taille
+    // eeprom_write_word(taille, p3);
+    
+    // Mise à jour du statut word, car la fonction a réussi
+    sw1 = 0x90;
+}
+
+
 
 void lire_perso(uint16_t *perso, unsigned char *test)
 {
@@ -284,6 +336,13 @@ void lire_perso(uint16_t *perso, unsigned char *test)
 
 void delete_data(unsigned char *perso, uint16_t *taille)
 {
+
+  if (!isPasswordEntered) {
+        sw1 = 0x6a;  // Mot de passe non entré
+        sw2 = 0x00;
+        return;
+  }
+
   uint16_t zeros = 0;
   *taille = eeprom_read_byte(perso);
 
@@ -348,12 +407,19 @@ int main(void)
                 break;
 
             case 1:
-                check_password(MAX_PASSWORD_LENGTH);
+                get_input_py(MAX_PASSWORD_LENGTH);
                 break;
 
             case 3:
-                intro_perso(MAX_PERSO, &ee_taille, ee_perso);
+                if (isPasswordCorrect) {
+                  intro_perso(MAX_PERSO, &ee_taille, ee_perso);
+                } else {
+                // Le mot de passe est incorrect, gestion des erreurs ici si nécessaire
+                    sw1 = 0x6A;  // SW1 pour erreur d'authentification
+                    sw2 = 0x00; 
+                }
                 break;
+
 
             case 4:
                 lire_perso(&ee_taille, ee_perso);
@@ -364,19 +430,34 @@ int main(void)
                 break;
 
             case 8:
-                intro_perso(TAILLE_SOLD, &ee_taille2, ee_perso2);
+                intro_perso_sans_mdp(TAILLE_SOLD, &ee_taille2, ee_perso2);
                 break;
 
             case 5:
-                delete_data(ee_perso, &ee_taille);
+                if (isPasswordCorrect) {
+                    delete_data(ee_perso, &ee_taille);
+                } else {
+                    sw1 = 0x6A;  // SW1 pour erreur d'authentification
+                    sw2 = 0x00; 
+                }
                 break;
 
             case 6:
-                intro_perso(TAILLE_PIN, &ee_codePIN, ee_perso_PIN);
+                if (isPasswordCorrect) {
+                    intro_perso(TAILLE_PIN, &ee_codePIN, ee_perso_PIN);
+                } else {
+                    sw1 = 0x6A;  // SW1 pour erreur d'authentification
+                    sw2 = 0x00; 
+                }
                 break;
 
             case 9:
-                intro_perso(TAILLE_PUK, &ee_codePUK, ee_perso_PUK);
+                if (isPasswordCorrect) {
+                    intro_perso(TAILLE_PUK, &ee_codePUK, ee_perso_PUK);
+                } else {
+                    sw1 = 0x6A;  // SW1 pour erreur d'authentification
+                    sw2 = 0x00; 
+                }
                 break;
 
             default:

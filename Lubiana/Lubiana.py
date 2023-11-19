@@ -3,6 +3,8 @@ import smartcard.util as scardutil
 import smartcard.Exceptions as scardexcp
 import random
 from pyfiglet import Figlet
+import getpass
+import struct
 
 def init_smart_card():
 	try:
@@ -32,6 +34,7 @@ def generate_banner(text, font="standard"):
     banner = f.renderText(text)
     return banner
 
+
 def __print_apdu(apdu):
         for x in apdu:
             print("0x%02X" % x, end=' ')
@@ -41,10 +44,37 @@ def __print_apdu(apdu):
 def transmit_apdu(apdu):
     try:
         data, sw1, sw2 = conn_reader.transmit(apdu)
+        print("Sent APDU:", [hex(x) for x in apdu])  # Ajout de cet affichage
+        print("Raw response: sw1 = 0x%02X, sw2 = 0x%02X" % (sw1, sw2))
         return data, sw1, sw2
     except scardexcp.CardConnectionException as e:
         print("Error", e)
-        return None, None, None
+        return data, sw1, sw2
+
+
+def password_adm():
+    user_password = getpass.getpass("Saisir le mot de passe : ")
+
+    apdu = [0x80, 0x01, 0x00, 0x00]
+
+    length = len(user_password)
+    apdu.append(length)
+    # __print_apdu(apdu)
+
+    for e in user_password:
+        apdu.append(ord(e))
+
+    data, sw1, sw2 = transmit_apdu(apdu)
+
+    if sw1 == 0x90:
+        return True  # Mot de passe administrateur correct
+    elif sw1 == 0xA0:
+        print("Mot de passe non entré (code d'erreur personnalisé). \n")
+        return False
+    else:
+        print("Mot de passe administrateur incorrect. \n")
+        return False
+
 
 def print_menu():
 	print ("1 - Afficher la version de carte")
@@ -56,9 +86,7 @@ def print_menu():
 	print ("7 - Attribuer code PIN/PUK")
 	print ("8 - Consulter le code PUK")
 	print ("9 - Modifier le code PIN")
-	print ("10 - Consulter le code PIN")
-	print ("11 - TEST")
-	print ("12 - Quitter")
+	print ("10 - Quitter")
 
 def print_version():
 	apdu = [0x80, 0x00, 0x00, 0x00, 0x04]
@@ -104,35 +132,51 @@ def print_data():
 		print("l'EEPROM est vide, veuillez attribuer la carte")
 
 def assign_card():
-	apdu = [0x80, 0x03, 0x00, 0x00]
-	prenom = str(input("saisir prenom :"))
-	nom = str(input("saisir nom :"))
-	numero_etudiant = str(input("saisir numero etudiant :"))
+    if not password_adm():
+        return
 
-	__print_apdu(apdu)
+    apdu = [0x80, 0x03, 0x00, 0x00]
 
-	infos = prenom + " " + nom + " " + numero_etudiant
-	length = len(infos)
-	apdu.append(length)
+    prenom = str(input("Saisir le prénom : "))
+    nom = str(input("Saisir le nom : "))
+    numero_etudiant = str(input("Saisir le numéro étudiant : "))
 
-	for e in infos:
-		apdu.append(ord(e))
+    infos = prenom + " " + nom + " " + numero_etudiant
+    length = len(infos)
 
-	transmit_apdu(apdu)
+    apdu.append(length)
+    apdu.extend(map(ord, infos))
+
+    print("Données envoyées vers le programme C:")
+    print("APDU :", [hex(x) for x in apdu])
+
+    transmit_apdu(apdu)
 
 def init_sold():
-	apdu = [0x80, 0x08, 0x00, 0x00]
-	sold = "00000.00"
+		
+    print("Mot de passe administrateur correct. Initialisation du solde en cours...")
 
-	length = len(sold)
-	apdu.append(length)
-	__print_apdu(apdu)
+    apdu = [0x80, 0x08, 0x00, 0x00]
 
-	for e in sold:
-		apdu.append(ord(e))
-	print (apdu)
+    # Solde initial (00000.00)
+    solde = "00000.00"
+    length = len(solde)
 
-	transmit_apdu(apdu)
+    apdu.append(length)  
+
+    for char in solde:
+        apdu.append(ord(char))
+
+    print("APDU pour l'initialisation du solde :")
+    __print_apdu(apdu)
+
+    data, sw1, sw2 = conn_reader.transmit(apdu)
+
+    if sw1 == 0x90:
+        print("Initialisation du solde réussie.")
+    else:
+        print(f"Échec de l'initialisation du solde. SW1: 0x{sw1:02X}, SW2: 0x{sw2:02X}")
+
 
 def consult_sold():
 	apdu = [0x80, 0x07, 0x00, 0x00, 0x00]
@@ -156,6 +200,10 @@ def consult_sold():
 
 
 def delete_data():
+
+	if not password_adm():
+		return
+
 	apdu = [0x80, 0x05, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
 	
@@ -172,6 +220,10 @@ def delete_data():
 
 
 def codePIN():
+
+	if not password_adm():
+		return
+
 	apdu = [0x80, 0x06, 0x00, 0x00]
 	PIN = str(input("saisir un code PIN à 4 chiffres :"))
 
@@ -232,6 +284,9 @@ def consult_PIN():
 	return
 
 def modifPIN():
+    if not password_adm():
+        return  # Sortir de la fonction si le mot de passe n'est pas entré
+
     PUK = str(input("Saisir le code PUK : "))
     apdu = [0x81, 0x00, 0x00, 0x00]
     data, sw1, sw2 = conn_reader.transmit(apdu)
@@ -249,25 +304,10 @@ def modifPIN():
         __print_apdu(apdu2)
         for e in PIN:
             apdu2.append(ord(e))
-        
+
         transmit_apdu(apdu2)
     else:
         print("Code PUK incorrect. La modification du PIN a échoué.")
-
-def password_adm():
-	user_password = input("Saisir le mot de passe administrateur : ")
-	apdu = [0x80, 0x01, 0x00, 0x00]
-
-	length = len(user_password)
-	apdu.append(length)
-	__print_apdu(apdu)
-
-	for e in user_password:
-		apdu.append(ord(e))
-	__print_apdu(apdu)
-	
-	data, sw1, sw2 = transmit_apdu(apdu)
-	print (sw1, sw2)
 
 
 def main():
@@ -295,10 +335,6 @@ def main():
 		elif (cmd == '9'):
 			modifPIN()
 		elif (cmd == '10'):
-			consult_PIN()
-		elif (cmd == '11'):
-			password_adm()
-		elif (cmd == '12'):
 			return
 		else :
 			print ("erreur, saisissez une commande valide")
