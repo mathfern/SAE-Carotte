@@ -41,6 +41,10 @@ Pour inciter les étudiants à venir récupérer leurs cartes, on leur attribue 
 
 ## IV. Phase de Conception Initiale
 
+### Application en C pour carte à puce (Rubrovitamin)
+
+
+
 ### Personnalisation (Lubiana)
 
 #### Concept de personnalisation de carte à puce
@@ -104,13 +108,11 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 
 #### Programmation :
 
-Lubiana sera développé en utilisant la Programmation Orientée Objet (POO) avec Python, en utilisant la librairie pyscard.
-
-#### Fonctions supplémentaires pour Lubiana :
-
-- Une instruction en `0x05` pour supprimer le contenu de la carte.
-- Une instruction en `0x06` pour bloquer et débloquer la carte en cas de perte ou de vol.
-
+Lubiana sera développé en utilisant Python 3.11. Les librairies utilisées par Lubiana sont : 
+- pyscard
+- random
+- pyfiglet
+- getpass
 
 
 ## V. Features ajoutées pour chaques applications
