@@ -41,7 +41,7 @@ Pour inciter les étudiants à venir récupérer leurs cartes, on leur attribue 
 
 ## IV. Phase de Conception Initiale
 
-1 - Concept de personnalisation carte à puce
+### 1 - Concept de personnalisation carte à puce
 La partie personnalisation consiste en général à programmer des données spécifiques sur la puce pour rendre la carte unique. Dans notre cas, la personnalisation de la carte à puce se fera pour initialiser chaque nouvelle carte avec les paramètres suivants (en vu d’être attribué à un titulaire étudiant) :
 
 Le nom, prénom et numéro d’étudiant de chaque titulaire de carte.
