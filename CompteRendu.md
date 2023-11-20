@@ -157,6 +157,51 @@ Lubiana sera développé en utilisant Python 3.11. Les librairies utilisées par
 - pyfiglet
 - getpass
 
+### Logiciel de gestion (Rodelika)
+
+#### Concept de gestion de l’administration
+Le logiciel de gestion (Rodelika) va permettre de gérer le suivi des cartes, des bonus, des débits. Dans notre cas, l’application permettra de rentrer en communication avec la base de données PurpleDragon ou on aura accès aux informations suivante :
+
+Liste des étudiants
+Solde des étudiants
+Saisir un nouvel étudiant
+Attribuer un bonus à un étudiant
+Supprimer un étudiant 
+
+Le logiciel de gestion va permettre plusieurs actions :
+
+Afficher la liste des étudiants
+L’option 1 "liste des étudiants" nommée dans le code "get_list_student" permettra d’afficher la liste de l’ensemble des étudiants possédant une carte.
+Afficher le solde des étudiants
+L’option 2 "solde des étudiants" nommée dans le code "get_list_student_with_sold" permettra d’afficher le solde total de chaque étudiant.
+Saisir un nouvel étudiant
+L’option 3 "saisir un nouvel étudiant" nommée dans le code "new_student" permettra d’attribuer une nouvelle carte à un étudiant. Elle ne permet pas la personnalisation de la carte. Elle se fait via le logiciel Lubiana.
+Attribuer un bonus
+L’option 4 "attribuer un bonus à un étudiant" nommée dans le code "add_bonus" permettra à l’agent administratif lorsqu’il reçoit un email d’un enseignant d’attribuer un bonus. Le mail doit contenir le numéro de l’étudiant. Dans le cas contraire, l’agent administratif doit effectuer une recherche par nom et prénom avec l’option 1.
+
+#### Fonction implémenter
+
+- La fonction "supprimer un étudiant" nommée dans le code "suppr_etudiant" permettra à l'agent administratif de supprimer un étudiant de la base de données.
+
+#### Répartition classes et instructions
+
+La classe utilisée par Rodelika sera la classe 0x81, 0x82 et 0x83 de l’APU du projet (cf partie Carte à Puces)
+
+Chaque opération réalisable par le logiciel sera associée à une instruction :
+
+Instruction pour l’affichage liste étudiante : 0x01 classe 0x81
+Instruction pour l’affichage solde étudiant : 0x01 classe 0x81
+Instruction pour l’attribution d’une nouvelle carte : 0x01 classe 0x81
+Instruction pour l’attribution d’un bonus : 0x02 classe 0x83
+Instruction pour la supression d'un étudiant : 0x04 classe 0x81
+
+#### Programmation
+
+L’application Rodelika sera développée avec Python. En connexion avec la base de données PurpleDragon. Pour communiquer avec la base de données MySql nous allons installer les librairies Python suivantes :
+
+- mysql-connector
+- tabulate
+- pyfiglet
 
 ### Borne a recharge (Berlicum) : 
 
