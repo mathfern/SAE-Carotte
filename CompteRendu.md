@@ -50,9 +50,19 @@ La carte à puce est un élément essentiel pour la vie quotidienne de millions 
 
 #### 2. Projet "La Carotte électronique" avec la carte Rubrovitamin
 
-Dans le cadre du projet confidentiel "La Carotte électronique", nous configurons une carte à puce nommée Rubrovitamin. L'objectif est d'accorder des crédits supplémentaires (1€) aux élèves méritants en mettant en place un système de porte-monnaie électronique basé sur des cartes à puce.
+Dans le cadre du projet confidentiel "La Carotte électronique", nous configurons une carte à puce. Avant de configurer les cartes à puces, il faut avant tout programmer ces cartes à l'aide d'un programmateur de carte. Dans notre cas, on utilise un programmateur de type : **????**. L'objectif du code Rubrovitamin est d'être implémenté dans la mémoire flash de chaque carte à puce lors de la programmation de la carte. 
 
-Les crédits peuvent être utilisés dans des distributeurs de boissons chaudes à un prix avantageux. Chaque crédit permet d'obtenir cinq boissons. Les étudiants récupèrent leurs cartes personnalisées au bureau administratif de l'IUT et peuvent faire des réclamations en cas de problème. Un bonus d'un crédit est automatiquement attribué aux étudiants pour les inciter à récupérer leurs cartes.
+Le contenu du code en C Rubrovitamin permet aux applications : Lubiana, Kuroda et Berlicum de fonctionner puisque ces trois applications s'appuient sur les fonctions associés aux classe et instructions qui forment les APDU (cf le tableau des classes et instructions dans le 3).
+
+Parmi les fonctions contenues dans Rubrovitamin, on peut retrouver : 
+
+- **Intro_perso** : qui permet d'introduire des données dans l'eeprom. Cette fonction est sécurisée par un mot de passe administrateur et pour chaque utilisation de cette fonction, le mot de passe sera demandée. Les types d'actions qui peuvent nécessiter l'appel de cette fonction sont : Ecrire nom, prenom, numéro étudiant, code PIN, PUK par exemple.
+- **Intro_perso_sans_mdp** : C'est la même fonction que intro_perso mais elle ne prend pas en compte la partie de sécurisation. La seule action qui nécessite l'appel de cette fonction est l'initialisation/modification du solde (utilisé par Lubiana, Berlicum et Kuroda).
+- **Engage et valide** : ces deux fonctions sont implémentées pour gérer les transactions. engage initialise une transaction avec des opérations spécifiées, et valide les exécute. Les données de la transaction sont stockées en EEPROM
+- **get_input_py** : Elle permet de récupérer le mot de passe entré par l'utilisateur sur Lubiana (avec l'input).
+- **compareByteArrays** : Cette fonction permet de comparer les deux tableau de caractères octet par octet pour vérifier si le mot de passe utilisateur est égal au mot de passe admin défini dans le code.
+- **main** : La fonction main permet de répartir les appels des fonctions citées ci-dessus dans différentes classes et instructions qui forment les APDU.   
+
 
 #### 3. Classes et instructions de Rubrovitamin
 
