@@ -44,9 +44,25 @@ def generate_banner(text, font="standard"):
     return banner
 
 def print_menu():
-    print ("1 - Afficher le solde")
-    print ("2 - Acheter un café à 0.20c")
-    print ("3 - Quitter")
+	print ("1 - Afficher le solde")
+	print ("2 - Acheter un café à 0.20c")
+	print ("3 - Acheter un chocolat chaud à 0.20c")
+	print ("4 - Acheter un thé à 0.20c")
+	print ("5 - Quitter")
+
+def PINvalide():
+	global PIN
+	PIN = str(input("Saisir le code PIN : "))
+	apdu = [0x81, 0x01, 0x00, 0x00]
+	data, sw1, sw2 = conn_reader.transmit(apdu)
+	apdu.append(sw2)
+	data, sw1, sw2 = conn_reader.transmit(apdu)
+	global pinConsult
+	pinConsult = ""
+	for e in data:
+	    pinConsult += chr(e)	
+
+
 
 def consult_sold():
 	apdu = [0x80, 0x07, 0x00, 0x00]
@@ -134,7 +150,7 @@ def debit_sold():
 			cursor.execute(requete_cafe,var)
 			cnx.commit()
 
-	
+
 			solde_value2 -= 0.20
 			solde_value2_str = "{:.2f}".format(solde_value2)
 			apdu2 = [0x80, 0x08, 0x00, 0x00]
@@ -159,18 +175,26 @@ def debit_sold():
 
 def main():
 	init_smart_card()
-	while True:
-		print_menu()
-		cmd = int(input("Choix :"))
-		if (cmd == 1):
-			consult_sold()		
-		elif (cmd == 2):
-			debit_sold()
-		elif (cmd == 3):
-			return
-		else :
-			print ("erreur, saisissez une commande valide")
-			return
+	PINvalide()
+	if PIN == pinConsult:
+		while True:
+			print_menu()
+			cmd = int(input("Choix :"))
+			if (cmd == 1):
+				consult_sold()		
+			elif (cmd == 2):
+				debit_sold()
+			elif (cmd == 3):
+				debit_sold()
+			elif (cmd == 4):
+				debit_sold()
+			elif (cmd == 5):
+				return
+			else:
+				print ("erreur, saisissez une commande valide")
+	else :
+		print ("Code PIN incorrect")
+		return
 	print_menu()
 
 

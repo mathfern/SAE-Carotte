@@ -3,6 +3,7 @@ import smartcard.util as scardutil
 import smartcard.Exceptions as scardexcp
 import mysql.connector
 from pyfiglet import Figlet
+import getpass
 
 cnx = mysql.connector.connect(user='root',
 password ='root',
@@ -32,6 +33,29 @@ def init_smart_card():
 		exit()
 	return	 
 
+def password_adm():
+    user_password = getpass.getpass("Saisir le mot de passe : ")
+
+    apdu = [0x80, 0x01, 0x00, 0x00]
+
+    length = len(user_password)
+    apdu.append(length)
+    # __print_apdu(apdu)
+
+    for e in user_password:
+        apdu.append(ord(e))
+
+    data, sw1, sw2 = transmit_apdu(apdu)
+
+    if sw1 == 0x90:
+        return True  # Mot de passe administrateur correct
+    elif sw1 == 0xA0:
+        print("Mot de passe non entré (code d'erreur personnalisé). \n")
+        return False
+    else:
+        print("Mot de passe administrateur incorrect. \n")
+        return False
+
 def __print_apdu(apdu):
         for x in apdu:
             print("0x%02X" % x, end=' ')
@@ -44,6 +68,18 @@ def transmit_apdu(apdu):
     except scardexcp.CardConnectionException as e:
         print("Error", e)
         return None, None, None
+
+def PINvalide():
+	global PIN
+	PIN = str(input("Saisir le code PIN : "))
+	apdu = [0x81, 0x01, 0x00, 0x00]
+	data, sw1, sw2 = conn_reader.transmit(apdu)
+	apdu.append(sw2)
+	data, sw1, sw2 = conn_reader.transmit(apdu)
+	global pinConsult
+	pinConsult = ""
+	for e in data:
+	    pinConsult += chr(e)	
 
 def generate_banner(text, font="standard"):
     f = Figlet(font=font)
@@ -122,6 +158,7 @@ def affiche_bonus():
 		print("Vous avez :", bonus_value , " bonus \n")
 
 def transfert_bonus():
+
 	apdu = [0x80, 0x04, 0x00, 0x00, 0x01]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
 	
@@ -174,21 +211,22 @@ def transfert_bonus():
 			solde_after_transfer = result_solde[0]
 			solde_after_transfer_STR = str(solde_after_transfer)
 
+			solde_after_transfer_STR = str(solde_after_transfer)  # Convertir le montant en chaîne
+
 			apdu = [0x80, 0x08, 0x00, 0x00]
 
 			length = len(solde_after_transfer_STR)
 			apdu.append(length)
 			__print_apdu(apdu)
 
+#			 Ajouter chaque caractère de la chaîne à l'APDU
 			for e in solde_after_transfer_STR:
 				apdu.append(ord(e))
-			print (apdu)
+
+			print(apdu)
 
 			transmit_apdu(apdu)
 
-
-		else: 
-			print ("Vous n'avez pas assez de bonus")
 
 	return
 
@@ -213,103 +251,124 @@ def consult_sold():
 		print("l'EEPROM est vide, veuillez initialisez le solde")
 
 def recharger_carte():
-	apdu = [0x80, 0x04, 0x00, 0x00, 0x01]
-	data, sw1, sw2 = conn_reader.transmit(apdu)
-	
-	print ("sw1 : 0x%02X | sw2 : 0x%02X" % (sw1,sw2))
 
-	apdu[4] = sw2
-	data, sw1, sw2 = conn_reader.transmit(apdu)
-	infos = ""
-	for e in data:
-		infos += chr(e)
-	num_etudiant = int(infos.split()[-1])
+    apdu = [0x80, 0x04, 0x00, 0x00, 0x01]
+    data, sw1, sw2 = conn_reader.transmit(apdu)
 
+    print("sw1 : 0x%02X | sw2 : 0x%02X" % (sw1, sw2))
 
-	apdu = [0x80, 0x07, 0x00, 0x00, 0x00]
-	data, sw1, sw2 = conn_reader.transmit(apdu)
-	print("sw1 : 0x%02X | taille demandée : sw2 : 0x%02X" % (sw1, sw2))
-    
-	apdu[4] = sw2
-	print ("l'APDU pour afficher les données de l'eeprom est :")
-	__print_apdu(apdu)
+    apdu[4] = sw2
+    data, sw1, sw2 = conn_reader.transmit(apdu)
+    infos = ""
+    for e in data:
+        infos += chr(e)
+    num_etudiant = int(infos.split()[-1])
 
-	if (sw2 != 0x00):
-		data, sw1, sw2 = conn_reader.transmit(apdu)
-		str_sold = ""
-		for e in data:
-			str_sold += chr(e)
-		print ("sw1 : 0x%02X | sw2 : 0x%02X | data : %s" % (sw1,sw2,str_sold))
-	else:
-		print("l'EEPROM est vide, veuillez initialisez le solde")
+    apdu = [0x80, 0x07, 0x00, 0x00, 0x00]
+    data, sw1, sw2 = conn_reader.transmit(apdu)
+    print("sw1 : 0x%02X | taille demandée : sw2 : 0x%02X" % (sw1, sw2))
 
-	str_sold = float(str_sold)
-	somme_recharge = float(input("De combien d'euros souhaitez vous recharger la carte ?"))
-	ajout_new_sold = somme_recharge + str_sold
-	ajout_new_sold = "{:.2f}".format(float(ajout_new_sold) + 0.00)
+    apdu[4] = sw2
+    print("l'APDU pour afficher les données de l'eeprom est :")
+    __print_apdu(apdu)
 
-	
+    if (sw2 != 0x00):
+        data, sw1, sw2 = conn_reader.transmit(apdu)
+        str_sold = ""
+        for e in data:
+            str_sold += chr(e)
+        print("sw1 : 0x%02X | sw2 : 0x%02X | data : %s" % (sw1, sw2, str_sold))
+    else:
+        print("l'EEPROM est vide, veuillez initialisez le solde")
 
-	apdu = [0x80, 0x08, 0x00, 0x00]
+    str_sold = float(str_sold)
 
-	length = len(ajout_new_sold)
-	apdu.append(length)
-	__print_apdu(apdu)
+    # Requête pour récupérer le solde actuel de la base de données
+    verif_solde_bdd = "SELECT etu_solde FROM Etudiant WHERE etu_num = %s;"
+    cursor = cnx.cursor()
+    cursor.execute(verif_solde_bdd, (num_etudiant,))
+    result_solde_bdd = cursor.fetchone()
+    solde_bdd = result_solde_bdd[0]
 
-	for e in ajout_new_sold:
-		apdu.append(ord(e))
-	print (apdu)
+    if solde_bdd == str_sold:
+        somme_recharge = float(input("De combien d'euros souhaitez-vous recharger la carte ?"))
+        ajout_new_sold = somme_recharge + str_sold
+        ajout_new_sold = "{:.2f}".format(float(ajout_new_sold) + 0.00)
 
-	transmit_apdu(apdu)
+        apdu = [0x80, 0x08, 0x00, 0x00]
 
-	check_query = "SELECT COUNT(*) FROM Etudiant WHERE etu_num = %s;"
-	check_val = (num_etudiant,)
+        length = len(ajout_new_sold)
+        apdu.append(length)
+        __print_apdu(apdu)
 
-	cursor = cnx.cursor()
-	cursor.execute(check_query, check_val)
-	result = cursor.fetchone()
+        for e in ajout_new_sold:
+            apdu.append(ord(e))
+        print(apdu)
 
-	if result[0] < 0:
-		print("Ce numéro d'étudiant n'existe pas allez voir l'agent administratif")
-	else: 
-		sql_ajout_solde = "UPDATE Etudiant SET etu_solde = etu_solde + %s WHERE etu_num = %s"
-		cursor.execute(sql_ajout_solde, (somme_recharge,num_etudiant))
-		cnx.commit()
+        transmit_apdu(apdu)
 
-		verif_solde = "SELECT etu_solde FROM Etudiant WHERE etu_num = %s;"
-		cursor.execute(verif_solde, (num_etudiant,))
-		result_solde = cursor.fetchone()
+        # Mettre à jour le solde dans la base de données
+        sql_ajout_solde = "UPDATE Etudiant SET etu_solde = etu_solde + %s WHERE etu_num = %s"
+        cursor.execute(sql_ajout_solde, (somme_recharge, num_etudiant))
+        cnx.commit()
 
-		solde_after_transfer = result_solde[0]
-		solde_after_transfer_STR = str(solde_after_transfer)
-	return
+        verif_solde_apres_recharge = "SELECT etu_solde FROM Etudiant WHERE etu_num = %s;"
+        cursor.execute(verif_solde_apres_recharge, (num_etudiant,))
+        result_solde = cursor.fetchone()
+
+        solde_after_recharge = result_solde[0]
+        solde_after_recharge_STR = str(solde_after_recharge)
+        print("Le solde après la recharge est :", solde_after_recharge_STR)
+    else:
+        # Si les soldes ne sont pas les mêmes, mettre à jour le solde de la carte avec celui de la base de données
+        apdu = [0x80, 0x08, 0x00, 0x00]
+
+        length = len(str(solde_bdd))
+        apdu.append(length)
+        __print_apdu(apdu)
+
+        for e in str(solde_bdd):
+            apdu.append(ord(e))
+        print(apdu)
+
+        transmit_apdu(apdu)
+
+        print("Le solde de la carte a été mis à jour avec le solde de la base de données.")
+
+    return
+
 
 def histo_transac():
 	pass
 
 def main():
 	init_smart_card()
-	while True:
-		print_menu()
-		cmd = int(input("Choix :"))
-		if (cmd == 1):
-			affiche_info()		
-		elif (cmd == 2):
-			affiche_bonus()
-		elif (cmd == 3):
-			transfert_bonus()
-		elif (cmd == 4):
-			consult_sold()
-		elif (cmd == 5):
-			recharger_carte()
-		elif (cmd == 6):
-			histo_transac()
-		elif (cmd == 7):
-			print("Au revoir !!")
-			return
-		else :
-			print ("erreur, saisissez une commande valide")
-			return
+	PINvalide()
+	if PIN == pinConsult:
+		while True:
+			print_menu()
+			cmd = int(input("Choix :"))
+			if (cmd == 1):
+				affiche_info()		
+			elif (cmd == 2):
+				affiche_bonus()
+			elif (cmd == 3):
+				transfert_bonus()
+			elif (cmd == 4):
+				consult_sold()
+			elif (cmd == 5):
+				recharger_carte()
+			elif (cmd == 6):
+				histo_transac()
+			elif (cmd == 7):
+				print("Au revoir !!")
+				return
+			else :
+				print ("erreur, saisissez une commande valide")
+				return
+	else:
+		print ("Code PIN incorrect")
+		return
 	print_menu()
 
 if __name__ == '__main__':
