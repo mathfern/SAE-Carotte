@@ -1,15 +1,23 @@
+# Liste des librairies importées
 import smartcard.System as scardsys
 import smartcard.util as scardutil
 import smartcard.Exceptions as scardexcp
 import mysql.connector
 from datetime import datetime
 from pyfiglet import Figlet
+import getpass
 
+# Connexion à la base de données
 cnx = mysql.connector.connect(user='root',
 password ='root',
 host='localhost',
 database= 'purpledragon1')
 
+
+# init_smart_card
+''' Fonction init_smart_card qui permet d'initialiser la connexion avec la carte à puce
+On vérifie si un lecteur de carte est connecté
+On vérifie si il y a une carte dans le lecteur '''
 def init_smart_card():
 	try:
 		liste_readerCard = scardsys.readers()
@@ -33,26 +41,45 @@ def init_smart_card():
 		exit()
 	return	 
 
+# transmit_apdu
+''' Fonction transmit_apdu qui permet d'envoyer l'APDU vers la mémoire flash de la carte
+Récupération des codes d'erreurs sw1 et sw2 '''
+def transmit_apdu(apdu):
+    try:
+        data, sw1, sw2 = conn_reader.transmit(apdu)
+        return data, sw1, sw2
+    except scardexcp.CardConnectionException as e:
+        print("Error", e)
+        return None, None, None
+
+# print_apdu
+''' Fonction print_apdu permet juste d'afficher les APDU sous forme d'hexadécimal
+de base, les APDU envoyés par python sont en décimal '''
 def __print_apdu(apdu):
         for x in apdu:
             print("0x%02X" % x, end=' ')
         print("\n")  
 
+# generate_banner
+''' Fonction generate_banner qui permet de générer une bannière stylisée
+à l'aide de la librairie pyfiglet '''
 def generate_banner(text, font="standard"):
     f = Figlet(font=font)
     banner = f.renderText(text)
     return banner
 
+# print_menu
+''' Fonction d'affichage du menu de l'appli '''
 def print_menu():
 	print ("1 - Afficher le solde")
-	print ("2 - Acheter un café à 0.20c")
-	print ("3 - Acheter un chocolat chaud à 0.20c")
-	print ("4 - Acheter un thé à 0.20c")
-	print ("5 - Quitter")
+	print ("2 - Acheter une boisson à 0.20c")
+	print ("3 - Quitter")
 
+# PINvalide
+''' Fonction PINvalide qui permet de demander à l'utilisateur de rentrer son code PIN '''
 def PINvalide():
 	global PIN
-	PIN = str(input("Saisir le code PIN : "))
+	PIN = str(getpass.getpass("Saisir le code PIN : "))
 	apdu = [0x81, 0x01, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
 	apdu.append(sw2)
@@ -63,7 +90,9 @@ def PINvalide():
 	    pinConsult += chr(e)	
 
 
-
+# consult_sold
+''' Fonction consult_sold qui permet de lire le solde de la carte 
+(à partir de l'APDU 0x80, 0x07 0x00, 0x00 qui appelle la fonction C lire_perso) '''
 def consult_sold():
 	apdu = [0x80, 0x07, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
@@ -81,22 +110,21 @@ def consult_sold():
 	print(str)
 	return str
 
+
+# debit_sold
+''' Fonction debit_sold qui permet à l'utilisateur de simuler l'achat d'une boisson
+soit un café, soit un thé, soit un chocolat à 0.20c et d'effectuer l'opération de 
+transaction qui débite la carte ET la BDD de 0.20c. 
+Cette fonction permet aussi de vérifier que le solde de la base de données est le
+même que celui de la carte sinon il prend le solde de la BDD (sécurité pour éviter que
+un utilisateur augmente le solde de sa carte tout seul avec l'APDU sans MDP 0x80, 0x04, 0x00, 0x00, 0x01 )'''
 def debit_sold():
 
-	date_actuelle = datetime.now()
-
-	libelle = "Cafe"
-
-	type_ope = "Dépense"
-
-	ope_montant = "-0.20"
-
-	ope_montant_float = -0.20
-
+	# envoi de l'APDU pour lire les informations Nom, Prenom et Num Etu de la carte
 	apdu = [0x80, 0x04, 0x00, 0x00, 0x01]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
-	
-	print ("sw1 : 0x%02X | sw2 : 0x%02X" % (sw1,sw2))
+
+	print("sw1 : 0x%02X | sw2 : 0x%02X" % (sw1, sw2))
 
 	apdu[4] = sw2
 	data, sw1, sw2 = conn_reader.transmit(apdu)
@@ -104,14 +132,24 @@ def debit_sold():
 	for e in data:
 		infos += chr(e)
 	num_etudiant = int(infos.split()[-1])
-	# print (type(num_etudiant))
-	# Vérifiez si le numéro d'étudiant existe déjà
+
+	# Définition des variables
+	date_actuelle = datetime.now()
+	libelle_cafe = "Cafe"
+	libelle_chocolat = "Chocolat"
+	libelle_the = "Thé"
+	type_ope = "Dépense"
+	ope_montant = "-0.20"
+	ope_montant_float = -0.20
+
+	# Vérifier si le numéro d'étudiant existe déjà
 	check_query = "SELECT COUNT(*) FROM Etudiant WHERE etu_num = %s;"
 	check_val = (num_etudiant,)
 	cursor = cnx.cursor()
 	cursor.execute(check_query, check_val)
 	result = cursor.fetchone()
 
+	# envoi de l'APDU pour récupérer le solde de la carte
 	apdu = [0x80, 0x07, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
 	apdu.append(sw2)
@@ -119,20 +157,34 @@ def debit_sold():
 	result_str = ""
 	for e in data:
 			result_str += chr(e)
+	result_str = float(result_str)  # Conversion en float
+	result_str = "{:.2f}".format(float(result_str) + 0.00) # Mise en forme de float avec deux 0 après la virgule
 	result_str = float(result_str)
-	result_str = "{:.2f}".format(float(result_str) + 0.00)
-	result_str = float(result_str)
-	print (result_str)
 
+
+
+	# Requête pour récupérer le solde actuel de la base de données
+	verif_solde_bdd = "SELECT etu_solde FROM Etudiant WHERE etu_num = %s;"
+	cursor = cnx.cursor()
+	cursor.execute(verif_solde_bdd, (num_etudiant,))
+	result_solde_bdd = cursor.fetchone()
+	solde_bdd = result_solde_bdd[0]
+
+	# Extraction du solde de l'étudiant depuis la base de données
 	sql = "SELECT etu_solde FROM Etudiant WHERE etu_num = %s;"
 	cursor.execute(sql, (num_etudiant,))
 	student_info = cursor.fetchone()
+	#Conversion en float et mise en forme .00
 	solde_value = float(student_info[0])
 	solde_value = "{:.2f}".format(float(solde_value) + 0.00)
 	solde_value2 = float(solde_value)
-	print(solde_value2)
 
+
+	# Si le solde de la BDD est égal au solde de la carte :
 	if (result_str == solde_value2):
+
+
+		choix_produit = int(input("Choix du produit (1: Café, 2: Chocolat, 3: Thé): "))
 
 
 		if (result_str < 0.20):
@@ -140,13 +192,19 @@ def debit_sold():
 		else:
 			result_str -= 0.20
 
+			if choix_produit == 1:
+				libelle_produit = libelle_cafe
+			elif choix_produit == 2:
+				libelle_produit = libelle_chocolat
+			elif choix_produit == 3:
+				libelle_produit = libelle_the
+
 			requete_operation = "UPDATE Etudiant SET etu_solde = %s WHERE etu_num = %s"
 			cursor.execute(requete_operation,(result_str,num_etudiant))
 
-
 			requete_cafe = "INSERT INTO Compte (etu_num, opr_date, opr_montant, opr_libelle, type_opeartion) VALUES (%s, %s, %s, %s, %s)"
 			cursor.execute(requete_operation,(result_str,num_etudiant))
-			var = (num_etudiant, date_actuelle, ope_montant_float, libelle, type_ope)
+			var = (num_etudiant, date_actuelle, ope_montant_float, libelle_produit, type_ope)
 			cursor.execute(requete_cafe,var)
 			cnx.commit()
 
@@ -169,10 +227,29 @@ def debit_sold():
 				print ("Error", e)
 				return
 	
+	else:
+		# Si les soldes ne sont pas les mêmes, mettre à jour le solde de la carte avec celui de la base de données
+		# envoi de l'APDU pour modifier le solde de la carte
+		apdu = [0x80, 0x08, 0x00, 0x00]
+
+		length = len(str(solde_bdd))
+		apdu.append(length)
+		__print_apdu(apdu)
+
+		for e in str(solde_bdd):
+		    apdu.append(ord(e))
+		print(apdu)
+
+		transmit_apdu(apdu)
+
+		print("Le solde de la carte a été mis à jour avec le solde de la base de données.")
+
+	return
 
 
 
-
+# main
+''' Appel des fonctions définies ci-dessus'''
 def main():
 	init_smart_card()
 	PINvalide()
@@ -185,10 +262,6 @@ def main():
 			elif (cmd == 2):
 				debit_sold()
 			elif (cmd == 3):
-				debit_sold()
-			elif (cmd == 4):
-				debit_sold()
-			elif (cmd == 5):
 				return
 			else:
 				print ("erreur, saisissez une commande valide")

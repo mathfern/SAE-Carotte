@@ -50,9 +50,19 @@ La carte à puce est un élément essentiel pour la vie quotidienne de millions 
 
 #### 2. Projet "La Carotte électronique" avec la carte Rubrovitamin
 
-Dans le cadre du projet confidentiel "La Carotte électronique", nous configurons une carte à puce nommée Rubrovitamin. L'objectif est d'accorder des crédits supplémentaires (1€) aux élèves méritants en mettant en place un système de porte-monnaie électronique basé sur des cartes à puce.
+Dans le cadre du projet confidentiel "La Carotte électronique", nous configurons une carte à puce. Avant de configurer les cartes à puces, il faut avant tout programmer ces cartes à l'aide d'un programmateur de carte. Dans notre cas, on utilise un programmateur de type : **????**. L'objectif du code Rubrovitamin est d'être implémenté dans la mémoire flash de chaque carte à puce lors de la programmation de la carte. 
 
-Les crédits peuvent être utilisés dans des distributeurs de boissons chaudes à un prix avantageux. Chaque crédit permet d'obtenir cinq boissons. Les étudiants récupèrent leurs cartes personnalisées au bureau administratif de l'IUT et peuvent faire des réclamations en cas de problème. Un bonus d'un crédit est automatiquement attribué aux étudiants pour les inciter à récupérer leurs cartes.
+Le contenu du code en C Rubrovitamin permet aux applications : Lubiana, Kuroda et Berlicum de fonctionner puisque ces trois applications s'appuient sur les fonctions associés aux classe et instructions qui forment les APDU (cf le tableau des classes et instructions dans le 3).
+
+Parmi les fonctions contenues dans Rubrovitamin, on peut retrouver : 
+
+- **Intro_perso** : qui permet d'introduire des données dans l'eeprom. Cette fonction est sécurisée par un mot de passe administrateur et pour chaque utilisation de cette fonction, le mot de passe sera demandée. Les types d'actions qui peuvent nécessiter l'appel de cette fonction sont : Ecrire nom, prenom, numéro étudiant, code PIN, PUK par exemple.
+- **Intro_perso_sans_mdp** : C'est la même fonction que intro_perso mais elle ne prend pas en compte la partie de sécurisation. La seule action qui nécessite l'appel de cette fonction est l'initialisation/modification du solde (utilisé par Lubiana, Berlicum et Kuroda).
+- **Engage et valide** : ces deux fonctions sont implémentées pour gérer les transactions. engage initialise une transaction avec des opérations spécifiées, et valide les exécute. Les données de la transaction sont stockées en EEPROM
+- **get_input_py** : Elle permet de récupérer le mot de passe entré par l'utilisateur sur Lubiana (avec l'input).
+- **compareByteArrays** : Cette fonction permet de comparer les deux tableau de caractères octet par octet pour vérifier si le mot de passe utilisateur est égal au mot de passe admin défini dans le code.
+- **main** : La fonction main permet de répartir les appels des fonctions citées ci-dessus dans différentes classes et instructions qui forment les APDU.   
+
 
 #### 3. Classes et instructions de Rubrovitamin
 
@@ -147,8 +157,167 @@ Lubiana sera développé en utilisant Python 3.11. Les librairies utilisées par
 - pyfiglet
 - getpass
 
+### Purple Dragon (Base de données)
 
-## V. Features ajoutées pour chaques applications
+#### Concept de base de donnée carte à puce : 
+
+Une base de données (purple dragon) implémenter en mysql pour les cartes à puce est une base de données utilisée pour stocker des informations liées aux cartes à puce :
+
+- Les données des étudiants comme le numéro d’étudiant et contient uniquement les informations essentielles, à savoir le nom, le prénom, le solde et les bonus. 
+
+- Les données du compte qui  représente les opérations effectuées par les utilisateurs, elle est identifiée par la date de l’opération, et contient deux autres 
+  champs, le montant de l’opération et sa description. Étant donné que plusieurs utilisateurs peuvent effectuer simultanément différentes opérations, nous avons 
+  choisi d'associer le numéro d'étudiant à la clé primaire en utilisant une relation relative (R). Le montant de l'opération peut être positif en cas de bonus ou 
+  de crédit, ou négatif en cas de débit.
+
+- Les données du type de l’opération qui permet de catégoriser les types d'opérations : Bonus, Bonus transféré, Crédit et Débit.
+
+
+Le schémas relationnel (MCD) proposé est donné ci-après : 
+
+![image](https://github.com/mathfern/SAE-Carotte/assets/150126517/3a7f34bb-3c22-4650-a28d-bbfdfdd74d67)
+
+Cette base de données devra être accessible par le logiciel de gestion Rodelika afin de permettre à l’agent administratif de gérer le suivi des cartes, des bonus, des débit etc. L’étudiant a chaque fois qu’il va insérer sa carte à puces les données de la carte à puces seront stockées dans la base de données.
+
+#### Idées implémenter :
+
+- On a rajouter une table admin avec les colonnes admin_id, user et mot de passe en crypté MD5 dans la base de données pour permettre d'avoir une authentification sur la version web de Rodelika, comme sa il n'y a que l'administrateur qui puisse se connecter.
+
+- Et on a rajouter aussi les colonnes etu_solde, etu_bonus dans la table étudiant pour permettre d'y stocker les bonus et le solde pour chaque étudiant voulu.
+  
+#### Programmation
+
+La base de données Purpledragon sera développée en sql. 
+
+#### Vulnérabilités et solutions :
+
+Les bases de données MySQL sont sujettes à plusieurs vulnérabilités potentielles qui peuvent mettre en danger la sécurité de vos données. Voici quelques-unes des vulnérabilités courantes et des mesures pour y remédier :
+
+1. **Injection SQL :** Les attaques par injection SQL sont l'une des vulnérabilités les plus courantes. Les attaquants insèrent du code SQL malveillant dans les requêtes pour accéder, modifier ou supprimer des données. Pour y remédier :
+   - Utilisez des requêtes préparées ou des procédures stockées pour éviter l'injection SQL.
+   - Assurez-vous de filtrer et de valider toutes les données utilisateur avant de les utiliser dans des requêtes SQL.
+
+2. **Authentification faible :** Une authentification faible, des mots de passe faibles ou l'utilisation de comptes par défaut peuvent faciliter l'accès non autorisé à la base de données. Pour y remédier :
+   - Utilisez des mots de passe forts et encouragez une politique de gestion des mots de passe.
+   - Limitez l'accès en fonction des principes du moindre privilège, en n'accordant que les autorisations nécessaires à chaque utilisateur.
+
+### Logiciel de gestion (Rodelika)
+
+#### Concept de gestion de l’administration :
+Le logiciel de gestion (Rodelika) va permettre de gérer le suivi des cartes, des bonus, des débits. Dans notre cas, l’application permettra de rentrer en communication avec la base de données PurpleDragon ou on aura accès aux informations suivante :
+
+- Liste des étudiants
+- Solde des étudiants
+- Saisir un nouvel étudiant
+- Attribuer un bonus à un étudiant
+- Supprimer un étudiant 
+
+Le logiciel de gestion va permettre plusieurs actions :
+
+- L’option 1 "liste des étudiants" nommée dans le code "get_list_student" permettra d’afficher la liste de l’ensemble des étudiants possédant une carte.
+
+- L’option 2 "solde des étudiants" nommée dans le code "get_list_student_with_sold" permettra d’afficher le solde total de chaque étudiant.
+
+- L’option 3 "saisir un nouvel étudiant" nommée dans le code "new_student" permettra d’attribuer une nouvelle carte à un étudiant. Elle ne permet pas la personnalisation de la carte. Elle se fait via le logiciel Lubiana.
+
+- L’option 4 "attribuer un bonus à un étudiant" nommée dans le code "add_bonus" permettra à l’agent administratif lorsqu’il reçoit un email d’un enseignant d’attribuer un bonus. Le mail doit contenir le numéro de l’étudiant. Dans le cas contraire, l’agent administratif doit effectuer une recherche par nom et prénom avec l’option 1.
+
+#### Fonction implémenter :
+
+- L'option 5 "supprimer un étudiant" nommée dans le code "suppr_etudiant" permettra à l'agent administratif de supprimer un étudiant de la base de données.
+
+#### Répartition classes et instructions :
+
+La classe utilisée par Rodelika sera la classe 0x81, 0x82 et 0x83 de l’APU du projet (cf partie Carte à Puces)
+
+Chaque opération réalisable par le logiciel sera associée à une instruction :
+
+- Instruction pour l’affichage liste étudiante : 0x01 classe 0x81
+- Instruction pour l’affichage solde étudiant : 0x01 classe 0x81
+- Instruction pour l’attribution d’une nouvelle carte : 0x01 classe 0x81
+- Instruction pour l’attribution d’un bonus : 0x02 classe 0x83
+- Instruction pour la supression d'un étudiant : 0x04 classe 0x81
+
+#### Programmation :
+
+L’application Rodelika sera développée avec Python. En connexion avec la base de données PurpleDragon. Pour communiquer avec la base de données MySql nous allons installer les librairies Python suivantes :
+
+- mysql-connector
+- tabulate
+- pyfiglet
+
+### Application web de gestion (RodelikaWeb)
+
+L’application web de gestion donne la possibilité à l’agent administratif d’avoir une interface graphique qui permet l’utilisation plus interactive du logiciel de gestion Rodelika.
+
+Ce site sera codé en HTML/CSS, PHP et javascript et fera appel à la base de données PurpleDragon ainsi qu'à l'application Rodelika.
+
+
+#### Fonctionnalités implémenter
+
+On a ajouter une interface graphique pour chaque fonction pour l'agent administratif afin qu'ils puissent effectuer les manipulations plus facilement et interactive :
+
+- liste des étudiants :
+
+image a jouter 
+
+- liste des étudiants avec le solde et bonus:
+
+- ajouter un nouvel étudiant : 
+
+- attribuer un bonus :  
+
+- supprimer un étudiant :
+
+- interface de connexion pour l’agent administratif pour sécuriser l’ajout de soldes dans la bdd :
+
+
+
+### Borne a recharge (Berlicum) : 
+
+- La partie "Borne de Recharge (Berlicum)" se concentre sur le développement du logiciel embarqué pour une borne de recharge utilisée par des étudiants. Le but principal de cette borne est de permettre aux étudiants d'accéder à diverses fonctionnalités liées à leurs cartes à puce. Voici un aperçu des opérations principales que les étudiants peuvent effectuer à l'aide de cette borne :
+
+- Afficher les Informations Personnelles nommée dans le code "affiche_info": Cette fonctionnalité permet aux étudiants d'afficher les informations personnelles stockées sur leur carte à puce. Cette fonction dans le code s'appelle "
+
+- Consulter les Bonus nommée dans le code "affiche_bonus" : Les étudiants peuvent consulter les bonus qui leur ont été attribués, mais qui n'ont pas encore été transférés sur leur carte. Les informations sur ces bonus sont extraites de la base de données, et la colonne "type_operation" dans la table "compte" indique "Bonus" pour les bonus non transférés.
+
+- Transférer les Bonus nommée dans le code "transfert_bonus": Les étudiants peuvent utiliser la borne pour transférer les bonus disponibles sur leur carte. Une fois que les bonus ont été transférés, la colonne "type_operation" dans la table "compte" est mise à jour pour indiquer "Bonus transféré". Il est essentiel que ces transactions respectent les propriétés ACID (Atomicité, Cohérence, Isolation et Durabilité) pour garantir l'intégrité des données.
+
+- Consulter le crédit disponible nommée dans le code "consult_sold" : Les étudiants peuvent vérifier le solde disponible sur leur carte à puce, ce qui leur permet de suivre leurs ressources.
+
+- Recharger le Crédit avec une Carte Bancaire nommée dans le code "recharger_carte" : Lorsqu'un étudiant a épuisé ses bonus, il a la possibilité de recharger son crédit à l'aide d'une carte bancaire. Il est important de noter que le processus de recharge avec une carte bancaire est fictif dans le cadre de ce projet, et la borne simule simplement une transaction réussie.
+
+- Le développement du logiciel embarqué pour la borne de recharge (Berlicum) est essentiel pour offrir aux étudiants un accès facile à leurs informations, à leurs bonus et à leur crédit. Ce système contribue à la gestion efficace des ressources des étudiants, en garantissant l'intégrité des transactions et en facilitant la recharge en cas de besoin.
+
+
+#### Fonctions implémenter : 
+
+- La fonction "code pin" nommée dans le code "PINvalide" a été implémenter dans ce code pour permettre une meilleure sécurisation sur la carte à puce. Donc a chaque fois qu'un étudiant insert sa carte à puce dans la borne de recharge il devra mettre son code pin qui est défini au moment de la création de sa carte à puce.
+
+- La fonction "Afficher l'historique des transactions" nommée dans le code "" offre aux étudiants la possibilité de consulter un historique détaillé de toutes les transactions effectuées avec leur carte à puce. Cet historique est stocké dans une table "compte" de la base de données et peut être consulté à partir de la borne de recharge (Berlicum). Voici une description de cette fonctionnalité :
+
+- Afficher l'historique des transactions : Les étudiants peuvent accéder à un récapitulatif de toutes les transactions effectuées avec leur carte à puce. Chaque transaction est enregistrée dans la base de données avec des détails tels que la date, l'heure, le type de transaction (retrait, bonus, recharge, etc.), le montant impliqué, et d'autres informations pertinentes. L'affichage de cet historique se fait de manière claire et organisée, permettant aux étudiants de comprendre facilement leur utilisation de la carte.
+
+#### Répartition classes et instructions :
+
+La classe utilisée par berlicum sera la classe 0x81, 0x82 et 0x83 de l’API du projet (cf partie Carte à Puces). 
+
+Chaque opération réalisable par le logiciel sera associée à une instruction de la classe 0x81, 0x82 et 0x83 : . 
+
+- Instruction pour l’*affichage des informations personnelles* : 0x02 et classe 0x81 
+- Instruction pour l’*affichage des bonus sur la carte* : 0x01 et classe 0x83
+- Instruction pour l’*attribution des bonus sur la carte* : 0x02 et classe 0x83
+- Instruction pour l’*affichage des crédits disponibles sur la carte* : 0x01 et classe 0x82
+- Instruction pour l’*attribution d’argent sur la carte* : 0x02 et classe 0x82
+- Instruction pour l'affichage de l'historique de transaction* : 0x03 et classe 0x83
+
+#### Programmation : 
+
+Berlicum sera développé en utilisant Python 3.11. Les librairies utilisées par Berlicum sont : 
+- pyscard
+- mysql-connector
+- pyfiglet
+- getpass
 
 
 
