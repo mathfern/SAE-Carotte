@@ -33,28 +33,6 @@ def init_smart_card():
 		exit()
 	return	 
 
-def password_adm():
-    user_password = getpass.getpass("Saisir le mot de passe : ")
-
-    apdu = [0x80, 0x01, 0x00, 0x00]
-
-    length = len(user_password)
-    apdu.append(length)
-    # __print_apdu(apdu)
-
-    for e in user_password:
-        apdu.append(ord(e))
-
-    data, sw1, sw2 = transmit_apdu(apdu)
-
-    if sw1 == 0x90:
-        return True  # Mot de passe administrateur correct
-    elif sw1 == 0xA0:
-        print("Mot de passe non entré (code d'erreur personnalisé). \n")
-        return False
-    else:
-        print("Mot de passe administrateur incorrect. \n")
-        return False
 
 def __print_apdu(apdu):
         for x in apdu:
@@ -71,7 +49,7 @@ def transmit_apdu(apdu):
 
 def PINvalide():
 	global PIN
-	PIN = str(input("Saisir le code PIN : "))
+	PIN = str(getpass.getpass("Saisir le code PIN : "))
 	apdu = [0x81, 0x01, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
 	apdu.append(sw2)
