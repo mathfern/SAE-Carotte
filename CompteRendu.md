@@ -159,7 +159,7 @@ Lubiana sera développé en utilisant Python 3.11. Les librairies utilisées par
 
 ### Logiciel de gestion (Rodelika)
 
-#### Concept de gestion de l’administration
+#### Concept de gestion de l’administration :
 Le logiciel de gestion (Rodelika) va permettre de gérer le suivi des cartes, des bonus, des débits. Dans notre cas, l’application permettra de rentrer en communication avec la base de données PurpleDragon ou on aura accès aux informations suivante :
 
 - Liste des étudiants
@@ -178,11 +178,11 @@ Le logiciel de gestion va permettre plusieurs actions :
 
 - L’option 4 "attribuer un bonus à un étudiant" nommée dans le code "add_bonus" permettra à l’agent administratif lorsqu’il reçoit un email d’un enseignant d’attribuer un bonus. Le mail doit contenir le numéro de l’étudiant. Dans le cas contraire, l’agent administratif doit effectuer une recherche par nom et prénom avec l’option 1.
 
-#### Fonction implémenter
+#### Fonction implémenter :
 
 - L'option 5 "supprimer un étudiant" nommée dans le code "suppr_etudiant" permettra à l'agent administratif de supprimer un étudiant de la base de données.
 
-#### Répartition classes et instructions
+#### Répartition classes et instructions :
 
 La classe utilisée par Rodelika sera la classe 0x81, 0x82 et 0x83 de l’APU du projet (cf partie Carte à Puces)
 
@@ -194,7 +194,7 @@ Chaque opération réalisable par le logiciel sera associée à une instruction 
 - Instruction pour l’attribution d’un bonus : 0x02 classe 0x83
 - Instruction pour la supression d'un étudiant : 0x04 classe 0x81
 
-#### Programmation
+#### Programmation :
 
 L’application Rodelika sera développée avec Python. En connexion avec la base de données PurpleDragon. Pour communiquer avec la base de données MySql nous allons installer les librairies Python suivantes :
 
@@ -227,7 +227,7 @@ L’application Rodelika sera développée avec Python. En connexion avec la bas
 
 - Afficher l'historique des transactions : Les étudiants peuvent accéder à un récapitulatif de toutes les transactions effectuées avec leur carte à puce. Chaque transaction est enregistrée dans la base de données avec des détails tels que la date, l'heure, le type de transaction (retrait, bonus, recharge, etc.), le montant impliqué, et d'autres informations pertinentes. L'affichage de cet historique se fait de manière claire et organisée, permettant aux étudiants de comprendre facilement leur utilisation de la carte.
 
-#### Répartition classes et instructions
+#### Répartition classes et instructions :
 
 La classe utilisée par berlicum sera la classe 0x81, 0x82 et 0x83 de l’API du projet (cf partie Carte à Puces). 
 
@@ -247,9 +247,6 @@ Berlicum sera développé en utilisant Python 3.11. Les librairies utilisées pa
 - mysql-connector
 - pyfiglet
 - getpass
-
-
-
 
 
 
