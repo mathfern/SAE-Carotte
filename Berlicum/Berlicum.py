@@ -3,6 +3,7 @@ import smartcard.util as scardutil
 import smartcard.Exceptions as scardexcp
 import mysql.connector
 from pyfiglet import Figlet
+from tabulate import tabulate
 import getpass
 
 cnx = mysql.connector.connect(user='root',
@@ -315,9 +316,43 @@ def recharger_carte():
 
     return
 
-
 def histo_transac():
-	pass
+    apdu = [0x80, 0x04, 0x00, 0x00, 0x01]
+    data, sw1, sw2 = conn_reader.transmit(apdu)
+
+    print("sw1 : 0x%02X | sw2 : 0x%02X" % (sw1, sw2))
+
+    apdu[4] = sw2
+    data, sw1, sw2 = conn_reader.transmit(apdu)
+    infos = ""
+    for e in data:
+        infos += chr(e)
+    num_etudiant = int(infos.split()[-1])
+
+    # Vérifiez si le numéro d'étudiant existe déjà
+    check_query = "SELECT COUNT(*) FROM Etudiant WHERE etu_num = %s;"
+    check_val = (num_etudiant,)
+
+    cursor = cnx.cursor()
+    cursor.execute(check_query, check_val)
+    result = cursor.fetchone()
+
+    if result[0] < 0:
+        print("Ce numéro d'étudiant n'existe pas allez voir l'agent administratif")
+    else:
+        sql = "SELECT etu_num, opr_date, opr_montant, opr_libelle, type_opeartion FROM Compte WHERE etu_num = %s;"
+        cursor.execute(sql, (num_etudiant,))
+        histo_transac = cursor.fetchall()
+
+        if histo_transac:
+            headers = ["Numéro Étudiant", "Date", "Montant", "Libellé", "Type Opération"]
+            print("Historique de transactions:")
+            print(tabulate(histo_transac, headers=headers, tablefmt="grid"))
+        else:
+            print("Aucune transaction trouvée pour cet étudiant.")
+
+    return
+
 
 def main():
 	init_smart_card()
