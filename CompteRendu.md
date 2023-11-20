@@ -181,7 +181,7 @@ Cette base de données devra être accessible par le logiciel de gestion Rodelik
 
 #### Idées implémenter :
 
-- On a rajouter une table admin avec les colonnes admin_id, user et mot de passe en crypté MD5 dans la base de données pour permettre d'avoir une authentification sur la version web de Rodelika, comme sa il n'y a que l'administrateur qui puisse se connecter.
+- On a rajouter une table admin avec les colonnes admin_id, user et mot de passe en hash MD5 dans la base de données pour permettre d'avoir une authentification sur la version web de Rodelika, comme sa il n'y a que l'administrateur qui puisse se connecter.
 
 - Et on a rajouter aussi les colonnes etu_solde, etu_bonus dans la table étudiant pour permettre d'y stocker les bonus et le solde pour chaque étudiant voulu.
   
