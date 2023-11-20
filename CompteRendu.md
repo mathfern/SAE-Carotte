@@ -44,6 +44,39 @@ Pour inciter les étudiants à venir récupérer leurs cartes, on leur attribue 
 ### Application en C pour carte à puce (Rubrovitamin)
 
 
+#### 1. Qu'est-ce qu'une carte à puce ?
+
+La carte à puce est un élément essentiel pour la vie quotidienne de millions de personnes, présente dans divers contextes tels que les cartes bancaires, les cartes d'identité et les cartes vitales. Elle stocke des données de manière sécurisée pour les protéger contre toute modification indésirable.
+
+#### 2. Projet "La Carotte électronique" avec la carte Rubrovitamin
+
+Dans le cadre du projet confidentiel "La Carotte électronique", nous configurons une carte à puce nommée Rubrovitamin. L'objectif est d'accorder des crédits supplémentaires (1€) aux élèves méritants en mettant en place un système de porte-monnaie électronique basé sur des cartes à puce.
+
+Les crédits peuvent être utilisés dans des distributeurs de boissons chaudes à un prix avantageux. Chaque crédit permet d'obtenir cinq boissons. Les étudiants récupèrent leurs cartes personnalisées au bureau administratif de l'IUT et peuvent faire des réclamations en cas de problème. Un bonus d'un crédit est automatiquement attribué aux étudiants pour les inciter à récupérer leurs cartes.
+
+#### 3. Classes et instructions de Rubrovitamin
+
+Voici un tableau résumant les classes et instructions implémentées dans la carte à puce Rubrovitamin :
+
+| Classe | Instruction | Description |
+| ------ | ----------- | ----------- |
+| 0x80   | 0x00        | Consulter la version de l'application |
+| 0x80   | 0x01        | Entrer les données d'un étudiant |
+| 0x80   | 0x02        | Consulter les étudiants ayant une carte à puce |
+| 0x82   | 0x01        | Lire le solde de la carte |
+| 0x82   | 0x02        | Ajouter un solde de 1.00€ |
+| 0x82   | 0x03        | Acheter une boisson à 20cts |
+
+#### 4. Nouvelles fonctionnalités pour Rubrovitamin
+
+Nous avons ajouté une classe supplémentaire, 0x83, pour gérer les bonus. Les fonctionnalités incluent la lecture du solde de bonus, l'ajout d'un bonus à un étudiant par l'agent administratif, et le transfert des bonus obtenus sur la carte.
+
+De plus, nous avons modifié l'instruction 0x02 de la classe 0x82 pour permettre aux étudiants de choisir la somme qu'ils veulent ajouter à leur carte à partir de leur carte bancaire, en utilisant le paramètre P1.
+
+#### 5. Vulnérabilités
+
+La principale vulnérabilité concerne la perte ou le vol physique de la carte. En cas de problème, les étudiants peuvent contacter l'agent administratif pour bloquer les transactions depuis la carte.
+
 
 ### Personnalisation (Lubiana)
 
