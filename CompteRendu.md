@@ -246,6 +246,33 @@ L’application Rodelika sera développée avec Python. En connexion avec la bas
 - tabulate
 - pyfiglet
 
+### Application web de gestion (RodelikaWeb)
+
+L’application web de gestion donne la possibilité à l’agent administratif d’avoir une interface graphique qui permet l’utilisation plus interactive du logiciel de gestion Rodelika.
+
+Ce site sera codé en HTML/CSS, PHP et javascript et fera appel à la base de données PurpleDragon ainsi qu'à l'application Rodelika.
+
+
+#### Fonctionnalités implémenter
+
+On a ajouter une interface graphique pour chaque fonction pour l'agent administratif afin qu'ils puissent effectuer les manipulations plus facilement et interactive :
+
+- liste des étudiants :
+
+image a jouter 
+
+- liste des étudiants avec le solde et bonus:
+
+- ajouter un nouvel étudiant : 
+
+- attribuer un bonus :  
+
+- supprimer un étudiant :
+
+- interface de connexion pour l’agent administratif pour sécuriser l’ajout de soldes dans la bdd :
+
+
+
 ### Borne a recharge (Berlicum) : 
 
 - La partie "Borne de Recharge (Berlicum)" se concentre sur le développement du logiciel embarqué pour une borne de recharge utilisée par des étudiants. Le but principal de cette borne est de permettre aux étudiants d'accéder à diverses fonctionnalités liées à leurs cartes à puce. Voici un aperçu des opérations principales que les étudiants peuvent effectuer à l'aide de cette borne :
