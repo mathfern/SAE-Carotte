@@ -37,6 +37,7 @@ Pour inciter les étudiants à venir récupérer leurs cartes, on leur attribue 
 ### 3 - Mise en place du GitHub
 
 ### 4 - Gestion du Projet avec Jira
+#### Présentation de Jira
 
 
 ## IV. Phase de Conception Initiale
