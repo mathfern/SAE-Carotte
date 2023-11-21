@@ -82,7 +82,6 @@ La composition technique d'une carte à puce est la suivante :
 Pour ce projet, le type de puce utilisé est une **ATMega328**. C'est un microcontrôleur 8 bits basé sur l'architecture Harvard. C'est un type de processeur qui sépare physiquement la mémoire de données et la mémoire programme. L’accès à chacune des deux mémoires s’effectue via deux bus distincts ce qui représente une amélioration des performances comparé à certaines technologies à un bus commun pour programme et données comme l'architecture Von Neumann par exemple. 
 
 Pour en revenir au fonctionnement techniques des cartes utilisées pour le projet, voici un schéma qui détaille l'architecture utilisée par celles-ci : 
-
  ![schema_smartcard](https://github.com/mathfern/SAE-Carotte/assets/134608345/8d98304a-ad0b-4f05-939a-6808c7d36c3d)
 
 
