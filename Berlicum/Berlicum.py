@@ -5,7 +5,7 @@ import mysql.connector
 from pyfiglet import Figlet
 from tabulate import tabulate
 import getpass
-
+#bonjour
 cnx = mysql.connector.connect(user='root',
 password ='root',
 host='localhost',
