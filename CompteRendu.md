@@ -75,7 +75,27 @@ La composition technique d'une carte à puce est la suivante :
 - **Microprocesseur** qui est en quelques sorte le cerveau de la carte, c'est lui qui traite les données et exécute les instructions.
 - **Mémoire Flash** qui est utilisée pour stocker les données non volatiles (ce qui signifie que ce sont les données qui restent présentent sur la carte même lorsqu'elle n'est pas alimentée). Elle est utilisée pour stocker des informations comme la version de la carte et le code contenant les fonctions, classes et instructions associées qui forment les APDUs. 
 - **RAM (Random Access Memory)** qui est une mémoire volatile utilisée pour le stockage temporaire pendant l'exécution des programmes. Elle permet en règle générale de traiter des opérations plus rapidemment que les autres types de mémoires et est de ce fait utilisée pour des opérations temporaires et de traitement en cours.
-- **EEPROM (Electrically Erasable Programmable Read-Only Memory)** est une mémoire non volatile également, elle stocke les données de manière permanente. Cette mémoire est flexible puisque comme son nom l'indique, c'est une mémoire qui peut être effacée, programmée et lue. Cette mémoire permet de stocker des informations et données sensibles de manière sécurisée. 
+- **EEPROM (Electrically Erasable Programmable Read-Only Memory)** est une mémoire non volatile également, elle stocke les données de manière permanente. Cette mémoire est flexible puisque comme son nom l'indique, c'est une mémoire qui peut être effacée, programmée et lue. Cette mémoire permet de stocker des informations et données sensibles de manière sécurisée.
+
+##### Détails sur le type de cartes à puces utilisées pour le projet
+
+Pour ce projet, le type de puce utilisé est une **ATMega328**. C'est un microcontrôleur 8 bits basé sur l'architecture Harvard. C'est un type de processeur qui sépare physiquement la mémoire de données et la mémoire programme. L’accès à chacune des deux mémoires s’effectue via deux bus distincts ce qui représente une amélioration des performances comparé à certaines technologies à un bus commun pour programme et données comme l'architecture Von Neumann par exemple. 
+
+Pour en revenir au fonctionnement techniques des cartes utilisées pour le projet, voici un schéma qui détaille l'architecture utilisée par celles-ci : 
+
+ ![schema_smartcard](https://github.com/mathfern/SAE-Carotte/assets/134608345/8d98304a-ad0b-4f05-939a-6808c7d36c3d)
+
+
+##### Normes utilisées
+
+La norme que nous allons utiliser est la norme ISO 7816 et plus particulièrement la norme ISO 7816-4 qui définie les commandes de base de la carte permettant ainsi de comprendre le dialogue entre une carte et un lecteur. En effet, cette partie de la norme ISO 7816 traite et définie précisément de l'organisation, la sécurité et des commandes. Elle définit entre autre les messages APDU (Application Protocol Data Units), par lesquels les cartes à puce communiquent avec le lecteur.
+
+https://www.iso.org/fr/standard/77180.html
+
+
+##### Phase de communications entre la carte et le lecteur
+
+
 
 #### 2. Projet "La Carotte électronique" avec la carte Rubrovitamin
 
