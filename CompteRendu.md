@@ -83,7 +83,7 @@ Pour ce projet, le type de puce utilisé est une **ATMega328**. C'est un microco
 
 Pour en revenir au fonctionnement techniques des cartes utilisées pour le projet, voici un schéma qui détaille l'architecture utilisée par celles-ci : 
 
- ![schema_smartcard](https://github.com/mathfern/SAE-Carotte/assets/134608345/8d98304a-ad0b-4f05-939a-6808c7d36c3d =250x)
+ ![schema_smartcard](https://github.com/mathfern/SAE-Carotte/assets/134608345/8d98304a-ad0b-4f05-939a-6808c7d36c3d)
 
 
 ##### Normes utilisées
