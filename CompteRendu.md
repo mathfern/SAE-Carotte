@@ -84,14 +84,19 @@ Voici un tableau résumant les classes et instructions implémentées dans la ca
 
 #### 4. Nouvelles fonctionnalités pour Rubrovitamin
 
-Nous avons ajouté une classe supplémentaire, 0x83, pour gérer les bonus. Les fonctionnalités incluent la lecture du solde de bonus, l'ajout d'un bonus à un étudiant par l'agent administratif, et le transfert des bonus obtenus sur la carte.
+De base, Rubrovitamin est le logiciel qui prend en compte la lecture de la version, l'ecriture des données dans la carte, la lecture des données dans la carte, l'ecriture du solde dans la carte et la lecture. 
 
-De plus, nous avons modifié l'instruction 0x02 de la classe 0x82 pour permettre aux étudiants de choisir la somme qu'ils veulent ajouter à leur carte à partir de leur carte bancaire, en utilisant le paramètre P1.
+De notre propre initiative et pour rendre le logiciel plus complet et ergonomique, nous avons décidé de rajouter les fonctionnalités d'ajout et de lecture de codes PIN et PUK, la réinitialisation de la carte, la sécurisation de l'accès à l'ecriture sur l'EEPROM.
 
 #### 5. Vulnérabilités
 
-La principale vulnérabilité concerne la perte ou le vol physique de la carte. En cas de problème, les étudiants peuvent contacter l'agent administratif pour bloquer les transactions depuis la carte.
+Il y a deux principaux types de vulnérabilités possibles liées aux cartes à puces directement : 
 
+##### Vulnérabilité physique (matérielle)
+La perte ou le vol physique de la carte peuvent être considérés comme une vulnérabilité. En cas de problème, les étudiants peuvent contacter l'agent administratif qui devrait être en mesure de bloquer les transactions depuis la carte pour cela, il suffit que l'utilisateur soit bloqué sur la base de données.
+
+##### Vulnérabilité logicielle (Rubrovitamin)
+Si les APDU ne sont pas sécurisées,
 
 ### Personnalisation (Lubiana)
 
