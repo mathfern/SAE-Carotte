@@ -1,3 +1,4 @@
+# Liste des librairies importées
 import smartcard.System as scardsys
 import smartcard.util as scardutil
 import smartcard.Exceptions as scardexcp
@@ -5,11 +6,18 @@ import mysql.connector
 from pyfiglet import Figlet
 from tabulate import tabulate
 import getpass
-#bonjour
+
+# Connexion à la base de données
 cnx = mysql.connector.connect(user='root',
 password ='root',
 host='localhost',
 database= 'purpledragon1')
+
+
+# init_smart_card
+''' Fonction init_smart_card qui permet d'initialiser la connexion avec la carte à puce
+On vérifie si un lecteur de carte est connecté
+On vérifie si il y a une carte dans le lecteur '''
 def init_smart_card():
 	try:
 		liste_readerCard = scardsys.readers()
@@ -31,10 +39,20 @@ def init_smart_card():
 		print ("Pas de carte dans le lecteur :", e)
 		exit()
 	return	 
+
+
+# print_apdu
+''' Fonction print_apdu permet juste d'afficher les APDU sous forme d'hexadécimal
+de base, les APDU envoyés par python sont en décimal '''
 def __print_apdu(apdu):
         for x in apdu:
             print("0x%02X" % x, end=' ')
         print("\n")  
+
+
+# transmit_apdu
+''' Fonction transmit_apdu qui permet d'envoyer l'APDU vers la mémoire flash de la carte
+Récupération des codes d'erreurs sw1 et sw2 '''
 def transmit_apdu(apdu):
     try:
         data, sw1, sw2 = conn_reader.transmit(apdu)
@@ -42,6 +60,8 @@ def transmit_apdu(apdu):
     except scardexcp.CardConnectionException as e:
         print("Error", e)
         return None, None, None
+
+
 def PINvalide():
 	global PIN
 	PIN = str(getpass.getpass("Saisir le code PIN : "))
@@ -53,10 +73,19 @@ def PINvalide():
 	pinConsult = ""
 	for e in data:
 	    pinConsult += chr(e)	
+
+
+# generate_banner
+''' Fonction generate_banner qui permet de générer une bannière stylisée
+à l'aide de la librairie pyfiglet '''
 def generate_banner(text, font="standard"):
     f = Figlet(font=font)
     banner = f.renderText(text)
     return banner
+
+
+# print_menu
+''' Fonction d'affichage du menu de l'appli '''
 def print_menu():
 	print ("1 - Afficher mes informations")
 	print ("2 - Consulter mes bonus ")
@@ -65,6 +94,8 @@ def print_menu():
 	print ("5 - Recharger par carte bancaire")
 	print ("6 - Afficher l'historique des transactions")
 	print ("7 - Quitter")
+
+
 def affiche_info():
 	apdu = [0x80, 0x04, 0x00, 0x00, 0x01]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
@@ -91,6 +122,8 @@ def affiche_info():
 		student_info = cursor.fetchone()
 		print("Informations sur l'étudiant :", student_info)
 	return
+
+
 def affiche_bonus():
 	apdu = [0x80, 0x04, 0x00, 0x00, 0x01]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
@@ -118,6 +151,8 @@ def affiche_bonus():
 		bonus_value = float(student_info[0])
 		bonus_value = "{:.2f}".format(float(bonus_value) + 0.00)
 		print("Vous avez :", bonus_value , " bonus \n")
+
+
 def transfert_bonus():
 	apdu = [0x80, 0x04, 0x00, 0x00, 0x01]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
@@ -174,6 +209,8 @@ def transfert_bonus():
 			print(apdu)
 			transmit_apdu(apdu)
 	return
+
+
 def consult_sold():
 	apdu = [0x80, 0x07, 0x00, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
@@ -192,6 +229,8 @@ def consult_sold():
 		return
 	else:
 		print("l'EEPROM est vide, veuillez initialisez le solde")
+
+
 def recharger_carte():
     apdu = [0x80, 0x04, 0x00, 0x00, 0x01]
     data, sw1, sw2 = conn_reader.transmit(apdu)

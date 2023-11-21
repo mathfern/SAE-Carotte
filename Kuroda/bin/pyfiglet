@@ -1,4 +1,4 @@
-#!/home/user/SAE-Carotte/Kuroda/bin/python3
+#!/home/user/SAE-Carotte/Kuroda/bin/python3.11
 # -*- coding: utf-8 -*-
 import re
 import sys

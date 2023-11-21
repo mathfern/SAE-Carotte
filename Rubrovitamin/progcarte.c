@@ -5,7 +5,10 @@
 #include <stdarg.h>
 #include <stdbool.h>
 
+// Définition du password administrateur
 #define ADMIN_PASSWORD "admin"
+
+// Définitions de deux booléen à l'état false qui permetteront de vérifier si le password est correct et si le password est entré correctement
 bool isPasswordCorrect = false;
 bool isPasswordEntered = false;
 
@@ -49,13 +52,17 @@ void atr(uint8_t n, char* hist)
 
 // Gestion des erreurs 
 //-------------
+// La gestion d'erreur est basée sur la norme ISO 7816-4
 
-#define ERR_INVALID_SIZE  0x6C
-#define ERR_UNKNOWN_CLASS 0x6E
-#define ERR_UNKNOWN_INS   0x6D
+#define ERR_INVALID_SIZE  0x6C  // erreur de taille invalide
+#define ERR_UNKNOWN_CLASS 0x6E  // erreur de classe invalide
+#define ERR_UNKNOWN_INS   0x6D  // erreur d'instruction invalide
 
+// Fonction de gestion des erreurs
 void error(uint8_t error_code) {
+    // Envoie le code d'erreur en tant que premier octet de la réponse
     sendbytet0(error_code);
+    // Envoie le second octet de la réponse (informations supplémentaires sur l'erreur)
     sendbytet0(sw2);
 }
 
@@ -180,8 +187,10 @@ void version(int t, char* sv)
     	sw1=0x90;
 }
 
+// Définition de la taille maximum du mot de passe
 #define MAX_PASSWORD_LENGTH 5
 
+// Fonction qui compare deux tableaux d'octets
 int compareByteArrays(const void *a, const void *b, size_t size) {
     const uint8_t *byteArrayA = (const uint8_t *)a;
     const uint8_t *byteArrayB = (const uint8_t *)b;
@@ -196,6 +205,7 @@ int compareByteArrays(const void *a, const void *b, size_t size) {
 }
 
 
+// Fonction qui récupère l'octer qui contient la valeur du mdp entré par l'utilisateur lors de l'input envoyé par Lubiana
 void get_input_py(int BUFFSIZE)
 {
     char py_pwd[BUFFSIZE];
@@ -216,6 +226,7 @@ void get_input_py(int BUFFSIZE)
         py_pwd[i] = recbytet0();
     }
 
+    // Utilisation de la fonction compareByteArrays pour comparer le mdp admin et le mdp entré par l'utilisateur
     if (compareByteArrays(py_pwd, (const uint8_t *)ADMIN_PASSWORD, BUFFSIZE) != 0) {
         sw1 = 0x6a;
         isPasswordCorrect = false;  // Mot de passe incorrect
@@ -228,23 +239,31 @@ void get_input_py(int BUFFSIZE)
 }
 
 
-#define MAX_PERSO 32
-#define TAILLE_SOLD 8
-#define TAILLE_PIN 4
-#define TAILLE_PUK 4
-uint16_t ee_taille EEMEM=0;
-uint16_t ee_taille2 EEMEM=32;
-uint16_t ee_codePIN EEMEM=38;
-uint16_t ee_codePUK EEMEM=42;
-unsigned char ee_perso[MAX_PERSO] EEMEM;
-unsigned char ee_perso2[TAILLE_SOLD] EEMEM;
-unsigned char ee_perso_PIN[TAILLE_PIN] EEMEM;
+// Définition des tailles maximales pour les données personnelles et les codes PIN/PUK
+#define MAX_PERSO 32 // taille max des données nom prenom num_etudiant
+#define TAILLE_SOLD 8 // taille max du solde
+#define TAILLE_PIN 4 // taille max du PIN
+#define TAILLE_PUK 4 // taille max du PUK
+
+// Déclaration et initialisation des variables dans l'EEPROM
+uint16_t ee_taille EEMEM=0; // Initialisation des données à 0
+uint16_t ee_taille2 EEMEM=32; // Ecriture du solde à partir du 32 ème bit de l'EEPROM
+uint16_t ee_codePIN EEMEM=40; // Ecriture du PIN à partir du 38 bit de l'EEPROM
+uint16_t ee_codePUK EEMEM=44; // Ecriture du PUK à partir du 42 bit de l'EEPROM
+
+
+unsigned char ee_perso[MAX_PERSO] EEMEM; // Données stockées en EEPROM
+unsigned char ee_perso2[TAILLE_SOLD] EEMEM; // Solde stocké en EEPROM
+unsigned char ee_perso_PIN[TAILLE_PIN] EEMEM; // PIN ET PUK stockés en EEPROM
 unsigned char ee_perso_PUK[TAILLE_PUK] EEMEM;
 
 
-
+// Fonction intro perso qui permet d'introduire des données dans l'EEPROM
+// Cette fonction est utilisé pour introduire nom, prenom, num etu, PIN, PUK.
+// Cette fonction est sécurisée par un mot de passe admin
 void intro_perso(int buffsize, uint16_t *taille, unsigned char *perso) {
 
+    // On vérifie si le mdp est entré correctement
     if (!isPasswordEntered) {
         sw1 = 0x6a;  // Mot de passe non entré
         sw2 = 0x00;
@@ -280,6 +299,8 @@ void intro_perso(int buffsize, uint16_t *taille, unsigned char *perso) {
     sw1 = 0x90;
 }
 
+// Meme fonction que intro perso mais non sécurisée par un mdp. Cette fonction est utilisée
+// pour initialiser le solde.
 void intro_perso_sans_mdp(int buffsize, uint16_t *taille, unsigned char *perso) {
 
     char buffer[buffsize];
@@ -312,7 +333,8 @@ void intro_perso_sans_mdp(int buffsize, uint16_t *taille, unsigned char *perso) 
 }
 
 
-
+// Fonction lire_perso permet de lire les données de l'EEPROM comme le nom, le prenom, le num etu
+// le solde et le PIN PUK
 void lire_perso(uint16_t *perso, unsigned char *test)
 {
   int i;
@@ -334,6 +356,8 @@ void lire_perso(uint16_t *perso, unsigned char *test)
   sw1 = 0x90;
 }
 
+// Fonction delete_data permet de mettre les valeurs des 40 premiers bits à 0 
+// soit elle permet de delete les datas et le solde de l'EEPROM
 void delete_data(unsigned char *perso, uint16_t *taille)
 {
 
@@ -483,20 +507,6 @@ int main(void)
                 error(ERR_UNKNOWN_INS); // code erreur ins inconnu pour la classe 0x81
         }
         break;
-
-    // case 0x82: // Nouvelle classe
-    //     switch (ins) {
-    //         // Ajoutez ici le traitement des instructions pour la classe 0x81
-    //         // case ... :
-    //         //     // Traitement pour l'instruction spécifique
-
-    //         case 0:
-    //             get_input_py(MAX_PASSWORD_LENGTH);
-    //             break;
-
-    //         default:
-    //             error(ERR_UNKNOWN_INS); // code erreur ins inconnu pour la classe 0x81
-    //     }
 
     default:
         error(ERR_UNKNOWN_CLASS); // code erreur classe inconnue
