@@ -71,11 +71,16 @@ Voici un tableau résumant les classes et instructions implémentées dans la ca
 | Classe | Instruction | Description |
 | ------ | ----------- | ----------- |
 | 0x80   | 0x00        | Consulter la version de l'application |
-| 0x80   | 0x01        | Entrer les données d'un étudiant |
-| 0x80   | 0x02        | Consulter les étudiants ayant une carte à puce |
-| 0x82   | 0x01        | Lire le solde de la carte |
-| 0x82   | 0x02        | Ajouter un solde de 1.00€ |
-| 0x82   | 0x03        | Acheter une boisson à 20cts |
+| 0x80   | 0x01        | Récupérer les données entrées dans l'input du mot de passe admin |
+| 0x80   | 0x03        | Ajouter un nom, prenom, numéro d'étudiant sur la carte |
+| 0x80   | 0x04        | Lire le nom, prenom, numéro d'étudiant sur la carte |
+| 0x80   | 0x05        | Supprimer le nom, prenom, numéro d'étudiant et solde sur la carte |
+| 0x80   | 0x06        | Ajouter le code PIN sur la carte |
+| 0x80   | 0x07        | Lire le solde de la carte |
+| 0x80   | 0x08        | Initialiser le solde à 0.00€ sur la carte |
+| 0x80   | 0x09        | Ajouter le code PUK sur la carte |
+| 0x81   | 0x00        | Lire le code PUK de la carte |
+| 0x81   | 0x01        | Lire le code PIN de la carte |
 
 #### 4. Nouvelles fonctionnalités pour Rubrovitamin
 
