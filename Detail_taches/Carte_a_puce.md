@@ -15,7 +15,8 @@ Pour inciter les étudiants à venir récupérer leurs cartes, on leur attribue 
 
 ### 3- Classes et instructions de Rubrovitamin
 Voici, ci-dessous un tableau résumant les classes et instructions qui seront implémentées dans la carte à puce : 
-![image](https://github.com/mathfern/SAE-Carotte/assets/150126396/57f30f96-5de8-4d6a-a788-e048a531f0ec) <br>
+![image](https://github.com/mathfern/SAE-Carotte/assets/150126396/57f30f96-5de8-4d6a-a788-e048a531f0ec) 
+
 La classe 0x81 est celle de la personnalisation, elle permet à l’agent administratif de : <ul>
 <li>consulter la version de l’application (instruction 0x00)</li>
 <li>Entrer les données d’un étudiant (instruction 0x01)</li>
