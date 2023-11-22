@@ -13,17 +13,19 @@ Le projet fait également appel à plusieurs compétences :
   <li>Créer des outils et applications pour les R&T</li>
   <li>Utilisation du système de gestion GIT et de la plateforme GitHub ou GitLab</li>
   <li>Programmation en Python, C, HTML, CSS, PHP et Javascript</li>
+  <li>Apprentissage du fonctionnement d'une carte à puce et utilisation de celle-ci avec programmateur et lecteur de carte</li>
+  <li>Utilisation d'outil de gestion de projet (Jira)</li>
   <li>Etudier les différentes vulnérabilités des applications et apporter une solution adéquate pour les sécuriser</li>
   <li>Travailler en collaboration avec les membres de l'équipe</li>
 </ul>
 
 
 ## II. Objectifs
-Le projet Carotte Electronique consiste à configurer une carte à puce, nommée Rubrovitamin où nous allons accorder des crédits supplémentaires (1€) aux élèves méritants en réalisant un système de porte-monnaie électronique à base de cartes à puce.
+Le projet Carotte Electronique consiste à configurer une carte à puce, où nous allons accorder des crédits supplémentaires (1€) aux élèves méritants en réalisant un système de porte-monnaie électronique à base de cartes à puce.
 
 Ces crédits pourront ensuite être utilisés dans des distributeurs de boissons chaudes (café, thé, chocolat chaud) pour le prix de 20 centimes, cela signifie qu’un crédit accordé à un étudiant permet de lui offrir 5 boissons. 
 
-Les étudiants devront se rendre dans le bureau administratif de l’IUT pour récupérer leurs cartes à puce et faire des réclamations en cas de problèmes de ces dernières. Quand un étudiant se présente pour la première fois afin de récupérer sa carte, l’agent administratif vérifie l’identité de l’étudiant (carte étudiant ou certificat de scolarité), puis personnalise une carte pour lui (numéro étudiant, nom, prénom, solde à 0€). L’étudiant récupère ensuite sa carte et est inscrit sur le logiciel de gestion de cartes à puces. 
+Les étudiants devront se rendre dans le bureau administratif de l’IUT pour récupérer leurs cartes à puce et faire des réclamations en cas de problèmes de ces dernières. Quand un étudiant se présente pour la première fois afin de récupérer sa carte, l’agent administratif vérifie l’identité de l’étudiant (carte étudiant ou certificat de scolarité), puis personnalise une carte pour lui (numéro étudiant, nom, prénom, solde à 0€, code PIN, code PUK). L’étudiant récupère ensuite sa carte et est inscrit sur le logiciel de gestion de cartes à puces. 
 
 Pour inciter les étudiants à venir récupérer leurs cartes, on leur attribue d’office un bonus d’un crédit (1€) qu’il faudra aller récupérer sur la borne de recharge. 
 
@@ -339,7 +341,7 @@ image a jouter
 
 
 
-### Borne a recharge (Berlicum) : 
+### Borne de recharge (Berlicum) : 
 
 - La partie "Borne de Recharge (Berlicum)" se concentre sur le développement du logiciel embarqué pour une borne de recharge utilisée par des étudiants. Le but principal de cette borne est de permettre aux étudiants d'accéder à diverses fonctionnalités liées à leurs cartes à puce. Voici un aperçu des opérations principales que les étudiants peuvent effectuer à l'aide de cette borne :
 
