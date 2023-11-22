@@ -14,6 +14,8 @@ Le projet fait également appel à plusieurs compétences :
   <li>Etudier les différentes vulnérabilités des applications et apporter une solution adéquate pour les sécuriser</li>
   <li>Travailler en collaboration avec les membres de l'équipe</li>
 </ul>
+
+ 
 ## II. Objectifs
 Le projet Carotte Electronique consiste à configurer une carte à puce, nommée Rubrovitamin où nous allons accorder des crédits supplémentaires (1€) aux élèves méritants en réalisant un système de porte-monnaie électronique à base de cartes à puce.
 Ces crédits pourront ensuite être utilisés dans des distributeurs de boissons chaudes (café, thé, chocolat chaud) pour le prix de 20 centimes, cela signifie qu’un crédit accordé à un étudiant permet de lui offrir 5 boissons. 
