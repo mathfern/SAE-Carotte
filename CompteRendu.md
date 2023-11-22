@@ -95,7 +95,6 @@ https://www.iso.org/fr/standard/77180.html
 
 ##### Phase de communications entre la carte et le lecteur
 
-![Capture d'écran 2023-11-22 104215](https://github.com/mathfern/SAE-Carotte/assets/134608345/a9f1c1d8-3e63-4829-975c-89b9f18bb34b)
 
 
 #### 2. Projet "La Carotte électronique" avec la carte Rubrovitamin
