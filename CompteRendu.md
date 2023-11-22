@@ -98,9 +98,22 @@ https://www.iso.org/fr/standard/77180.html
 ##### Phase de communications entre la carte et le lecteur
 
 Il existe trois principales étapes de communication entre la carte et l'ordinateur : 
-- Reset : 
-- ATR :
-- APDUs :
+- **Reset** : C'est la carte qui prend l'initiative de réaliser le RESET. Dès lors que la carte est insérée dans un lecteur de carte (connecté à un ordinateur), cette étape permet au lecteur d’identifier la carte qu’il est en train de lire et de vérifier la compatibilité de la carte et du lecteur. Si la carte s'avère compatible, on passe à la prochaine étape, sinon elle est rejetée.
+  
+- **ATR** : L'ATR ou Answer To Reset est la réponse du lecteur pour le RESET effectué par la carte. Dès lors que la carte est reset, elle envoie un "ATR" d'une taille maximale de 33 octets qui est une séquence binaire qui contient des informations cruciales sur les capacités et les caractéristiques de la carte à puce.
+Par la suite, le lecteur analyse l'ATR pour déterminer comment communiquer avec la carte à puce. L'ATR contient des informations telles que le protocole de communication à utiliser, la taille des données, la vitesse de transmission, etc ..
+La forme de l'ATR est :
+L’ATR contient deux octets :
+TS=0x3b, appelé octet initial
+T0=0x0n où n désigne un nombre, appelé octet de format
+Les quatre premiers bits de l’octet de format sont à 0 et le dernier correspond au
+nombre d’octets d’historique limité à 15 (0 ≤ n ≤ F)
+Dans notre cas, l'envoi de l'ATR est défini dans la fonction atr() du progcarte.c :
+![atr](https://github.com/mathfern/SAE-Carotte/assets/134608345/4de4bd87-e515-494f-80ae-9a500f1885d2)
+
+
+- **APDUs** :
+
   
 ![Capture d'écran 2023-11-22 110914](https://github.com/mathfern/SAE-Carotte/assets/134608345/c1c89fd1-5ec8-48d8-8f64-e339ee309893) <br>
 
