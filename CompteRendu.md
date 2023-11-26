@@ -56,7 +56,7 @@ Nous avons utilisé Jira pour le suivi de notre projet, attribuant des tâches s
 - Titre : <br>
 Nom de la tâches
 - Description : <br>
-Dans le description il est possible d'insérer un texte pour expliquer le travail à effectuer, ou, comme dans notre cas, une image. Dans cette instance, nous avons inclus le planning prévisionnel des tâches :
+Dans la description, il est possible d'insérer un texte pour expliquer le travail à effectuer, ou, comme dans notre cas, une image. Dans cette instance, nous avons inclus le planning prévisionnel des tâches :
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/835c5a10-a214-49d4-b519-9b8ced94e0a7)
 
 
@@ -246,7 +246,7 @@ Une base de données (purple dragon) implémenter en mysql pour les cartes à pu
 
 - Les données des étudiants comme le numéro d’étudiant et contient uniquement les informations essentielles, à savoir le nom, le prénom, le solde et les bonus. 
 
-- Les données du compte qui  représente les opérations effectuées par les utilisateurs, elle est identifiée par la date de l’opération, et contient deux autres 
+- Les données du compte qui représente les opérations effectuées par les utilisateurs, elle est identifiée par la date de l’opération, et contient deux autres 
   champs, le montant de l’opération et sa description. Étant donné que plusieurs utilisateurs peuvent effectuer simultanément différentes opérations, nous avons 
   choisi d'associer le numéro d'étudiant à la clé primaire en utilisant une relation relative (R). Le montant de l'opération peut être positif en cas de bonus ou 
   de crédit, ou négatif en cas de débit.
@@ -260,11 +260,11 @@ Le schémas relationnel (MCD) proposé est donné ci-après :
 
 Cette base de données devra être accessible par le logiciel de gestion Rodelika afin de permettre à l’agent administratif de gérer le suivi des cartes, des bonus, des débit etc. L’étudiant a chaque fois qu’il va insérer sa carte à puces les données de la carte à puces seront stockées dans la base de données.
 
-#### Idées implémenter :
+#### Idées implémentées :
 
-- On a rajouter une table admin avec les colonnes admin_id, user et mot de passe en hash MD5 dans la base de données pour permettre d'avoir une authentification sur la version web de Rodelika, comme sa il n'y a que l'administrateur qui puisse se connecter.
+- Ajout d'une table admin avec les colonnes admin_id, nom et mot de passe en hash Bcrypt dans la base de données, ce qui permet d'avoir une authentification sur la version web de Rodelika. Cela fait en sorte que tout le monde ne puisse pas accéder à la base de donner et la modifier. 
 
-- Et on a rajouter aussi les colonnes etu_solde, etu_bonus dans la table étudiant pour permettre d'y stocker les bonus et le solde pour chaque étudiant voulu.
+- Ajout des colonnes etu_solde, etu_bonus dans la table étudiant pour permettre de stocker ces informations pour chaque étudiant.
   
 #### Programmation
 
