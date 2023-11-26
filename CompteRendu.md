@@ -410,12 +410,6 @@ Les logiciels de base n'étaient pas très sécurisés et comportaient plusieurs
 
 
 ## VIII. Annexes
----
+Tous les codes associés à chaque applications sont disponibles à la racine du github.
 
-**Remarques importantes :**
 
-- Utilisez une syntaxe Markdown pour formater votre texte (titres, listes, liens, etc.).
-- Assurez-vous d'inclure des éléments visuels pertinents pour rendre le compte rendu plus compréhensible.
-- Veillez à numéroter vos sections et sous-sections pour une organisation claire.
-
-N'hésitez pas à personnaliser cette template en fonction de vos besoins spécifiques. Vous pouvez ajouter ou supprimer des sections selon les exigences de votre compte rendu.
