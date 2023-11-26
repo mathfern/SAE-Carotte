@@ -403,7 +403,7 @@ Berlicum sera développé en utilisant Python 3.11. Les librairies utilisées pa
 
 
 ## VI. Évaluation de la Sécurité et analyse des Vulnérabilités
-
+Les logiciels de base n'étaient pas très sécurisés et comportaient plusieurs potentielles vulnérabilités. 
 
 
 ## VII. Conclusion
