@@ -164,6 +164,9 @@ La carte peut répondre de deux manière :
 | 6b 00       | CLA, INS connues mais P1 et P2 incorrects |                                                    |
 | 6c xx       | CLA, INS, P1 et P2 corrects mais P3 incorrect | xx désigne le P3 attendu                           |
 
+![apdu sortante](https://github.com/mathfern/SAE-Carotte/assets/134608345/7793c6dd-3264-4765-8917-9d4ab8d3a2a1)
+
+schéma issu du cours de Mr.DJERROUD : Exemple d'échanges pour une commande sortante
 
 #### 2. Projet "La Carotte électronique" avec la carte Rubrovitamin
 
