@@ -129,6 +129,24 @@ La composition d'un APDU est la suivante :
 5 octets d'entête : 
 | CLA | INS | P1 | P2 | P3 |
 |-----|-----|----|----|----|
+
+- Cla : correspond au numéro de classe qui contient les instructions (cf tableau ci dessus)
+- Ins : correspond au numéro d'instruction associé
+- P1 : désigne le paramètre 1 (défini à 0 si l'APDU ne nécessite pas de paramètre 1)
+- P2 : désigne le paramètre 2 (défini à 0 si l'APDU ne nécessite pas de paramètre 2)
+- P3 : désigne la taille des données à écrire dans l'EEPROM
+
+La carte peut répondre de deux manière : 
+- Dans un premier temps, un acquittement qui atteste que l'appel de l'APDU s'est bien passé.
+- Dans un second temps, un message d'erreur personnalisé conformément au tableau ci dessous : 
+
+| Status Word | d’erreur                                 | Signification                                      |
+|-------------|------------------------------------------|----------------------------------------------------|
+| 6e 00       | CLA inconnue                             |                                                    |
+| 6d 00       | CLA connue, INS inconnue                  |                                                    |
+| 6b 00       | CLA, INS connues mais P1 et P2 incorrects |                                                    |
+| 6c xx       | CLA, INS, P1 et P2 corrects mais P3 incorrect | xx désigne le P3 attendu                           |
+
   
 ![Capture d'écran 2023-11-22 110914](https://github.com/mathfern/SAE-Carotte/assets/134608345/c1c89fd1-5ec8-48d8-8f64-e339ee309893) <br>
 
