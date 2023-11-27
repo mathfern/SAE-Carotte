@@ -485,7 +485,13 @@ Les principales fonctionnalités proposées par cette application sont les suiva
 
 - Mise à Jour du Solde : Si le solde de la carte diffère de celui stocké dans la base de données, l'application met à jour le solde de la carte avec celui de la base de données. Cela garantit la cohérence des soldes entre la carte et la base de données.
 
+#### Programmation : 
 
+Berlicum sera développé en utilisant Python 3.11. Les librairies utilisées par Berlicum sont : 
+- pyscard
+- mysql-connector
+- pyfiglet
+- getpass
 
 
 ## VI. Évaluation de la Sécurité et analyse des Vulnérabilités
