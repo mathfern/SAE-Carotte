@@ -318,7 +318,7 @@ Lubiana sera développé en utilisant Python 3.11. Les librairies utilisées par
 #### Gestion des erreurs : 
 
 Lubiana est capable d'afficher et de gérer les erreurs de classes, d'instructions et de paramètre p3 lorsque l'APDU des données envoyées est de mauvaise taille.
-En effet, elle utilise les variables sw1 et sw2 pour stocker les codes d'erreurs : 
+En effet, elle utilise les variables sw1 et sw2 pour stocker les codes d'erreurs 0x90 pour sw1 et 0x6X pour sw2
 
 
 ### Purple Dragon (Base de données)
