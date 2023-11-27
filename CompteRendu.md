@@ -409,11 +409,11 @@ De même que précédemment, nous allons utiliser l'option 2 de Rodelika pour af
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/e344d96d-040c-4924-94e7-4c71337ff09b)
 
 - ajouter un nouvel étudiant : <br>
-
 Dans cette instance, nous utiliserons l'option 3 de Rodelika. En saisissant un numéro étudiant, un nom et un prénom, nous pourrons ajouter un nouvel étudiant. Une vérification sera effectuée pour s'assurer que le numéro étudiant comporte bien 8 chiffres et qu'il n'existe pas déjà dans la base de données.
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/3b6b896a-3938-4670-bfd6-9f505d2145b1)
 
-- attribuer un bonus :
+- attribuer un bonus :<br>
+Pour attribuer un bonus, il vous suffira d'entrer un numéro étudiant existant dans la base de données (une vérification sera effectuée). Ensuite, le compte étudiant associé à ce numéro se verra ajouter un bonus (le bonus de base étant de +1,00€). Cette opération s'effectue en utilisant la fonction 4 de Rodelika.
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/0e1be92b-c83e-4784-81d2-34ab7cbf210e)
 
 
