@@ -154,7 +154,7 @@ Données de Réponse : Les octets qui portent les données demandées par l'inst
 SW1-SW2 (Status Word) : Les deux derniers octets de l'APDU, appelés Status Word (SW1 et SW2). Ces octets indiquent l'état de la commande. Ils peuvent signaler si la commande s'est exécutée avec succès, si une erreur s'est produite, ou d'autres informations sur le statut de la transaction.
 
 La carte peut répondre de deux manière : 
-- Dans un premier temps, un acquittement qui atteste que l'appel de l'APDU s'est bien passé.
+- Dans un premier temps, un acquittement qui atteste que l'appel de l'APDU s'est bien passé généralement SW1 = 0x90.
 - Dans un second temps, un message d'erreur personnalisé conformément au tableau ci dessous : 
 
 | Status Word | d’erreur                                 | Signification                                      |
