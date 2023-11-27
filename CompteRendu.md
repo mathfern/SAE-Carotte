@@ -474,6 +474,18 @@ Berlicum sera développé en utilisant Python 3.11. Les librairies utilisées pa
 
 ### Application de simulateur de machine à café (Kuroda)
 
+L'application Kuroda est un simulateur de machine à café implémenté en Python, utilisant une carte à puce comme moyen d'interaction. L'objectif principal est de permettre aux utilisateurs d'effectuer des transactions, telles que consulter le solde de leur compte, acheter une boisson et mettre à jour les données de leur carte à puce.
+
+Kuroda est une application intéractive qui permet à l'utilisateur un choix de boisson variées. En effet, l'utilisateur peut acheter différentes boissons comme un café, un chocolat chaud ou un thé. 
+
+Les principales fonctionnalités proposées par cette application sont les suivantes : 
+
+- Consultation du Solde : L'utilisateur peut consulter le solde actuel de sa carte à puce en choisissant l'option correspondante dans le menu. L'application envoie une commande APDU à la carte pour récupérer cette information.
+
+- Achat d'une Boisson : L'utilisateur peut acheter une boisson (café, chocolat, thé) au coût de 0.20 €. L'application vérifie d'abord si le solde de la carte est suffisant. Si oui, elle débite le montant de la carte et met à jour les données sur la carte et dans la base de données.
+
+- Mise à Jour du Solde : Si le solde de la carte diffère de celui stocké dans la base de données, l'application met à jour le solde de la carte avec celui de la base de données. Cela garantit la cohérence des soldes entre la carte et la base de données.
+
 
 
 
