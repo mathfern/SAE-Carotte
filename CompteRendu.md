@@ -506,7 +506,22 @@ C'est l'implémentations des fonctions **engage()** et **valide()** dans le code
 
 Toujours sur rubrovitamin, nous avons pensés à une faille supplémentaire que nous n'avons pas eu le temps de traiter. Cette faille concerne la **confidentialité** et **l'intégrité** des APDUs transmis. Les APDU peuvent contenir des informations sensibles telles que des identifiants personnels, des clés, des informations financières, etc. La confidentialité vise à empêcher que ces données ne soient compromises lors de leur transmission entre le lecteur et la carte à puce. Pour assurer la confidentialité, on peut utiliser des mécanismes de chiffrement pour rendre les données illisibles pour toute personne non autorisée qui pourrait intercepter les APDU pendant la transmission. L'intégrité quant à elle concerne la garantie que les données n'ont pas été altérées pendant la transmission. Les APDU peuvent être vulnérables à des attaques telles que la modification malveillante des données pendant leur transit. L'utilisation de mécanismes d'intégrité, tels que le hachage ou les codes d'authentification des messages, permet de détecter toute altération des données. Si les données ont été modifiées, le destinataire peut identifier cette altération et prendre des mesures appropriées.
 
+### Partie Vulnérabilités du Logiciel de Gestion (Rodelika) :
 
+Bien que le logiciel de gestion (Rodelika) ait été conçu pour gérer de manière efficace les cartes, les bonus, et les débits des étudiants, il est crucial de prendre en compte les possibles vulnérabilités qui pourraient compromettre la sécurité et l'intégrité des données. Voici quelques points à considérer :
+
+Vulnérabilités liées à l'accès non autorisé :
+
+- Si le logiciel n'implémente pas correctement les mécanismes d'authentification et d'autorisation, cela pourrait conduire à des accès non autorisés à des fonctionnalités sensibles, compromettant ainsi la confidentialité des données étudiantes.
+
+Injection SQL :
+
+- L'utilisation de requêtes SQL dynamiques sans les précautions nécessaires pourrait ouvrir la porte à des attaques par injection SQL. Cela pourrait permettre à un attaquant d'exécuter des commandes SQL malveillantes et d'altérer, supprimer ou récupérer des données non autorisées.
+
+Défauts dans la validation des entrées utilisateur :
+
+- Si le logiciel ne valide pas correctement les entrées utilisateur, cela pourrait conduire à des vulnérabilités telles que les attaques par injection, les attaques par débordement de tampon, ou d'autres formes d'attaques liées à la manipulation des données d'entrée.
+  
 ### Partie Vulnérabilités de la Borne de Recharge (Berlicum) :
 
 Bien que le système de la borne de recharge (Berlicum) intègre des fonctionnalités de sécurité telles que l'utilisation d'un code PIN pour accéder à la borne, il reste important de noter quelques vulnérabilités potentielles qui pourraient compromettre la sécurité du système. Voici quelques points à considérer :
