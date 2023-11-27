@@ -248,20 +248,24 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 
 #### Répartition des classes et instructions :
 
-- La classe utilisée par Lubiana sera la classe 0x81 de l'API du projet.
-- Chaque opération sera associée à une instruction de la classe 0x81.
+- La classe utilisée par Lubiana sera les classes 0x81 et 0x80 de l'API du projet.
+- Chaque opération sera associée à une instruction de ces classes.
 
 #### Instructions pour Lubiana :
 
-1. Affichage de la version : `0x00` classe `0x81`
-2. Affichage des données : `0x02` classe `0x81`
-3. Attribution de la carte : `0x01` classe `0x81`
-4. Attribution du solde initial : `0x02` classe `0x82`
-5. Affichage du solde : `0x01` classe `0x82`
-6. Réinitialisation des données de la carte : `0x05` classe `0x81`
-7. Attribution code PIN/PUK : `0x06` classe `0x81`
-8. Consultation du code PUK : `0x08` classe `0x81`
-9. Modification du code PIN : `0x09` classe `0x81`
+| Classe | Instruction | Description |
+| ------ | ----------- | ----------- |
+| 0x80   | 0x00        | Consulter la version de l'application |
+| 0x80   | 0x01        | Récupérer les données entrées dans l'input du mot de passe admin |
+| 0x80   | 0x03        | Ajouter un nom, prenom, numéro d'étudiant sur la carte |
+| 0x80   | 0x04        | Lire le nom, prenom, numéro d'étudiant sur la carte |
+| 0x80   | 0x05        | Supprimer le nom, prenom, numéro d'étudiant et solde sur la carte |
+| 0x80   | 0x06        | Ajouter le code PIN sur la carte |
+| 0x80   | 0x07        | Lire le solde de la carte |
+| 0x80   | 0x08        | Initialiser le solde à 0.00€ sur la carte |
+| 0x80   | 0x09        | Ajouter le code PUK sur la carte |
+| 0x81   | 0x00        | Lire le code PUK de la carte |
+| 0x81   | 0x01        | Lire le code PIN de la carte |
 
 #### Programmation :
 
