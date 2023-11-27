@@ -39,10 +39,15 @@ Voici ci-dessous le schéma relationnel des applications qui seront détaillées
 ### 1 - Cahier des charges
 
 ### 2 - Répartition du temps
+
 Pour organiser notre emploi du temps, nous avons entamé le processus en énumérant toutes les tâches à accomplir. Ensuite, nous avons répertorié les compétences de chacun afin de déterminer quelles tâches nous semblaient les plus simples à réaliser. Une fois cette liste établie, nous avons élaboré un diagramme de Gantt pour nous fournir une feuille de route dans le cadre de la SAE.
+
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/835c5a10-a214-49d4-b519-9b8ced94e0a7)
+
 En suivant notre planning prévisionnel, nous avons réussi à terminer la SAE dans les délais impartis. Cependant, certaines applications, telles que Rubrovitamin, Lubiana, Rodelika (et Web), nous ont demandé plus de temps que les autres, ce qui a entraîné des retards par rapport à notre diagramme prévisionnel. Voici un diagramme illustrant le temps réel que nous avons consacré à chaque application :
+
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/3c466bbe-f4f7-4a76-bf1a-b7ad3a9d1f76)
+
 ### 3 - Mise en place du GitHub
 
 ### 4 - Gestion du Projet avec Jira
