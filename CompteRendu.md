@@ -127,8 +127,8 @@ Ici, c'est nos logiciels Berlicum, Lubiana, Kuroda qui envoient des APDUs à la 
 
 La composition d'un APDU est la suivante : 
 5 octets d'entête : 
-|   | CLA | INS | P1 | P2 | P3 |
-|---|-----|-----|----|----|----|
+| CLA | INS | P1 | P2 | P3 |
+|-----|-----|----|----|----|
   
 ![Capture d'écran 2023-11-22 110914](https://github.com/mathfern/SAE-Carotte/assets/134608345/c1c89fd1-5ec8-48d8-8f64-e339ee309893) <br>
 
