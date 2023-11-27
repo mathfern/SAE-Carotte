@@ -348,7 +348,7 @@ Le logiciel de gestion va permettre plusieurs actions :
 
 - L’option 4 "attribuer un bonus à un étudiant" nommée dans le code "add_bonus" permettra à l’agent administratif lorsqu’il reçoit un email d’un enseignant d’attribuer un bonus. Le mail doit contenir le numéro de l’étudiant. Dans le cas contraire, l’agent administratif doit effectuer une recherche par nom et prénom avec l’option 1.
 
-#### Fonction implémenter :
+#### Fonction implémentées :
 
 - L'option 5 "supprimer un étudiant" nommée dans le code "suppr_etudiant" permettra à l'agent administratif de supprimer un étudiant de la base de données.
 
@@ -379,7 +379,7 @@ L’application web de gestion donne la possibilité à l’agent administratif 
 Ce site sera codé en HTML/CSS, PHP et javascript et fera appel à la base de données PurpleDragon ainsi qu'à l'application Rodelika.
 
 
-#### Fonctionnalités implémenter
+#### Fonctionnalités implémentées
 
 On a ajouter une interface graphique pour chaque fonction pour l'agent administratif afin qu'ils puissent effectuer les manipulations plus facilement et interactive :
 
@@ -416,7 +416,7 @@ image a jouter
 - Le développement du logiciel embarqué pour la borne de recharge (Berlicum) est essentiel pour offrir aux étudiants un accès facile à leurs informations, à leurs bonus et à leur crédit. Ce système contribue à la gestion efficace des ressources des étudiants, en garantissant l'intégrité des transactions et en facilitant la recharge en cas de besoin.
 
 
-#### Fonctions implémenter : 
+#### Fonctions implémentées : 
 
 - La fonction "code pin" nommée dans le code "PINvalide" a été implémenter dans ce code pour permettre une meilleure sécurisation sur la carte à puce. Donc a chaque fois qu'un étudiant insert sa carte à puce dans la borne de recharge il devra mettre son code pin qui est défini au moment de la création de sa carte à puce.
 
@@ -444,6 +444,9 @@ Berlicum sera développé en utilisant Python 3.11. Les librairies utilisées pa
 - mysql-connector
 - pyfiglet
 - getpass
+
+### Application de simulateur de machine à café (Kuroda)
+
 
 
 
