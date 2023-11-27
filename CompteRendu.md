@@ -592,7 +592,7 @@ Chiffrement faible des mots de passe :
 
 - Si les mots de passe sont stockés dans la base de données sans être correctement hachés avec des algorithmes sécurisés, cela pourrait exposer les informations des utilisateurs en cas de violation de la base de données.
   
-### Partie Vulnérabilités de la Borne de Recharge (Berlicum) :
+### Partie Vulnérabilités pour les applications Berlicum et Kuroda:
 
 La borne de recharge (Berlicum) intègre des fonctionnalités de sécurité telles que l'utilisation d'un code PIN pour accéder à la borne, il reste important de noter quelques vulnérabilités potentielles qui pourraient compromettre la sécurité du système. Voici quelques points à considérer :
 
