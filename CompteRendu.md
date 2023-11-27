@@ -520,7 +520,7 @@ Toujours sur rubrovitamin, nous avons pensés à une faille supplémentaire que 
 
 ### Partie Vulnérabilités du Logiciel de Gestion (Rodelika) :
 
-Bien que le logiciel de gestion (Rodelika) ait été conçu pour gérer de manière efficace les cartes, les bonus, et les débits des étudiants, il est crucial de prendre en compte les possibles vulnérabilités qui pourraient compromettre la sécurité et l'intégrité des données. Voici quelques points à considérer :
+Le logiciel de gestion (Rodelika) ait été conçu pour gérer de manière efficace les cartes, les bonus, et les débits des étudiants, il est crucial de prendre en compte les possibles vulnérabilités qui pourraient compromettre la sécurité et l'intégrité des données. Voici quelques points à considérer :
 
 Vulnérabilités liées à l'accès non autorisé :
 
@@ -536,7 +536,7 @@ Défauts dans la validation des entrées utilisateur :
 
 ### Partie Vulnérabilités de l'Application Web de Gestion (RodelikaWeb) :
 
-Bien que l'application web de gestion (RodelikaWeb) offre une interface graphique conviviale pour les agents administratifs avec une interface de connexion pour cet admin avec un mot de passe hasher, il est essentiel de considérer les possibles vulnérabilités qui pourraient compromettre la sécurité de l'application. Voici quelques points à prendre en compte :
+L'application web de gestion (RodelikaWeb) offre une interface graphique conviviale pour les agents administratifs avec une interface de connexion pour cet admin avec un mot de passe hasher, il est essentiel de considérer les possibles vulnérabilités qui pourraient compromettre la sécurité de l'application. Voici quelques points à prendre en compte :
 
 Injection de code SQL :
 
@@ -556,7 +556,7 @@ Chiffrement faible des mots de passe :
   
 ### Partie Vulnérabilités de la Borne de Recharge (Berlicum) :
 
-Bien que le système de la borne de recharge (Berlicum) intègre des fonctionnalités de sécurité telles que l'utilisation d'un code PIN pour accéder à la borne, il reste important de noter quelques vulnérabilités potentielles qui pourraient compromettre la sécurité du système. Voici quelques points à considérer :
+La borne de recharge (Berlicum) intègre des fonctionnalités de sécurité telles que l'utilisation d'un code PIN pour accéder à la borne, il reste important de noter quelques vulnérabilités potentielles qui pourraient compromettre la sécurité du système. Voici quelques points à considérer :
 
 Attaques par force brute sur le code PIN :
 
