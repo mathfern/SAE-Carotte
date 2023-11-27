@@ -71,6 +71,10 @@ Nom de la tâches
 Dans la description, il est possible d'insérer un texte pour expliquer le travail à effectuer, ou, comme dans notre cas, une image. Dans cette instance, nous avons inclus le planning prévisionnel des tâches :
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/835c5a10-a214-49d4-b519-9b8ced94e0a7)
 
+- Sous tâches : <br>
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/89557350-820a-4b6e-8182-0b9ad1ab87eb)
+
+
 
 
 ## IV. Phase de Conception Initiale
