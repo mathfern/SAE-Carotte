@@ -79,6 +79,14 @@ La composition technique d'une carte à puce est la suivante :
 - **RAM (Random Access Memory)** qui est une mémoire volatile utilisée pour le stockage temporaire pendant l'exécution des programmes. Elle permet en règle générale de traiter des opérations plus rapidemment que les autres types de mémoires et est de ce fait utilisée pour des opérations temporaires et de traitement en cours.
 - **EEPROM (Electrically Erasable Programmable Read-Only Memory)** est une mémoire non volatile également, elle stocke les données de manière permanente. Cette mémoire est flexible puisque comme son nom l'indique, c'est une mémoire qui peut être effacée, programmée et lue. Cette mémoire permet de stocker des informations et données sensibles de manière sécurisée.
 
+##### Cycle de vie d'une carte à puce
+
+- Le developpement, c'est dans cette partie que l'on test et que l'on imagine le programme (Rubrovitamin) en faisant des tests de programmation en mémoire flash. Le développement représente le code que l'on implémente en mémoire flash. 
+- La programmation, c'est la partie dans laquelle on implémente le code Rubrovitamin dans la mémoire flash dans la carte à l'aide de la fonction progcarte (make progcarte)
+- La personnalisation est la tâche réalisée par l'agent administratif qui a pour objectif d'écrire des informations personnelles sur la carte dans la mémoire EEPROM. On stockera des données telles que le nom, le prenom, le num etudiant, le solde, le code pin et le code puk.
+- Vie, le moment ou l'étudiant pourra utiliser et profiter de sa carte
+- Destruction, le moment ou la carte sera réinitialisée pour être attribuée à un autre étudiant.
+
 ##### Détails sur le type de cartes à puces utilisées pour le projet
 
 Pour ce projet, le type de puce utilisé est une **ATMega328**. C'est un microcontrôleur 8 bits basé sur l'architecture Harvard. C'est un type de processeur qui sépare physiquement la mémoire de données et la mémoire programme. L’accès à chacune des deux mémoires s’effectue via deux bus distincts ce qui représente une amélioration des performances comparé à certaines technologies à un bus commun pour programme et données comme l'architecture Von Neumann par exemple. 
@@ -114,6 +122,13 @@ Dans notre cas, l'envoi de l'ATR est défini dans la fonction atr() du progcarte
 
 - **APDUs** :
 
+Une fois l'ATR transmis, la carte se met en attente de commande. Les commandes se transmettent à partir d'APDU dans le domaine des cartes à puces. 
+Ici, c'est nos logiciels Berlicum, Lubiana, Kuroda qui envoient des APDUs à la carte pour aller utiliser les fonctions associées dans le code en mémoire flash. 
+
+La composition d'un APDU est la suivante : 
+5 octets d'entête : 
+|   | CLA | INS | P1 | P2 | P3 |
+|---|-----|-----|----|----|----|
   
 ![Capture d'écran 2023-11-22 110914](https://github.com/mathfern/SAE-Carotte/assets/134608345/c1c89fd1-5ec8-48d8-8f64-e339ee309893) <br>
 
