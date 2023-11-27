@@ -202,6 +202,8 @@ La perte ou le vol physique de la carte peuvent être considérés comme une vul
 ##### Vulnérabilité logicielle (Rubrovitamin)
 Si les APDU ne sont pas sécurisées, n'importe quel individu en possession d'une carte à puce programmée avec le code de Rubrovitamin dans la mémoire flash peut utiliser un langage de programmation pour envoyer des APDU 
 
+Une description des vulnérabilité plus détaillée de cette application est disponible plus bas dans le compte rendu. 
+
 ### Personnalisation (Lubiana)
 
 #### Concept de personnalisation de carte à puce
@@ -209,8 +211,8 @@ Si les APDU ne sont pas sécurisées, n'importe quel individu en possession d'un
 La personnalisation de la carte à puce dans le logiciel Lubiana consiste à programmer des données spécifiques sur la puce, rendant chaque carte unique. L'objectif est d'initialiser chaque nouvelle carte attribuée à un étudiant avec les paramètres suivants :
 
 - Le nom, prénom et numéro d'étudiant de chaque titulaire de carte.
-- Le numéro de version de la carte.
 - Le solde initial à 0.00€ lors de la création de la carte.
+- Le code PIN et PUK de la carte
 
 Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" de manière interactive et simple, avec un menu offrant différentes actions.
 
@@ -274,6 +276,12 @@ Lubiana sera développé en utilisant Python 3.11. Les librairies utilisées par
 - random
 - pyfiglet
 - getpass
+
+#### Gestion des erreurs : 
+
+Lubiana est capable d'afficher et de gérer les erreurs de classes, d'instructions et de paramètre p3 lorsque l'APDU des données envoyées est de mauvaise taille.
+En effet, elle utilise les variables sw1 et sw2 pour stocker les codes d'erreurs : 
+
 
 ### Purple Dragon (Base de données)
 
