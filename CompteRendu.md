@@ -436,6 +436,11 @@ Enfin, la dernière fonctionnalité de notre site consiste à supprimer un étud
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/aca45aa2-4618-4722-aa89-667ac27c362a)
 
 
+- Chaque formulaire ou tableau est accompagné de son propre message d'erreur et de succès. Voici un exemple de message qui s'affiche lors de l'ajout d'un bonus.
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/42b570e4-3a98-4338-9de8-c7d560144eb1)
+
+
+
 
 ### Borne de recharge (Berlicum) : 
 
