@@ -69,4 +69,15 @@ INSERT INTO `Type` (`type_opeartion`) VALUES
 ('Dépense'),
 ('Recharge');
 
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE `admin` (
+  `admin_id` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(32) NOT NULL,
+  `mot_de_passe` varchar(256) NOT NULL,
+  PRIMARY KEY (`admin_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `admin` (`admin_id`, `login`, `mot_de_passe`) VALUES
+(1,	'22106979',	'$2y$10$ZAYdbBBUH7z5MwySHjiOeeswuZaxxpFHr4tY7uU6Dxb3/K/rrXXFS');
+
 -- 2023-11-16 10:05:54
