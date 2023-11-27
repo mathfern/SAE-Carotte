@@ -29,6 +29,10 @@ Les étudiants devront se rendre dans le bureau administratif de l’IUT pour r�
 
 Pour inciter les étudiants à venir récupérer leurs cartes, on leur attribue d’office un bonus d’un crédit (1€) qu’il faudra aller récupérer sur la borne de recharge. 
 
+Voici ci-dessous le schéma relationnel des applications qui seront détaillées plus tard dans le compte rendu : 
+![image](https://github.com/mathfern/SAE-Carotte/assets/150126396/7ecb9f2a-e2a4-4579-ab8a-a54898d8bd9b)
+
+
 
 ## III. Organisation et Gestion du projet
 
