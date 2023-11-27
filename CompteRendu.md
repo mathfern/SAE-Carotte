@@ -246,32 +246,42 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 
 #### Actions proposées par le menu :
 
+
 1. **Affichage de la version de la carte à puce :**
    - Vérifie la version actuelle de la carte.
+     fonction print_version()
 
 2. **Affichage des données de la carte à puce :**
    - Vérifie et affiche les données telles que le nom, le prénom et le numéro d'étudiant sur la carte. Si aucune donnée n'est présente, indique que la carte est vierge.
+     fonction print_data()
 
 3. **Attribuer la carte à un étudiant :**
    - Permet d'ajouter le nom, le prénom et le numéro d'étudiant sur la carte.
+     fonction assign_card()
 
 4. **Mettre le solde initial de 0.00€ :**
    - Initialise le solde de la carte à 0.00€.
+     fonction init_sold()
 
 5. **Consulter le solde :**
    - Affiche le solde actuel sur la carte.
+     fonction consult_sold()
 
 6. **Réinitialiser les données de la carte :**
    - Supprime les données de la carte, nécessaire en cas de réattribution.
+     fonction delete_data()
 
 7. **Attribuer code PIN/PUK :**
    - Permet de définir un nouveau code PIN et génère un code PUK aléatoire.
+     fonctions codePIN() et codePUK()
 
 8. **Consulter le code PUK :**
    - Affiche le code PUK actuel.
+     fonction consult_PUK()
 
 9. **Modifier le code PIN :**
    - En cas d'oubli, permet de modifier le code PIN en utilisant le code PUK.
+     fonction modifPIN()
 
 10. **Quitter :**
     - Termine l'exécution du programme.
