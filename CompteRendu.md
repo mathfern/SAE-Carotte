@@ -136,6 +136,23 @@ La composition d'un APDU est la suivante :
 - P2 : désigne le paramètre 2 (défini à 0 si l'APDU ne nécessite pas de paramètre 2)
 - P3 : désigne la taille des données à écrire dans l'EEPROM
 
+Il existe deux types d'APDUs :
+- Les APDUs entrantes : L'APDU de commande est envoyée par le terminal à la carte à puce pour demander une action particulière. Elle est composée de deux parties
+
+Header (En-tête) : Les quatre premiers octets de l'APDU, qui spécifient l'instruction à exécuter (par exemple, lire des données, écrire des données, initialiser une opération, etc.) et d'autres informations telles que la classe et le canal.
+
+Body (Corps) : Les octets restants de l'APDU, qui peuvent contenir des données spécifiques à l'instruction (par exemple, les données à écrire sur la carte).
+
+![Capture d'écran 2023-11-22 110914](https://github.com/mathfern/SAE-Carotte/assets/134608345/c1c89fd1-5ec8-48d8-8f64-e339ee309893) <br>
+
+schéma issu du cours de Mr.DJERROUD : Exemple d'échanges pour une commande entrante
+
+- Les APDUs sortantes : L'APDU de réponse est renvoyée par la carte à puce en réponse à une APDU de commande. Elle est également composée de deux parties :
+
+Données de Réponse : Les octets qui portent les données demandées par l'instruction de la commande. Par exemple, si la commande demandait la lecture de données, ces octets contiendront les données lues.
+
+SW1-SW2 (Status Word) : Les deux derniers octets de l'APDU, appelés Status Word (SW1 et SW2). Ces octets indiquent l'état de la commande. Ils peuvent signaler si la commande s'est exécutée avec succès, si une erreur s'est produite, ou d'autres informations sur le statut de la transaction.
+
 La carte peut répondre de deux manière : 
 - Dans un premier temps, un acquittement qui atteste que l'appel de l'APDU s'est bien passé.
 - Dans un second temps, un message d'erreur personnalisé conformément au tableau ci dessous : 
@@ -147,10 +164,6 @@ La carte peut répondre de deux manière :
 | 6b 00       | CLA, INS connues mais P1 et P2 incorrects |                                                    |
 | 6c xx       | CLA, INS, P1 et P2 corrects mais P3 incorrect | xx désigne le P3 attendu                           |
 
-  
-![Capture d'écran 2023-11-22 110914](https://github.com/mathfern/SAE-Carotte/assets/134608345/c1c89fd1-5ec8-48d8-8f64-e339ee309893) <br>
-
-schéma issu du cours de Mr.DJERROUD : Exemple d'échanges pour une commande entrante
 
 #### 2. Projet "La Carotte électronique" avec la carte Rubrovitamin
 
