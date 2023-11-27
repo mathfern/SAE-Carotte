@@ -380,18 +380,6 @@ Le logiciel de gestion va permettre plusieurs actions :
 
 - L'option 5 "supprimer un étudiant" nommée dans le code "suppr_etudiant" permettra à l'agent administratif de supprimer un étudiant de la base de données.
 
-#### Répartition classes et instructions :
-
-La classe utilisée par Rodelika sera la classe 0x81, 0x82 et 0x83 de l’APU du projet (cf partie Carte à Puces)
-
-Chaque opération réalisable par le logiciel sera associée à une instruction :
-
-- Instruction pour l’affichage liste étudiante : 0x01 classe 0x81
-- Instruction pour l’affichage solde étudiant : 0x01 classe 0x81
-- Instruction pour l’attribution d’une nouvelle carte : 0x01 classe 0x81
-- Instruction pour l’attribution d’un bonus : 0x02 classe 0x83
-- Instruction pour la supression d'un étudiant : 0x04 classe 0x81
-
 #### Programmation :
 
 L’application Rodelika sera développée avec Python. En connexion avec la base de données PurpleDragon. Pour communiquer avec la base de données MySql nous allons installer les librairies Python suivantes :
@@ -465,16 +453,15 @@ Afficher l'historique des transactions : Les étudiants peuvent accéder à un r
 
 #### Répartition classes et instructions :
 
-La classe utilisée par berlicum sera la classe 0x81, 0x82 et 0x83 de l’API du projet (cf partie Carte à Puces). 
+La classe utilisée par berlicum sera la classe 0x80, 0x81 de l’API du projet (cf partie Carte à Puces). 
 
-Chaque opération réalisable par le logiciel sera associée à une instruction de la classe 0x81, 0x82 et 0x83 : . 
+Chaque opération réalisable par le logiciel sera associée à une instruction de la classe 0x81, 0x80 : . 
 
-- Instruction pour l’*affichage des informations personnelles* : 0x02 et classe 0x81 
-- Instruction pour l’*affichage des bonus sur la carte* : 0x01 et classe 0x83
-- Instruction pour l’*attribution des bonus sur la carte* : 0x02 et classe 0x83
-- Instruction pour l’*affichage des crédits disponibles sur la carte* : 0x01 et classe 0x82
-- Instruction pour l’*attribution d’argent sur la carte* : 0x02 et classe 0x82
-- Instruction pour l'affichage de l'historique de transaction* : 0x03 et classe 0x83
+- Instruction pour l’*affichage des informations personnelles* : instruction 0x01 et classe 0x80 + Requete BDD
+- Instruction pour l’*attribution des bonus sur la carte* :  Requete BDD
+- Instruction pour l’*affichage des crédits disponibles sur la carte* : instruction 0x07 et classe 0x80
+- Instruction pour l’*attribution d’argent sur la carte* : | classe 0x80 instruction 0x08
+- Instruction pour l'affichage de l'historique de transaction* : Requete BDD
 
 #### Programmation : 
 
