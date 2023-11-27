@@ -473,6 +473,21 @@ Berlicum sera développé en utilisant Python 3.11. Les librairies utilisées pa
 ## VI. Évaluation de la Sécurité et analyse des Vulnérabilités
 Les logiciels de base n'étaient pas très sécurisés et comportaient plusieurs potentielles vulnérabilités. 
 
+### Partie Vulnérabilités de la Borne de Recharge (Berlicum) :
+
+Bien que le système de la borne de recharge (Berlicum) intègre des fonctionnalités de sécurité telles que l'utilisation d'un code PIN pour accéder à la borne, il reste important de noter quelques vulnérabilités potentielles qui pourraient compromettre la sécurité du système. Voici quelques points à considérer :
+
+Attaques par force brute sur le code PIN :
+
+- Les attaques par force brute sont possibles si les codes PIN sont relativement courts ou si la borne ne limite pas le nombre de tentatives incorrectes d'entrée du code PIN. Il est recommandé d'implémenter des mécanismes de verrouillage temporaire après un certain nombre de tentatives infructueuses.
+
+Injection de code sur la carte à puce :
+
+- Si la carte à puce n'est pas correctement sécurisée, un attaquant pourrait tenter d'injecter du code malveillant sur la carte, compromettant ainsi le système. Assurez-vous que la carte utilise des mécanismes de sécurité robustes pour empêcher toute altération non autorisée de son contenu.
+
+Vulnérabilités dans les librairies utilisées :
+
+- Les bibliothèques externes, telles que pyscard, mysql-connector, pyfiglet, et getpass, peuvent avoir des vulnérabilités connues. Il est important de maintenir ces bibliothèques à jour et de surveiller les annonces de sécurité pour s'assurer que toutes les vulnérabilités connues sont corrigées.
 
 ## VII. Conclusion
 
