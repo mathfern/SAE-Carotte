@@ -72,6 +72,7 @@ Dans la description, il est possible d'insérer un texte pour expliquer le trava
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/835c5a10-a214-49d4-b519-9b8ced94e0a7)
 
 - Sous tâches : <br>
+Dans chaque tâche, nous avions la possibilité de créer des sous-tâches. Dans l'exemple donné, la tâche de rédaction est fragmentée en plusieurs parties, chacune correspondant à une application à rédiger.
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/89557350-820a-4b6e-8182-0b9ad1ab87eb)
 
 
