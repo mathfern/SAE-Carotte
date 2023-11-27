@@ -605,10 +605,31 @@ Vulnérabilités dans les librairies utilisées :
 
 - Les bibliothèques externes, telles que pyscard, mysql-connector, pyfiglet, et getpass, peuvent avoir des vulnérabilités connues. Il est important de maintenir ces bibliothèques à jour et de surveiller les annonces de sécurité pour s'assurer que toutes les vulnérabilités connues sont corrigées.
 
-## VII. Conclusion
+## VII. Partie infrastructure
+
+Une partie supplémentaire a été effectuée, il s'agit de la mise en place d'une infrastructure réseaux mettant en lien 5 machines virtuelles. 
+
+Chaque membre du groupe heberge une machine virtuelle sur le même réseau. Chaque machine possède une IP fixe et chaque machine héberge une application du projet. 
+
+Plan d'adressage IP : 
+
+PurpleDragon : 192.168.0.10
+Lubiana : 192.168.0.11
+Berlicum : 192.168.0.12
+Kuroda : 192.168.0.13
+Rodelika+(web) : 192.168.0.14
+
+Certaines de ces machines virtuelles auront des fonctionnalités particulières : 
+
+Rodelika + Rodelika web devra héberger un service web apache pour pouvoir héberger Rodelika Web à l'adresse 192.168.0.14
+PurpleDragon devra héberger un service mysql pour pouvoir héberger la base de données purpledragon1 à l'adresse 192.168.0.10
+
+Un serveur de supervision est aussi implémenté sur la machine PurpleDragon. En effet, on a hebergé une instance de centréon qui permet de superviser notre infrastructure.  
+
+## VIII. Conclusion
 
 
-## VIII. Annexes
+## IX. Annexes
 Tous les codes associés à chaque applications sont disponibles à la racine du github.
 https://github.com/mathfern/SAE-Carotte/tree/main
 
