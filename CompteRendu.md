@@ -613,13 +613,13 @@ Chaque membre du groupe heberge une machine virtuelle sur le même réseau. Chaq
 
 Plan d'adressage IP : 
 
-| Nom               | Adresse IP     |
-|-------------------|----------------|
-| PurpleDragon      | 192.168.0.10   |
-| Lubiana           | 192.168.0.11   |
-| Berlicum          | 192.168.0.12   |
-| Kuroda            | 192.168.0.13   |
-| Rodelika+(web)    | 192.168.0.14   |
+| Nom               | Adresse IP     | Service                     |
+|-------------------|----------------|-----------------------------|
+| PurpleDragon      | 192.168.0.10   | MySQL, Apache               |
+| Lubiana           | 192.168.0.11   |                             |
+| Berlicum          | 192.168.0.12   |                             |
+| Kuroda            | 192.168.0.13   |                             |
+| Rodelika+(web)    | 192.168.0.14   | Web (Apache)                |
 
 
 Certaines de ces machines virtuelles auront des fonctionnalités particulières : 
