@@ -511,6 +511,32 @@ C'est l'implémentations des fonctions **engage()** et **valide()** dans le code
 
 Toujours sur rubrovitamin, nous avons pensés à une faille supplémentaire que nous n'avons pas eu le temps de traiter. Cette faille concerne la **confidentialité** et **l'intégrité** des APDUs transmis. Les APDU peuvent contenir des informations sensibles telles que des identifiants personnels, des clés, des informations financières, etc. La confidentialité vise à empêcher que ces données ne soient compromises lors de leur transmission entre le lecteur et la carte à puce. Pour assurer la confidentialité, on peut utiliser des mécanismes de chiffrement pour rendre les données illisibles pour toute personne non autorisée qui pourrait intercepter les APDU pendant la transmission. L'intégrité quant à elle concerne la garantie que les données n'ont pas été altérées pendant la transmission. Les APDU peuvent être vulnérables à des attaques telles que la modification malveillante des données pendant leur transit. L'utilisation de mécanismes d'intégrité, tels que le hachage ou les codes d'authentification des messages, permet de détecter toute altération des données. Si les données ont été modifiées, le destinataire peut identifier cette altération et prendre des mesures appropriées.
 
+### Partie Vulnérabilités pour la Base de Données PurpleDragon :
+
+Injection SQL :
+
+- Vulnérabilité : Les attaques par injection SQL peuvent se produire si des requêtes SQL dynamiques ne sont pas correctement sécurisées.
+
+- Solution : Utilisez des requêtes préparées ou des procédures stockées pour éviter l'injection SQL. Validez et filtrez toutes les données utilisateur avant de les incorporer dans des requêtes SQL.
+
+Authentification faible :
+
+- Vulnérabilité : L'utilisation de mots de passe faibles ou d'identifiants par défaut peut rendre l'accès à la base de données plus facile.
+
+- Solution : Utilisez des mots de passe forts, encouragez la rotation régulière des mots de passe, et limitez l'accès en fonction du principe du moindre privilège. Évitez l'utilisation d'identifiants par défaut.
+
+Accès non autorisé :
+
+- Vulnérabilité : Les comptes avec des autorisations excessives peuvent permettre un accès non autorisé ou des modifications indésirables.
+
+- Solution : Appliquez le principe du moindre privilège en accordant à chaque utilisateur uniquement les autorisations nécessaires pour effectuer ses tâches. Révisez régulièrement les autorisations.
+
+Chiffrement faible des mots de passe :
+
+- Vulnérabilité : Le stockage de mots de passe sans cryptage adéquat peut compromettre la sécurité des utilisateurs.
+
+- Solution : Utilisez des algorithmes de hachage sécurisés (comme Bcrypt) pour stocker les mots de passe. Encouragez également l'utilisation de mots de passe forts.
+
 ### Partie Vulnérabilités du Logiciel de Gestion (Rodelika) :
 
 Le logiciel de gestion (Rodelika) ait été conçu pour gérer de manière efficace les cartes, les bonus, et les débits des étudiants, il est crucial de prendre en compte les possibles vulnérabilités qui pourraient compromettre la sécurité et l'intégrité des données. Voici quelques points à considérer :
