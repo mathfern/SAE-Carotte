@@ -1,3 +1,4 @@
+# Liste des librairies importées
 import smartcard.System as scardsys
 import smartcard.util as scardutil
 import smartcard.Exceptions as scardexcp
@@ -6,6 +7,11 @@ from pyfiglet import Figlet
 import getpass
 import struct
 
+
+# init_smart_card
+''' Fonction init_smart_card qui permet d'initialiser la connexion avec la carte à puce
+On vérifie si un lecteur de carte est connecté
+On vérifie si il y a une carte dans le lecteur '''
 def init_smart_card():
 	try:
 		liste_readerCard = scardsys.readers()
@@ -29,18 +35,27 @@ def init_smart_card():
 		exit()
 	return	 
 
+
+# generate_banner
+''' Fonction generate_banner qui permet de générer une bannière stylisée
+à l'aide de la librairie pyfiglet '''
 def generate_banner(text, font="standard"):
     f = Figlet(font=font)
     banner = f.renderText(text)
     return banner
 
 
+# print_apdu
+''' Fonction print_apdu permet juste d'afficher les APDU sous forme d'hexadécimal
+de base, les APDU envoyés par python sont en décimal '''
 def __print_apdu(apdu):
         for x in apdu:
             print("0x%02X" % x, end=' ')
         print("\n")  
 
-
+# transmit_apdu
+''' Fonction transmit_apdu qui permet d'envoyer l'APDU vers la mémoire flash de la carte
+Récupération des codes d'erreurs sw1 et sw2 '''
 def transmit_apdu(apdu):
     try:
         data, sw1, sw2 = conn_reader.transmit(apdu)
@@ -75,7 +90,8 @@ def password_adm():
         print("Mot de passe administrateur incorrect. \n")
         return False
 
-
+# print_menu
+''' Fonction d'affichage du menu de l'appli '''
 def print_menu():
 	print ("1 - Afficher la version de carte")
 	print ("2 - Afficher les données de la carte")
@@ -88,6 +104,9 @@ def print_menu():
 	print ("9 - Modifier le code PIN")
 	print ("10 - Quitter")
 
+# print_version 
+''' Fonction pour afficher la version écrite dans la mémoire flash 
+avec gestion des erreurs associées'''
 def print_version():
 	apdu = [0x80, 0x00, 0x00, 0x00, 0x04]
 	try:
@@ -103,6 +122,9 @@ def print_version():
 	print ("sw1 : 0x%02X | sw2 : 0x%02X | version %s" % (sw1,sw2,str))
 	return
 
+# print_data
+''' Fonction pour afficher les données écrites sur la carte sur les 32 premiers bits
+de l'EEPROM avec gestion des erreurs associées'''
 def print_data():
 
 	apdu = [0x80, 0x04, 0x00, 0x00, 0x04]
@@ -178,6 +200,9 @@ def init_sold():
         print(f"Échec de l'initialisation du solde. SW1: 0x{sw1:02X}, SW2: 0x{sw2:02X}")
 
 
+# consult_sold
+''' Fonction pour afficher les données écrites sur la carte sur les entre le 32ème bit et
+le 36ème bit (la ou est ecrit le solde) de l'EEPROM avec gestion des erreurs associées'''
 def consult_sold():
 	apdu = [0x80, 0x07, 0x00, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
@@ -251,6 +276,9 @@ def codePUK():
 
 	transmit_apdu(apdu)
 
+# consult_PUK
+''' Fonction pour afficher les données écrites sur la carte sur les entre le 40ème bit et
+le 44ème bit (la ou est ecrit le code PUK) de l'EEPROM avec gestion des erreurs associées'''
 def consult_PUK():
 	apdu = [0x81, 0x00, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
@@ -267,6 +295,10 @@ def consult_PUK():
 	print ("sw1 : 0x%02X | sw2 : 0x%02X | Les données sur l'eeprom sont : %s" % (sw1,sw2,str))
 	return
 
+
+# consult_PIN (non utilisée dans le code, seulement pour tests)
+''' Fonction pour afficher les données écrites sur la carte sur les entre le 36ème bit et
+le 40ème bit (la ou est ecrit le code PIN) de l'EEPROM avec gestion des erreurs associées'''
 def consult_PIN():
 	apdu = [0x81, 0x01, 0x00, 0x00]
 	data, sw1, sw2 = conn_reader.transmit(apdu)
@@ -309,7 +341,8 @@ def modifPIN():
     else:
         print("Code PUK incorrect. La modification du PIN a échoué.")
 
-
+# main
+''' Appel des fonctions définies ci-dessus'''
 def main():
 	init_smart_card()
 	while True:

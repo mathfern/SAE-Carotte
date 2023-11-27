@@ -13,17 +13,19 @@ Le projet fait également appel à plusieurs compétences :
   <li>Créer des outils et applications pour les R&T</li>
   <li>Utilisation du système de gestion GIT et de la plateforme GitHub ou GitLab</li>
   <li>Programmation en Python, C, HTML, CSS, PHP et Javascript</li>
+  <li>Apprentissage du fonctionnement d'une carte à puce et utilisation de celle-ci avec programmateur et lecteur de carte</li>
+  <li>Utilisation d'outil de gestion de projet (Jira)</li>
   <li>Etudier les différentes vulnérabilités des applications et apporter une solution adéquate pour les sécuriser</li>
   <li>Travailler en collaboration avec les membres de l'équipe</li>
 </ul>
 
 
 ## II. Objectifs
-Le projet Carotte Electronique consiste à configurer une carte à puce, nommée Rubrovitamin où nous allons accorder des crédits supplémentaires (1€) aux élèves méritants en réalisant un système de porte-monnaie électronique à base de cartes à puce.
+Le projet Carotte Electronique consiste à configurer une carte à puce, où nous allons accorder des crédits supplémentaires (1€) aux élèves méritants en réalisant un système de porte-monnaie électronique à base de cartes à puce.
 
 Ces crédits pourront ensuite être utilisés dans des distributeurs de boissons chaudes (café, thé, chocolat chaud) pour le prix de 20 centimes, cela signifie qu’un crédit accordé à un étudiant permet de lui offrir 5 boissons. 
 
-Les étudiants devront se rendre dans le bureau administratif de l’IUT pour récupérer leurs cartes à puce et faire des réclamations en cas de problèmes de ces dernières. Quand un étudiant se présente pour la première fois afin de récupérer sa carte, l’agent administratif vérifie l’identité de l’étudiant (carte étudiant ou certificat de scolarité), puis personnalise une carte pour lui (numéro étudiant, nom, prénom, solde à 0€). L’étudiant récupère ensuite sa carte et est inscrit sur le logiciel de gestion de cartes à puces. 
+Les étudiants devront se rendre dans le bureau administratif de l’IUT pour récupérer leurs cartes à puce et faire des réclamations en cas de problèmes de ces dernières. Quand un étudiant se présente pour la première fois afin de récupérer sa carte, l’agent administratif vérifie l’identité de l’étudiant (carte étudiant ou certificat de scolarité), puis personnalise une carte pour lui (numéro étudiant, nom, prénom, solde à 0€, code PIN, code PUK). L’étudiant récupère ensuite sa carte et est inscrit sur le logiciel de gestion de cartes à puces. 
 
 Pour inciter les étudiants à venir récupérer leurs cartes, on leur attribue d’office un bonus d’un crédit (1€) qu’il faudra aller récupérer sur la borne de recharge. 
 
@@ -38,6 +40,26 @@ Pour inciter les étudiants à venir récupérer leurs cartes, on leur attribue 
 
 ### 4 - Gestion du Projet avec Jira
 
+#### Présentation de Jira
+
+Introduction :
+Jira est un logiciel de gestion de projet développé par Atlassian, une entreprise spécialisée dans les outils de collaboration et de développement logiciel. Lancé initialement en 2002, Jira est devenu un choix populaire parmi les équipes de développement, les équipes informatiques et les équipes de gestion de projet pour sa flexibilité, sa personnalisation et sa puissance.
+
+Caractéristiques clés :
+- Gestion des tâches : Jira permet de créer, attribuer et suivre les tâches au sein d'un projet. Les utilisateurs peuvent définir des priorités, des échéances et des dépendances pour garantir une gestion efficace des activités.
+- Tableaux : Jira prend en charge les méthodologies agiles, offrant des tableaux pour la gestion visuelle des projets. Les équipes peuvent suivre les progrès, gérer les sprints et ajuster les priorités de manière flexible.
+- Personnalisation : Jira est hautement configurable pour s'adapter aux besoins spécifiques de chaque équipe. Les champs, les workflows et les tableaux de bord peuvent être adaptés pour répondre aux exigences uniques de chaque projet.
+- Suivi du temps : Les fonctionnalités intégrées de suivi du temps permettent aux utilisateurs de mesurer précisément le temps passé sur chaque tâche, fournissant ainsi des données essentielles pour l'estimation des projets futurs.
+  
+Notre utilisations :<br>
+Nous avons utilisé Jira pour le suivi de notre projet, attribuant des tâches spécifiques à chaque application. Chaque tâche a été divisée en plusieurs parties. Prenons l'exemple de la tâche "Rédaction des tâches + Planification":<br>
+- Titre : <br>
+Nom de la tâches
+- Description : <br>
+Dans la description, il est possible d'insérer un texte pour expliquer le travail à effectuer, ou, comme dans notre cas, une image. Dans cette instance, nous avons inclus le planning prévisionnel des tâches :
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/835c5a10-a214-49d4-b519-9b8ced94e0a7)
+
+
 
 ## IV. Phase de Conception Initiale
 
@@ -46,7 +68,89 @@ Pour inciter les étudiants à venir récupérer leurs cartes, on leur attribue 
 
 #### 1. Qu'est-ce qu'une carte à puce ?
 
-La carte à puce est un élément essentiel pour la vie quotidienne de millions de personnes, présente dans divers contextes tels que les cartes bancaires, les cartes d'identité et les cartes vitales. Elle stocke des données de manière sécurisée pour les protéger contre toute modification indésirable.
+##### Description générale d'une carte à puce
+La carte à puce est un élément essentiel pour la vie quotidienne de millions de personnes, présente dans divers contextes tels que les cartes bancaires, les cartes d'identité et les cartes vitales. Elle stocke des données de manière sécurisée pour les protéger contre toute modification indésirable. Les cartes à puces sont des cartes munies d'un micro-processeur capable de stocker, traiter et sécuriser des informations.
+
+##### Description technique d'une carte à puce
+
+La composition technique d'une carte à puce est la suivante : 
+- **Microprocesseur** qui est en quelques sorte le cerveau de la carte, c'est lui qui traite les données et exécute les instructions.
+- **Mémoire Flash** qui est utilisée pour stocker les données non volatiles (ce qui signifie que ce sont les données qui restent présentent sur la carte même lorsqu'elle n'est pas alimentée). Elle est utilisée pour stocker des informations comme la version de la carte et le code contenant les fonctions, classes et instructions associées qui forment les APDUs. 
+- **RAM (Random Access Memory)** qui est une mémoire volatile utilisée pour le stockage temporaire pendant l'exécution des programmes. Elle permet en règle générale de traiter des opérations plus rapidemment que les autres types de mémoires et est de ce fait utilisée pour des opérations temporaires et de traitement en cours.
+- **EEPROM (Electrically Erasable Programmable Read-Only Memory)** est une mémoire non volatile également, elle stocke les données de manière permanente. Cette mémoire est flexible puisque comme son nom l'indique, c'est une mémoire qui peut être effacée, programmée et lue. Cette mémoire permet de stocker des informations et données sensibles de manière sécurisée.
+
+##### Cycle de vie d'une carte à puce
+
+- Le developpement, c'est dans cette partie que l'on test et que l'on imagine le programme (Rubrovitamin) en faisant des tests de programmation en mémoire flash. Le développement représente le code que l'on implémente en mémoire flash. 
+- La programmation, c'est la partie dans laquelle on implémente le code Rubrovitamin dans la mémoire flash dans la carte à l'aide de la fonction progcarte (make progcarte)
+- La personnalisation est la tâche réalisée par l'agent administratif qui a pour objectif d'écrire des informations personnelles sur la carte dans la mémoire EEPROM. On stockera des données telles que le nom, le prenom, le num etudiant, le solde, le code pin et le code puk.
+- Vie, le moment ou l'étudiant pourra utiliser et profiter de sa carte
+- Destruction, le moment ou la carte sera réinitialisée pour être attribuée à un autre étudiant.
+
+##### Détails sur le type de cartes à puces utilisées pour le projet
+
+Pour ce projet, le type de puce utilisé est une **ATMega328**. C'est un microcontrôleur 8 bits basé sur l'architecture Harvard. C'est un type de processeur qui sépare physiquement la mémoire de données et la mémoire programme. L’accès à chacune des deux mémoires s’effectue via deux bus distincts ce qui représente une amélioration des performances comparé à certaines technologies à un bus commun pour programme et données comme l'architecture Von Neumann par exemple. 
+
+Pour en revenir au fonctionnement techniques des cartes utilisées pour le projet, voici un schéma qui détaille l'architecture utilisée par celles-ci : 
+![Design sans titre](https://github.com/mathfern/SAE-Carotte/assets/134608345/f07992ab-d47c-4cd9-902b-f0a815595b79)
+
+
+
+##### Normes utilisées
+
+La norme que nous allons utiliser est la norme ISO 7816 et plus particulièrement la norme ISO 7816-4 qui définie les commandes de base de la carte permettant ainsi de comprendre le dialogue entre une carte et un lecteur. En effet, cette partie de la norme ISO 7816 traite et définie précisément de l'organisation, la sécurité et des commandes. Elle définit entre autre les messages APDU (Application Protocol Data Units), par lesquels les cartes à puce communiquent avec le lecteur.
+
+https://www.iso.org/fr/standard/77180.html
+
+
+##### Phase de communications entre la carte et le lecteur
+
+Il existe trois principales étapes de communication entre la carte et l'ordinateur : 
+- **Reset** : C'est la carte qui prend l'initiative de réaliser le RESET. Dès lors que la carte est insérée dans un lecteur de carte (connecté à un ordinateur), cette étape permet au lecteur d’identifier la carte qu’il est en train de lire et de vérifier la compatibilité de la carte et du lecteur. Si la carte s'avère compatible, on passe à la prochaine étape, sinon elle est rejetée.
+  
+- **ATR** : L'ATR ou Answer To Reset est la réponse du lecteur pour le RESET effectué par la carte. Dès lors que la carte est reset, elle envoie un "ATR" d'une taille maximale de 33 octets qui est une séquence binaire qui contient des informations cruciales sur les capacités et les caractéristiques de la carte à puce.
+Par la suite, le lecteur analyse l'ATR pour déterminer comment communiquer avec la carte à puce. L'ATR contient des informations telles que le protocole de communication à utiliser, la taille des données, la vitesse de transmission, etc ..
+La forme de l'ATR est :
+L’ATR contient deux octets :
+TS=0x3b, appelé octet initial
+T0=0x0n où n désigne un nombre, appelé octet de format
+Les quatre premiers bits de l’octet de format sont à 0 et le dernier correspond au
+nombre d’octets d’historique limité à 15 (0 ≤ n ≤ F)
+Dans notre cas, l'envoi de l'ATR est défini dans la fonction atr() du progcarte.c :
+![atr](https://github.com/mathfern/SAE-Carotte/assets/134608345/4de4bd87-e515-494f-80ae-9a500f1885d2)
+
+
+- **APDUs** :
+
+Une fois l'ATR transmis, la carte se met en attente de commande. Les commandes se transmettent à partir d'APDU dans le domaine des cartes à puces. 
+Ici, c'est nos logiciels Berlicum, Lubiana, Kuroda qui envoient des APDUs à la carte pour aller utiliser les fonctions associées dans le code en mémoire flash. 
+
+La composition d'un APDU est la suivante : 
+5 octets d'entête : 
+| CLA | INS | P1 | P2 | P3 |
+|-----|-----|----|----|----|
+
+- Cla : correspond au numéro de classe qui contient les instructions (cf tableau ci dessus)
+- Ins : correspond au numéro d'instruction associé
+- P1 : désigne le paramètre 1 (défini à 0 si l'APDU ne nécessite pas de paramètre 1)
+- P2 : désigne le paramètre 2 (défini à 0 si l'APDU ne nécessite pas de paramètre 2)
+- P3 : désigne la taille des données à écrire dans l'EEPROM
+
+La carte peut répondre de deux manière : 
+- Dans un premier temps, un acquittement qui atteste que l'appel de l'APDU s'est bien passé.
+- Dans un second temps, un message d'erreur personnalisé conformément au tableau ci dessous : 
+
+| Status Word | d’erreur                                 | Signification                                      |
+|-------------|------------------------------------------|----------------------------------------------------|
+| 6e 00       | CLA inconnue                             |                                                    |
+| 6d 00       | CLA connue, INS inconnue                  |                                                    |
+| 6b 00       | CLA, INS connues mais P1 et P2 incorrects |                                                    |
+| 6c xx       | CLA, INS, P1 et P2 corrects mais P3 incorrect | xx désigne le P3 attendu                           |
+
+  
+![Capture d'écran 2023-11-22 110914](https://github.com/mathfern/SAE-Carotte/assets/134608345/c1c89fd1-5ec8-48d8-8f64-e339ee309893) <br>
+
+schéma issu du cours de Mr.DJERROUD : Exemple d'échanges pour une commande entrante
 
 #### 2. Projet "La Carotte électronique" avec la carte Rubrovitamin
 
@@ -71,22 +175,34 @@ Voici un tableau résumant les classes et instructions implémentées dans la ca
 | Classe | Instruction | Description |
 | ------ | ----------- | ----------- |
 | 0x80   | 0x00        | Consulter la version de l'application |
-| 0x80   | 0x01        | Entrer les données d'un étudiant |
-| 0x80   | 0x02        | Consulter les étudiants ayant une carte à puce |
-| 0x82   | 0x01        | Lire le solde de la carte |
-| 0x82   | 0x02        | Ajouter un solde de 1.00€ |
-| 0x82   | 0x03        | Acheter une boisson à 20cts |
+| 0x80   | 0x01        | Récupérer les données entrées dans l'input du mot de passe admin |
+| 0x80   | 0x03        | Ajouter un nom, prenom, numéro d'étudiant sur la carte |
+| 0x80   | 0x04        | Lire le nom, prenom, numéro d'étudiant sur la carte |
+| 0x80   | 0x05        | Supprimer le nom, prenom, numéro d'étudiant et solde sur la carte |
+| 0x80   | 0x06        | Ajouter le code PIN sur la carte |
+| 0x80   | 0x07        | Lire le solde de la carte |
+| 0x80   | 0x08        | Initialiser le solde à 0.00€ sur la carte |
+| 0x80   | 0x09        | Ajouter le code PUK sur la carte |
+| 0x81   | 0x00        | Lire le code PUK de la carte |
+| 0x81   | 0x01        | Lire le code PIN de la carte |
 
 #### 4. Nouvelles fonctionnalités pour Rubrovitamin
 
-Nous avons ajouté une classe supplémentaire, 0x83, pour gérer les bonus. Les fonctionnalités incluent la lecture du solde de bonus, l'ajout d'un bonus à un étudiant par l'agent administratif, et le transfert des bonus obtenus sur la carte.
+De base, Rubrovitamin est le logiciel qui prend en compte la lecture de la version, l'ecriture des données dans la carte, la lecture des données dans la carte, l'ecriture du solde dans la carte et la lecture. 
 
-De plus, nous avons modifié l'instruction 0x02 de la classe 0x82 pour permettre aux étudiants de choisir la somme qu'ils veulent ajouter à leur carte à partir de leur carte bancaire, en utilisant le paramètre P1.
+De notre propre initiative et pour rendre le logiciel plus complet et ergonomique, nous avons décidé de rajouter les fonctionnalités d'ajout et de lecture de codes PIN et PUK, la réinitialisation de la carte, la sécurisation de l'accès à l'ecriture sur l'EEPROM.
 
 #### 5. Vulnérabilités
 
-La principale vulnérabilité concerne la perte ou le vol physique de la carte. En cas de problème, les étudiants peuvent contacter l'agent administratif pour bloquer les transactions depuis la carte.
+Il y a deux principaux types de vulnérabilités possibles liées aux cartes à puces directement : 
 
+##### Vulnérabilité physique (matérielle)
+La perte ou le vol physique de la carte peuvent être considérés comme une vulnérabilité. En cas de problème, les étudiants peuvent contacter l'agent administratif qui devrait être en mesure de bloquer les transactions depuis la carte pour cela, il suffit que l'utilisateur soit bloqué sur la base de données.
+
+##### Vulnérabilité logicielle (Rubrovitamin)
+Si les APDU ne sont pas sécurisées, n'importe quel individu en possession d'une carte à puce programmée avec le code de Rubrovitamin dans la mémoire flash peut utiliser un langage de programmation pour envoyer des APDU 
+
+Une description des vulnérabilité plus détaillée de cette application est disponible plus bas dans le compte rendu. 
 
 ### Personnalisation (Lubiana)
 
@@ -95,8 +211,8 @@ La principale vulnérabilité concerne la perte ou le vol physique de la carte. 
 La personnalisation de la carte à puce dans le logiciel Lubiana consiste à programmer des données spécifiques sur la puce, rendant chaque carte unique. L'objectif est d'initialiser chaque nouvelle carte attribuée à un étudiant avec les paramètres suivants :
 
 - Le nom, prénom et numéro d'étudiant de chaque titulaire de carte.
-- Le numéro de version de la carte.
 - Le solde initial à 0.00€ lors de la création de la carte.
+- Le code PIN et PUK de la carte
 
 Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" de manière interactive et simple, avec un menu offrant différentes actions.
 
@@ -134,20 +250,24 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 
 #### Répartition des classes et instructions :
 
-- La classe utilisée par Lubiana sera la classe 0x81 de l'API du projet.
-- Chaque opération sera associée à une instruction de la classe 0x81.
+- La classe utilisée par Lubiana sera les classes 0x81 et 0x80 de l'API du projet.
+- Chaque opération sera associée à une instruction de ces classes.
 
 #### Instructions pour Lubiana :
 
-1. Affichage de la version : `0x00` classe `0x81`
-2. Affichage des données : `0x02` classe `0x81`
-3. Attribution de la carte : `0x01` classe `0x81`
-4. Attribution du solde initial : `0x02` classe `0x82`
-5. Affichage du solde : `0x01` classe `0x82`
-6. Réinitialisation des données de la carte : `0x05` classe `0x81`
-7. Attribution code PIN/PUK : `0x06` classe `0x81`
-8. Consultation du code PUK : `0x08` classe `0x81`
-9. Modification du code PIN : `0x09` classe `0x81`
+| Classe | Instruction | Description |
+| ------ | ----------- | ----------- |
+| 0x80   | 0x00        | Consulter la version de l'application |
+| 0x80   | 0x01        | Récupérer les données entrées dans l'input du mot de passe admin |
+| 0x80   | 0x03        | Ajouter un nom, prenom, numéro d'étudiant sur la carte |
+| 0x80   | 0x04        | Lire le nom, prenom, numéro d'étudiant sur la carte |
+| 0x80   | 0x05        | Supprimer le nom, prenom, numéro d'étudiant et solde sur la carte |
+| 0x80   | 0x06        | Ajouter le code PIN sur la carte |
+| 0x80   | 0x07        | Lire le solde de la carte |
+| 0x80   | 0x08        | Initialiser le solde à 0.00€ sur la carte |
+| 0x80   | 0x09        | Ajouter le code PUK sur la carte |
+| 0x81   | 0x00        | Lire le code PUK de la carte |
+| 0x81   | 0x01        | Lire le code PIN de la carte |
 
 #### Programmation :
 
@@ -157,6 +277,12 @@ Lubiana sera développé en utilisant Python 3.11. Les librairies utilisées par
 - pyfiglet
 - getpass
 
+#### Gestion des erreurs : 
+
+Lubiana est capable d'afficher et de gérer les erreurs de classes, d'instructions et de paramètre p3 lorsque l'APDU des données envoyées est de mauvaise taille.
+En effet, elle utilise les variables sw1 et sw2 pour stocker les codes d'erreurs : 
+
+
 ### Purple Dragon (Base de données)
 
 #### Concept de base de donnée carte à puce : 
@@ -165,7 +291,7 @@ Une base de données (purple dragon) implémenter en mysql pour les cartes à pu
 
 - Les données des étudiants comme le numéro d’étudiant et contient uniquement les informations essentielles, à savoir le nom, le prénom, le solde et les bonus. 
 
-- Les données du compte qui  représente les opérations effectuées par les utilisateurs, elle est identifiée par la date de l’opération, et contient deux autres 
+- Les données du compte qui représente les opérations effectuées par les utilisateurs, elle est identifiée par la date de l’opération, et contient deux autres 
   champs, le montant de l’opération et sa description. Étant donné que plusieurs utilisateurs peuvent effectuer simultanément différentes opérations, nous avons 
   choisi d'associer le numéro d'étudiant à la clé primaire en utilisant une relation relative (R). Le montant de l'opération peut être positif en cas de bonus ou 
   de crédit, ou négatif en cas de débit.
@@ -179,11 +305,11 @@ Le schémas relationnel (MCD) proposé est donné ci-après :
 
 Cette base de données devra être accessible par le logiciel de gestion Rodelika afin de permettre à l’agent administratif de gérer le suivi des cartes, des bonus, des débit etc. L’étudiant a chaque fois qu’il va insérer sa carte à puces les données de la carte à puces seront stockées dans la base de données.
 
-#### Idées implémenter :
+#### Idées implémentées :
 
-- On a rajouter une table admin avec les colonnes admin_id, user et mot de passe en crypté MD5 dans la base de données pour permettre d'avoir une authentification sur la version web de Rodelika, comme sa il n'y a que l'administrateur qui puisse se connecter.
+- Ajout d'une table admin avec les colonnes admin_id, nom et mot de passe en hash Bcrypt dans la base de données, ce qui permet d'avoir une authentification sur la version web de Rodelika. Cela fait en sorte que tout le monde ne puisse pas accéder à la base de donner et la modifier. 
 
-- Et on a rajouter aussi les colonnes etu_solde, etu_bonus dans la table étudiant pour permettre d'y stocker les bonus et le solde pour chaque étudiant voulu.
+- Ajout des colonnes etu_solde, etu_bonus dans la table étudiant pour permettre de stocker ces informations pour chaque étudiant.
   
 #### Programmation
 
@@ -222,7 +348,7 @@ Le logiciel de gestion va permettre plusieurs actions :
 
 - L’option 4 "attribuer un bonus à un étudiant" nommée dans le code "add_bonus" permettra à l’agent administratif lorsqu’il reçoit un email d’un enseignant d’attribuer un bonus. Le mail doit contenir le numéro de l’étudiant. Dans le cas contraire, l’agent administratif doit effectuer une recherche par nom et prénom avec l’option 1.
 
-#### Fonction implémenter :
+#### Fonction implémentées :
 
 - L'option 5 "supprimer un étudiant" nommée dans le code "suppr_etudiant" permettra à l'agent administratif de supprimer un étudiant de la base de données.
 
@@ -253,7 +379,7 @@ L’application web de gestion donne la possibilité à l’agent administratif 
 Ce site sera codé en HTML/CSS, PHP et javascript et fera appel à la base de données PurpleDragon ainsi qu'à l'application Rodelika.
 
 
-#### Fonctionnalités implémenter
+#### Fonctionnalités implémentées
 
 On a ajouter une interface graphique pour chaque fonction pour l'agent administratif afin qu'ils puissent effectuer les manipulations plus facilement et interactive :
 
@@ -273,7 +399,7 @@ image a jouter
 
 
 
-### Borne a recharge (Berlicum) : 
+### Borne de recharge (Berlicum) : 
 
 - La partie "Borne de Recharge (Berlicum)" se concentre sur le développement du logiciel embarqué pour une borne de recharge utilisée par des étudiants. Le but principal de cette borne est de permettre aux étudiants d'accéder à diverses fonctionnalités liées à leurs cartes à puce. Voici un aperçu des opérations principales que les étudiants peuvent effectuer à l'aide de cette borne :
 
@@ -290,13 +416,13 @@ image a jouter
 - Le développement du logiciel embarqué pour la borne de recharge (Berlicum) est essentiel pour offrir aux étudiants un accès facile à leurs informations, à leurs bonus et à leur crédit. Ce système contribue à la gestion efficace des ressources des étudiants, en garantissant l'intégrité des transactions et en facilitant la recharge en cas de besoin.
 
 
-#### Fonctions implémenter : 
+#### Fonctions implémentées : 
 
 - La fonction "code pin" nommée dans le code "PINvalide" a été implémenter dans ce code pour permettre une meilleure sécurisation sur la carte à puce. Donc a chaque fois qu'un étudiant insert sa carte à puce dans la borne de recharge il devra mettre son code pin qui est défini au moment de la création de sa carte à puce.
 
-- La fonction "Afficher l'historique des transactions" nommée dans le code "" offre aux étudiants la possibilité de consulter un historique détaillé de toutes les transactions effectuées avec leur carte à puce. Cet historique est stocké dans une table "compte" de la base de données et peut être consulté à partir de la borne de recharge (Berlicum). Voici une description de cette fonctionnalité :
+- La fonction "Afficher l'historique des transactions" nommée dans le code "histo_transac" offre aux étudiants la possibilité de consulter un historique détaillé de toutes les transactions effectuées avec leur carte à puce. Cet historique est stocké dans une table "compte" de la base de données et peut être consulté à partir de la borne de recharge (Berlicum). Voici une description de cette fonctionnalité :
 
-- Afficher l'historique des transactions : Les étudiants peuvent accéder à un récapitulatif de toutes les transactions effectuées avec leur carte à puce. Chaque transaction est enregistrée dans la base de données avec des détails tels que la date, l'heure, le type de transaction (retrait, bonus, recharge, etc.), le montant impliqué, et d'autres informations pertinentes. L'affichage de cet historique se fait de manière claire et organisée, permettant aux étudiants de comprendre facilement leur utilisation de la carte.
+Afficher l'historique des transactions : Les étudiants peuvent accéder à un récapitulatif de toutes les transactions effectuées avec leur carte à puce. Chaque transaction est enregistrée dans la base de données avec des détails tels que la date, l'heure, le type de transaction (retrait, bonus, recharge, etc.), le montant impliqué, et d'autres informations pertinentes. L'affichage de cet historique se fait de manière claire et organisée, permettant aux étudiants de comprendre facilement leur utilisation de la carte.
 
 #### Répartition classes et instructions :
 
@@ -319,22 +445,19 @@ Berlicum sera développé en utilisant Python 3.11. Les librairies utilisées pa
 - pyfiglet
 - getpass
 
+### Application de simulateur de machine à café (Kuroda)
+
+
 
 
 ## VI. Évaluation de la Sécurité et analyse des Vulnérabilités
-
+Les logiciels de base n'étaient pas très sécurisés et comportaient plusieurs potentielles vulnérabilités. 
 
 
 ## VII. Conclusion
 
 
 ## VIII. Annexes
----
+Tous les codes associés à chaque applications sont disponibles à la racine du github.
 
-**Remarques importantes :**
 
-- Utilisez une syntaxe Markdown pour formater votre texte (titres, listes, liens, etc.).
-- Assurez-vous d'inclure des éléments visuels pertinents pour rendre le compte rendu plus compréhensible.
-- Veillez à numéroter vos sections et sous-sections pour une organisation claire.
-
-N'hésitez pas à personnaliser cette template en fonction de vos besoins spécifiques. Vous pouvez ajouter ou supprimer des sections selon les exigences de votre compte rendu.
