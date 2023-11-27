@@ -529,6 +529,26 @@ Injection SQL :
 Défauts dans la validation des entrées utilisateur :
 
 - Si le logiciel ne valide pas correctement les entrées utilisateur, cela pourrait conduire à des vulnérabilités telles que les attaques par injection, les attaques par débordement de tampon, ou d'autres formes d'attaques liées à la manipulation des données d'entrée.
+
+### Partie Vulnérabilités de l'Application Web de Gestion (RodelikaWeb) :
+
+Bien que l'application web de gestion (RodelikaWeb) offre une interface graphique conviviale pour les agents administratifs avec une interface de connexion pour cet admin avec un mot de passe hasher, il est essentiel de considérer les possibles vulnérabilités qui pourraient compromettre la sécurité de l'application. Voici quelques points à prendre en compte :
+
+Injection de code SQL :
+
+- L'utilisation de requêtes SQL dynamiques dans le code PHP sans les mesures de sécurité appropriées peut rendre l'application vulnérable aux attaques par injection SQL. Il est crucial de paramétrer et d'utiliser des requêtes préparées pour éviter ce type d'attaque.
+
+Faiblesse dans la gestion des sessions :
+
+- Si la gestion des sessions PHP n'est pas correctement implémentée, cela peut conduire à des vulnérabilités liées à la manipulation des sessions, telles que la fixation de session, la session hijacking ou la session poisoning. Assurez-vous d'utiliser des pratiques de gestion de session sécurisées.
+
+Absence de chiffrement des données en transit :
+
+- Si les données ne sont pas correctement chiffrées lors de leur transmission entre l'application web et la base de données ou entre le client et le serveur, cela peut exposer les informations sensibles à des interceptions.
+
+Chiffrement faible des mots de passe :
+
+- Si les mots de passe sont stockés dans la base de données sans être correctement hachés avec des algorithmes sécurisés, cela pourrait exposer les informations des utilisateurs en cas de violation de la base de données.
   
 ### Partie Vulnérabilités de la Borne de Recharge (Berlicum) :
 
