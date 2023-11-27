@@ -427,7 +427,8 @@ Pour attribuer un bonus, il vous suffira d'entrer un numéro étudiant existant 
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/0e1be92b-c83e-4784-81d2-34ab7cbf210e)
 
 
-- supprimer un étudiant :
+- supprimer un étudiant :<br>
+Enfin, la dernière fonctionnalité de notre site consiste à supprimer un étudiant existant dans la base de données. Pour ce faire, il vous suffit d'entrer un numéro étudiant. Une fois la vérification effectuée, l'étudiant associé à ce numéro sera supprimé. Cette opération utilise la fonctionnalité ajoutée à Rodelika, à savoir l'option 5.
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/b4cca0a3-e16b-40d5-acee-99e61978565a)
 
 
