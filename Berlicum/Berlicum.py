@@ -20,20 +20,27 @@ On vérifie si un lecteur de carte est connecté
 On vérifie si il y a une carte dans le lecteur '''
 def init_smart_card():
 	try:
+		# Tentative d'obtenir la liste des lecteurs de cartes à puce disponibles
 		liste_readerCard = scardsys.readers()
 		print (liste_readerCard)
 	except scardexcp.Exceptions as e:
+		 # Gestion des exceptions liées à la récupération de la liste des lecteurs
 		print (e)
 		return
+	# Calcul de la taille de la liste des lecteurs
 	taille_reader = len(liste_readerCard)
 	print (taille_reader)
+	
+	# Vérification s'il y a au moins un lecteur de carte disponible
 	if (taille_reader == 0):
 		print ("Aucun lecteur de carte connecté")		
 		exit()
 	try:
+		# Tentative d'établir une connexion avec le premier lecteur de carte de la liste
 		global conn_reader
 		conn_reader = liste_readerCard[0].createConnection()
 		conn_reader.connect()
+		# Affichage de l'ATR (Answer to Reset) de la carte à puce
 		print ("ATR:", scardutil.toHexString(conn_reader.getATR()))
 	except scardexcp.NoCardException as e:
 		print ("Pas de carte dans le lecteur :", e)
@@ -63,14 +70,17 @@ def transmit_apdu(apdu):
 
 
 def PINvalide():
-	global PIN
+	global PIN # Utilisation de la variable globale PIN pour stocker le code PIN saisi
 	PIN = str(getpass.getpass("Saisir le code PIN : "))
-	apdu = [0x81, 0x01, 0x00, 0x00]
+	apdu = [0x81, 0x01, 0x00, 0x00] # Construction d'une commande APDU (Application Protocol Data Unit) pour envoyer au lecteur de carte
+	data, sw1, sw2 = conn_reader.transmit(apdu) # Transmission de la commande APDU au lecteur de carte et récupération des données et des codes SW1 et SW2
+	# Ajout de la valeur de SW2 à la commande APDU et retransmission pour obtenir la réponse complète
+	apdu.append(sw2) 
 	data, sw1, sw2 = conn_reader.transmit(apdu)
-	apdu.append(sw2)
-	data, sw1, sw2 = conn_reader.transmit(apdu)
+	# Utilisation de la variable globale pinConsult pour stocker la réponse du lecteur de carte
 	global pinConsult
 	pinConsult = ""
+	# Conversion des données reçues en chaîne de caractères et stockage dans pinConsult
 	for e in data:
 	    pinConsult += chr(e)	
 
@@ -97,30 +107,31 @@ def print_menu():
 
 
 def affiche_info():
-	apdu = [0x80, 0x04, 0x00, 0x00, 0x01]
-	data, sw1, sw2 = conn_reader.transmit(apdu)
+	apdu = [0x80, 0x04, 0x00, 0x00, 0x01] # Construction d'une commande APDU pour récupérer des informations de la carte à puce
+	data, sw1, sw2 = conn_reader.transmit(apdu) # Transmission de la commande APDU au lecteur de carte et récupération des données ainsi que des codes SW1 et SW2
 	
 	print ("sw1 : 0x%02X | sw2 : 0x%02X" % (sw1,sw2))
-	apdu[4] = sw2
-	data, sw1, sw2 = conn_reader.transmit(apdu)
-	infos = ""
+	apdu[4] = sw2 # Mise à jour de la dernière partie de la commande APDU avec la valeur de SW2
+	data, sw1, sw2 = conn_reader.transmit(apdu) # Nouvelle transmission de la commande APDU modifiée pour obtenir la réponse complète du lecteur de carte
+	infos = "" # Initialisation d'une chaîne de caractères pour stocker les informations extraites de la réponse
+	# Conversion des données reçues en chaîne de caractères et stockage dans la variable infos
 	for e in data:
 		infos += chr(e)
-	num_etudiant = int(infos.split()[-1])
-	# print (type(num_etudiant))
-	# Vérifiez si le numéro d'étudiant existe déjà
-	check_query = "SELECT COUNT(*) FROM Etudiant WHERE etu_num = %s;"
-	check_val = (num_etudiant,)
-	cursor = cnx.cursor()
-	cursor.execute(check_query, check_val)
-	result = cursor.fetchone()
+	num_etudiant = int(infos.split()[-1]) # Extraction du numéro d'étudiant à partir des informations obtenues
+	check_query = "SELECT COUNT(*) FROM Etudiant WHERE etu_num = %s;" # Vérification si le numéro d'étudiant existe déjà dans la base de données
+	check_val = (num_etudiant,) 
+	cursor = cnx.cursor() # Création d'un curseur pour interagir avec la base de données
+	cursor.execute(check_query, check_val)# Exécution de la requête de vérification
+	result = cursor.fetchone() # Récupération du résultat de la requête de vérification
+	
+	# Vérification si le numéro d'étudiant n'existe pas dans la base de données
 	if result[0] < 0:
 		print("Ce numéro d'étudiant n'existe pas allez voir l'agent administratif")
 	else: 
-		sql = "SELECT etu_num, etu_nom, etu_prenom FROM Etudiant WHERE etu_num = %s;"
+		sql = "SELECT etu_num, etu_nom, etu_prenom FROM Etudiant WHERE etu_num = %s;" # Requête pour récupérer les informations de l'étudiant en fonction du numéro d'étudiant
 		cursor.execute(sql, (num_etudiant,))
-		student_info = cursor.fetchone()
-		print("Informations sur l'étudiant :", student_info)
+		student_info = cursor.fetchone() # Récupération des informations de l'étudiant
+		print("Informations sur l'étudiant :", student_info) # Affichage des informations de l'étudiant
 	return
 
 
@@ -145,12 +156,12 @@ def affiche_bonus():
 	if result[0] < 0:
 		print("Ce numéro d'étudiant n'existe pas allez voir l'agent administratif")
 	else: 
-		sql = "SELECT etu_bonus FROM Etudiant WHERE etu_num = %s;"
+		sql = "SELECT etu_bonus FROM Etudiant WHERE etu_num = %s;" # Requête SQL pour sélectionner le bonus d'un étudiant spécifique en fonction de son numéro d'étudiant
 		cursor.execute(sql, (num_etudiant,))
 		student_info = cursor.fetchone()
-		bonus_value = float(student_info[0])
-		bonus_value = "{:.2f}".format(float(bonus_value) + 0.00)
-		print("Vous avez :", bonus_value , " bonus \n")
+		bonus_value = float(student_info[0]) # Extraction de la valeur du bonus de la première colonne du résultat (index 0)
+		bonus_value = "{:.2f}".format(float(bonus_value) + 0.00) # Ajout d'une valeur fixe de bonus (0.00) à la valeur existante du bonus
+		print("Vous avez :", bonus_value , " bonus \n") # Affichage du montant total du bonus de l'étudiant
 
 
 def transfert_bonus():
@@ -178,16 +189,19 @@ def transfert_bonus():
 		cursor.execute(sql, (num_etudiant,))
 		student_info = cursor.fetchone()
 		bonus_value = float(student_info[0])
-		bonus_value = "{:.2f}".format(float(bonus_value) + 0.00)
+		bonus_value = float(student_info[0])
 		print("Vous avez :", bonus_value , " bonus \n")
-		nb_bonus = float(input("Combien de bonus voulez vous transférer ? "))
-		nb_bonus = "{:.2f}".format(float(nb_bonus) + 0.00)
-		if (nb_bonus <= bonus_value):
-			sql_ajout_solde = "UPDATE Etudiant SET etu_solde = etu_solde + %s WHERE etu_num = %s"
+		nb_bonus = float(input("Combien de bonus voulez-vous transférer ? ")) # Saisie du nombre de bonus à transférer
+		if (nb_bonus <= bonus_value): # Vérification si le nombre de bonus à transférer est inférieur ou égal au bonus actuel de l'étudiant
+
+			sql_ajout_solde = "UPDATE Etudiant SET etu_solde = etu_solde + %s WHERE etu_num = %s" # Requête SQL pour ajouter le montant transféré au solde de l'étudiant
 			cursor.execute(sql_ajout_solde, (nb_bonus,num_etudiant))
-			sql_enlever_bonus = "UPDATE Etudiant SET etu_bonus = etu_bonus - %s WHERE etu_num = %s"
+			
+			sql_enlever_bonus = "UPDATE Etudiant SET etu_bonus = etu_bonus - %s WHERE etu_num = %s" # Requête SQL pour enlever le montant transféré du bonus de l'étudiant
 			cursor.execute(sql_enlever_bonus, (nb_bonus, num_etudiant))
-			cnx.commit()
+			
+			cnx.commit() # Validation des changements dans la base de données
+			
 			verif_bonus = "SELECT etu_bonus FROM Etudiant WHERE etu_num = %s;"
 			cursor.execute(verif_bonus, (num_etudiant,))
 			result_bonus = cursor.fetchone()
