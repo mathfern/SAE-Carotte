@@ -439,7 +439,7 @@ Enfin, la dernière fonctionnalité de notre site consiste à supprimer un étud
 - Chaque formulaire ou tableau est accompagné de son propre message d'erreur et de succès. Voici un exemple de message qui s'affiche lors de l'ajout d'un bonus.
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/42b570e4-3a98-4338-9de8-c7d560144eb1) <br>
 
-Un exemple de message qui s'affiche lors d'une erreur d'ajout de bonus : 
+- Un exemple de message qui s'affiche lors d'une erreur d'ajout de bonus :
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/b2e48e1d-0da4-49d5-bc1a-9be5856bcb77)
 
 
