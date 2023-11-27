@@ -411,7 +411,7 @@ On a ajouter une interface graphique pour chaque fonction pour l'agent administr
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/96ac695c-26a5-4bf3-857e-296bb782ac22)
 - liste des étudiants :<br>
 Le programme Web utilise la fonctionnalité 1 du script Rodelika pour afficher les informations telles que le numéro étudiant, le nom et le prénom de l'étudiant.
-![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/59ad1439-ad29-4385-95b3-4ae8e904335b)
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/3327e21c-cb03-4e29-b3be-eff83bfcba6e)
 
 
 - liste des étudiants avec le solde et bonus:<br>
@@ -437,7 +437,10 @@ Enfin, la dernière fonctionnalité de notre site consiste à supprimer un étud
 
 
 - Chaque formulaire ou tableau est accompagné de son propre message d'erreur et de succès. Voici un exemple de message qui s'affiche lors de l'ajout d'un bonus.
-![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/42b570e4-3a98-4338-9de8-c7d560144eb1)
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/42b570e4-3a98-4338-9de8-c7d560144eb1) <br>
+
+Un exemple de message qui s'affiche lors d'une erreur d'ajout de bonus : 
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/b2e48e1d-0da4-49d5-bc1a-9be5856bcb77)
 
 
 
