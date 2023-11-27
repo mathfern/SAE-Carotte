@@ -402,20 +402,33 @@ Ce site sera codé en HTML/CSS, PHP et javascript et fera appel à la base de do
 #### Fonctionnalités implémentées
 
 On a ajouter une interface graphique pour chaque fonction pour l'agent administratif afin qu'ils puissent effectuer les manipulations plus facilement et interactive :
-
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/96ac695c-26a5-4bf3-857e-296bb782ac22)
 - liste des étudiants :
+<br>
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/59ad1439-ad29-4385-95b3-4ae8e904335b)
 
-image a jouter 
 
 - liste des étudiants avec le solde et bonus:
+<br>
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/e344d96d-040c-4924-94e7-4c71337ff09b)
 
 - ajouter un nouvel étudiant : 
+<br>
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/3b6b896a-3938-4670-bfd6-9f505d2145b1)
 
-- attribuer un bonus :  
+- attribuer un bonus :
+<br>
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/0e1be92b-c83e-4784-81d2-34ab7cbf210e)
+
 
 - supprimer un étudiant :
+<br>
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/b4cca0a3-e16b-40d5-acee-99e61978565a)
+
 
 - interface de connexion pour l’agent administratif pour sécuriser l’ajout de soldes dans la bdd :
+<br>
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/aca45aa2-4618-4722-aa89-667ac27c362a)
 
 
 
