@@ -632,6 +632,13 @@ PurpleDragon devra héberger un service mysql pour pouvoir héberger la base de 
 
 Un serveur de supervision est aussi implémenté sur la machine PurpleDragon. En effet, on a hebergé une instance de centréon qui permet de superviser notre infrastructure.  
 
+Les hôtes supervisés par le serveur de supervision sont : 
+- Lubiana (ping machine)
+- Berlicum (ping machine)
+- Kuroda (ping machine)
+- PurpleDragon (vérification du bon fonctionnement du service mysql)
+- Rodelika (ping machine + vérification du bon fonctionnement du service apache)
+
 ## VIII. Conclusion
 
 
