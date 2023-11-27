@@ -412,6 +412,7 @@ Ce site sera codé en HTML/CSS, PHP et javascript et fera appel à la base de do
 On a ajouter une interface graphique pour chaque fonction pour l'agent administratif afin qu'ils puissent effectuer les manipulations plus facilement et interactive :
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/96ac695c-26a5-4bf3-857e-296bb782ac22)
 - liste des étudiants :
+Le programme Web utilise la fonctionnalité 1 du script Rodelika pour afficher les informations telles que le numéro étudiant, le nom et le prénom de l'étudiant.
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/59ad1439-ad29-4385-95b3-4ae8e904335b)
 
 
