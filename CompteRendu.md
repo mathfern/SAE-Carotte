@@ -78,19 +78,19 @@ Accédez à GitHub et créez un nouveau référentiel.
 4. Configuration du Projet Local :
 
 cd /chemin/vers/notre/projet
-```git init
+git init
 git add .
-git commit -m "Premier commit"```
+git commit -m "Premier commit"
 
 5. Travailler avec le Projet :
 Pour récupérer les dernières modifications depuis le référentiel distant :
 
-``` git pull origin master ```
+git pull origin master
 
 Pour ajouter et valider les modifications locales :
 
-``` git add .
-git commit -m "Description des modifications" ```
+git add .
+git commit -m "Description des modifications" 
 
 Pour envoyer les modifications vers le référentiel distant :
 
