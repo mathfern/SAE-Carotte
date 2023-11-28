@@ -75,6 +75,9 @@ Dans la description, il est possible d'insérer un texte pour expliquer le trava
 Dans chaque tâche, nous avions la possibilité de créer des sous-tâches. Dans l'exemple donné, la tâche de rédaction est fragmentée en plusieurs parties, chacune correspondant à une application à rédiger.
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/89557350-820a-4b6e-8182-0b9ad1ab87eb)
 
+- Commentaires : <br>
+En conclusion, chaque tâche dispose d'un espace commentaire qui nous a permis de suivre en temps réel l'évolution du projet. Jira a également facilité nos réunions en nous permettant de ne pas oublier les points déjà traités et d'ajouter des suggestions d'amélioration pour le futur.
+
 
 
 
