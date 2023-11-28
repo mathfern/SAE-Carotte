@@ -50,6 +50,50 @@ En suivant notre planning prévisionnel, nous avons réussi à terminer la SAE d
 
 ### 3 - Mise en place du GitHub
 
+La mise en place de Git sur un système Debian 11, suivi de l'utilisation de GitHub, offre un moyen puissant de gérer les versions de code, de collaborer avec d'autres développeurs et de maintenir un historique clair des modifications apportées à un projet. Voici un résumé des étapes pour configurer Git, créer un référentiel sur GitHub, et travailler avec les commandes de base telles que git add, git commit, git push, et git pull.
+
+Étapes :
+1. Installation de Git sur Debian 11 :
+
+sudo apt update
+sudo apt upgrade
+sudo apt install git
+
+2. Configuration de Git :
+
+git config --global user.name "Notre Nom"
+git config --global user.email "Notre@email.com"
+git config --list
+
+3. Création d'un nouveau référentiel sur GitHub :
+
+Accédez à GitHub et créez un nouveau référentiel.
+
+4. Configuration du Projet Local :
+
+cd /chemin/vers/notre/projet
+git init
+git add .
+git commit -m "Premier commit"
+
+5. Travailler avec le Projet :
+Pour récupérer les dernières modifications depuis le référentiel distant :
+
+git pull origin master
+
+Pour ajouter et valider les modifications locales :
+
+git add .
+git commit -m "Description des modifications"
+
+Pour envoyer les modifications vers le référentiel distant :
+
+git push origin master
+                                          
+Conclusion :
+
+La configuration de Git sur Debian 11 associée à GitHub offre un ensemble robuste d'outils pour la gestion des versions et la collaboration. Ces étapes, une fois suivies, nous permettent de travailler de manière efficace, de maintenir un historique précis des modifications, et de partager nos projets avec d'autres collaborateurs. L'utilisation des commandes git add, git commit, git push, et git pull facilite la gestion du cycle de vie du code. En veillant à respecter les meilleures pratiques de sécurité, ce processus garantit une expérience de développement collaborative et sécurisée.
+
 ### 4 - Gestion du Projet avec Jira
 
 #### Présentation de Jira
