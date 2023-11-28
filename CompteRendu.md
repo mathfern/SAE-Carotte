@@ -704,6 +704,12 @@ Les hôtes supervisés par le serveur de supervision sont :
 - PurpleDragon (vérification du bon fonctionnement du service mysql)
 - Rodelika (ping machine + vérification du bon fonctionnement du service apache)
 
+### Axes de sécurisation de l'infrastructure : 
+
+Il serait intéressant de sécuriser la partie infrastructure de notre projet en installant un pare-feu sur la machine PurpleDragon qui aurait des règles acceptant seulement les requêtes des machines Berlicum, Rodelika et Kuroda sur le port mysql : 3306. 
+
+Il serait également intéressant de répliquer certaines machines virtuelles comme la machine de base de données et le serveur web (PurpleDragon et Rodelika) pour augmenter la disponibilité de l'infrastructure et renforcer la résilience. De ce fait, si une de ces deux machines tombe en panne, une bascule automatique vers l'instance répliquée devrait se faire pour réduire les délais de panne temporairement.
+
 ## VIII. Conclusion
 
 
