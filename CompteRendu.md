@@ -144,6 +144,32 @@ En conclusion, chaque tâche dispose d'un espace commentaire qui nous a permis d
 
 ## IV. Phase de Conception Initiale
 
+### Gestion des Environnements Virtuels pour l'Installation de Modules Python
+
+La mise en place d'environnements virtuels est une pratique essentielle dans le développement Python, permettant d'isoler les dépendances d'un projet et d'éviter les conflits entre différentes applications. Dans le cadre de notre projet, la création d'un environnement virtuel a été particulièrement utile pour installer et gérer les modules tels que pyscard et mysql-connector via pip.
+
+Environnements Virtuels avec venv :
+
+Création de l'Environnement Virtuel :
+
+Utilisation de la bibliothèque standard venv pour créer un environnement virtuel.
+
+python3 -m venv "dossier"
+
+Activation de l'Environnement Virtuel :
+
+source "dossier"/bin/activate
+
+Installation de pyscard et mysql-connector via pip :
+
+Une fois l'environnement virtuel activé, l'utilisation de pip pour installer les modules devient spécifique à cet environnement.
+
+pip install pyscard mysql-connector
+
+Utilisation dans le Contexte du Projet :
+
+Dans le cadre de l'implémentation du logiciel embarqué comme pour la borne de recharge (Berlicum)et du logiciel de gestion (Rodelika), la création d'environnements virtuels a permis de garantir la disponibilité des modules requis (pyscard, swig, pyfiglet, tabulate et mysql-connector) dans des versions spécifiques, assurant ainsi la stabilité du système. 
+
 ### Application en C pour carte à puce (Rubrovitamin)
 
 
