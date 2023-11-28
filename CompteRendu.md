@@ -501,9 +501,10 @@ L’application web de gestion donne la possibilité à l’agent administratif 
 Ce site sera codé en HTML/CSS, PHP et javascript et fera appel à la base de données PurpleDragon ainsi qu'à l'application Rodelika.
 
 
-#### Fonctionnalités implémentées
-Pour démarrer RodelikaWeb, il vous suffit de vous rendre dans le répertoire SAE-Carotte/RodelikaWeb/ et d'exécuter la commande "php -S localhost:8000". Cette commande lance un serveur web local utilisant PHP sur le port 8000. Ensuite, ouvrez simplement un navigateur web et accédez à "http://localhost:8000". Vous serez dirigé vers l'interface de connexion où vous devrez saisir votre identifiant et votre mot de passe.
-On a ajouter une interface graphique pour chaque fonction pour l'agent administratif afin qu'ils puissent effectuer les manipulations plus facilement et interactive :
+#### Fonctionnalités implémentées <br>
+Pour démarrer RodelikaWeb, il vous suffit de vous rendre dans le répertoire SAE-Carotte/RodelikaWeb/ et d'exécuter la commande "php -S localhost:8000". Cette commande lance un serveur web local utilisant PHP sur le port 8000. Ensuite, ouvrez simplement un navigateur web et accédez à "http://localhost:8000". Vous serez dirigé vers l'interface de connexion où vous devrez saisir votre identifiant et votre mot de passe.<br>
+
+- On a ajouter une interface graphique pour chaque fonction pour l'agent administratif afin qu'ils puissent effectuer les manipulations plus facilement et interactive :
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/96ac695c-26a5-4bf3-857e-296bb782ac22)
 - liste des étudiants :<br>
 Le programme Web utilise la fonctionnalité 1 du script Rodelika pour afficher les informations telles que le numéro étudiant, le nom et le prénom de l'étudiant.
