@@ -691,6 +691,7 @@ Certaines de ces machines virtuelles auront des fonctionnalités particulières 
 
 Rodelika + Rodelika web devra héberger un service web apache pour pouvoir héberger Rodelika Web à l'adresse 192.168.0.14
 PurpleDragon devra héberger un service mysql pour pouvoir héberger la base de données purpledragon1 à l'adresse 192.168.0.10
+![databases](https://github.com/mathfern/SAE-Carotte/assets/134608345/89676fe5-18b2-45b6-8ee0-9ea45c212881)
 
 Un serveur de supervision est aussi implémenté sur la machine PurpleDragon. En effet, on a hebergé une instance de centréon qui permet de superviser notre infrastructure.  
 
