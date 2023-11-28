@@ -95,6 +95,16 @@ git commit -m "Description des modifications"
 Pour envoyer les modifications vers le référentiel distant :
 
 git push origin master
+
+Par ailleurs, le git étant en privé, il faut obligatoirement générer une clé ssh sur sa machine avec **ssh-keygen** de la manière suivante : 
+``` ssh-keygen -t rsa -b 4096 -C "fernandes.mathias@gmail.com"
+
+S'assurer que la clé est en cours d'exécution :
+``` eval "$(ssh-agent -s)"
+
+Ajouter la clé ssh à l'agent local SSH :
+``` ssh-add -K /Users/you/.ssh/id_rsa
+
                                           
 Conclusion :
 
