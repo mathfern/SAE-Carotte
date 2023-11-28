@@ -37,6 +37,12 @@ Voici ci-dessous le schéma relationnel des applications qui seront détaillées
 ## III. Organisation et Gestion du projet
 
 ### 1 - Cahier des charges
+L'objectif de notre projet au sein de cette SAE était de développer les logiciels suivants :
+— Le programme embarqué dans la carte à puce (code nom : Rubrovitamina)
+— L'application de personnalisation de carte utilisée par l'agent administratif (Lubiana)
+— Le logiciel de gestion employé par l'agent administratif pour l'attribution des récompenses (Rodelika)
+— Le logiciel de la borne de recharge (Berlicum)
+— La base de données (Purple Dragon)
 
 ### 2 - Répartition du temps
 
