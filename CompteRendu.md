@@ -512,6 +512,16 @@ Les principales fonctionnalités proposées par cette application sont les suiva
 
 - Mise à Jour du Solde : Si le solde de la carte diffère de celui stocké dans la base de données, l'application met à jour le solde de la carte avec celui de la base de données. Cela garantit la cohérence des soldes entre la carte et la base de données.
 
+#### Répartition classes et instructions :
+
+La classe utilisée par kuroda sera la classe 0x80, 0x81 de l’API du projet (cf partie Carte à Puces). 
+
+Chaque opération réalisable par le logiciel sera associée à une instruction de la classe 0x81, 0x80 : . 
+
+- Instruction pour l’*affichage du solde* : instruction 0x07 et classe 0x80
+- Instruction pour l’*débiter le solde* :  Requete BDD + instructions 0x07, 0x08, 0x04 de la classe 0x80
+- Instruction pour *mettre le solde de la BDD sur celui de la carte* : instruction 0x08 et classe 0x80
+
 #### Programmation : 
 
 Berlicum sera développé en utilisant Python 3.11. Les librairies utilisées par Berlicum sont : 
