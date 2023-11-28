@@ -327,6 +327,10 @@ Si les APDU ne sont pas sécurisées, n'importe quel individu en possession d'un
 
 Une description des vulnérabilité plus détaillée de cette application est disponible plus bas dans le compte rendu. 
 
+Ici voici un exemple de l'utilisation de rubrovitamin :
+
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/15dc35fc-8d2e-4fa0-bd03-f1945691036e)
+
 ### Personnalisation (Lubiana)
 
 #### Concept de personnalisation de carte à puce
