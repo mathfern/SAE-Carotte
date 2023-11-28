@@ -345,42 +345,62 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 
 #### Actions proposées par le menu :
 
-
 1. **Affichage de la version de la carte à puce :**
    - Vérifie la version actuelle de la carte.
      fonction print_version()
+
+     ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/f4e907c9-a12b-45be-bb9a-2923aa1a4052)
+
 
 2. **Affichage des données de la carte à puce :**
    - Vérifie et affiche les données telles que le nom, le prénom et le numéro d'étudiant sur la carte. Si aucune donnée n'est présente, indique que la carte est vierge.
      fonction print_data()
 
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/9ce47349-255f-43a1-8da9-eb3430ccf51a)
+
+
 3. **Attribuer la carte à un étudiant :**
    - Permet d'ajouter le nom, le prénom et le numéro d'étudiant sur la carte.
      fonction assign_card()
+
+     ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/3c7566e0-2e4a-49dc-abfa-34c0b296eff0)
+
 
 4. **Mettre le solde initial de 0.00€ :**
    - Initialise le solde de la carte à 0.00€.
      fonction init_sold()
 
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/4f802174-6ae3-42e0-9c10-f86c6bcc0164)
+
 5. **Consulter le solde :**
    - Affiche le solde actuel sur la carte.
      fonction consult_sold()
+
+    ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/c9ff52e9-e7b2-4e92-afa6-709375928781)
+
 
 6. **Réinitialiser les données de la carte :**
    - Supprime les données de la carte, nécessaire en cas de réattribution.
      fonction delete_data()
 
+     ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/f279b706-ba92-4685-9218-89779867a2c0)
+
+
 7. **Attribuer code PIN/PUK :**
    - Permet de définir un nouveau code PIN et génère un code PUK aléatoire.
      fonctions codePIN() et codePUK()
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/62f3ccb0-7c78-480c-9cdb-7515694b8ff3)
 
 8. **Consulter le code PUK :**
    - Affiche le code PUK actuel.
      fonction consult_PUK()
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/71f33c31-38e2-4410-b780-553de9c23677)
 
 9. **Modifier le code PIN :**
    - En cas d'oubli, permet de modifier le code PIN en utilisant le code PUK.
      fonction modifPIN()
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/56a2ec2b-6a2d-4f01-8a13-69918a047a01)
+
 
 10. **Quitter :**
     - Termine l'exécution du programme.
@@ -464,6 +484,25 @@ Les bases de données MySQL sont sujettes à plusieurs vulnérabilités potentie
 2. **Authentification faible :** Une authentification faible, des mots de passe faibles ou l'utilisation de comptes par défaut peuvent faciliter l'accès non autorisé à la base de données. Pour y remédier :
    - Utilisez des mots de passe forts et encouragez une politique de gestion des mots de passe.
    - Limitez l'accès en fonction des principes du moindre privilège, en n'accordant que les autorisations nécessaires à chaque utilisateur.
+  
+   Et voici la base de données qu'on a utilisé :
+
+    On a ici la table Etudiant avec notamment le solde et les bonus ainsi que les étudiants :
+   
+   ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/2748e9a6-ec5e-4390-b02c-e2c74063dadc)
+
+   Puis on a la table Compte qui va stockées les transactions de chaque étudiant :
+
+   ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/435cbd90-3066-4cad-8e76-f035148917e4)
+
+   On aura ici la table Admin avec le nom d'utilisateur et le mot de passe hashé pour acceder à RodelikaWeb :
+
+   ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/c5f386d5-a5c8-4872-a695-e30855afb9ef)
+
+   Et puis on a la table Type avec les différents types d'opérations :
+
+   ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/03d68a7b-ca50-4897-9a0c-bd148e35e39a)
+
 
 ### Logiciel de gestion (Rodelika)
 
@@ -479,16 +518,27 @@ Le logiciel de gestion (Rodelika) va permettre de gérer le suivi des cartes, de
 Le logiciel de gestion va permettre plusieurs actions :
 
 - L’option 1 "liste des étudiants" nommée dans le code "get_list_student" permettra d’afficher la liste de l’ensemble des étudiants possédant une carte.
+  
+  ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/3788ae15-565a-4617-b0d1-2071145250b2)
 
 - L’option 2 "solde des étudiants" nommée dans le code "get_list_student_with_sold" permettra d’afficher le solde total de chaque étudiant.
+  
+  ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/0706857f-2e1a-4251-85cd-51c6242a1937)
 
 - L’option 3 "saisir un nouvel étudiant" nommée dans le code "new_student" permettra d’attribuer une nouvelle carte à un étudiant. Elle ne permet pas la personnalisation de la carte. Elle se fait via le logiciel Lubiana.
+  
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/c85a498c-8808-44dc-a8c8-b620ef3e7e7c)
 
 - L’option 4 "attribuer un bonus à un étudiant" nommée dans le code "add_bonus" permettra à l’agent administratif lorsqu’il reçoit un email d’un enseignant d’attribuer un bonus. Le mail doit contenir le numéro de l’étudiant. Dans le cas contraire, l’agent administratif doit effectuer une recherche par nom et prénom avec l’option 1.
+  
+  ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/913fc5dd-dafa-4831-b982-e51f8835ffb4)
+
 
 #### Fonction implémentées :
 
 - L'option 5 "supprimer un étudiant" nommée dans le code "suppr_etudiant" permettra à l'agent administratif de supprimer un étudiant de la base de données.
+  
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/82066ab0-29af-4b6b-b7b2-c1298f8b094d)
 
 #### Programmation :
 
@@ -549,15 +599,27 @@ Enfin, la dernière fonctionnalité de notre site consiste à supprimer un étud
 
 - La partie "Borne de Recharge (Berlicum)" se concentre sur le développement du logiciel embarqué pour une borne de recharge utilisée par des étudiants. Le but principal de cette borne est de permettre aux étudiants d'accéder à diverses fonctionnalités liées à leurs cartes à puce. Voici un aperçu des opérations principales que les étudiants peuvent effectuer à l'aide de cette borne :
 
-- Afficher les Informations Personnelles nommée dans le code "affiche_info": Cette fonctionnalité permet aux étudiants d'afficher les informations personnelles stockées sur leur carte à puce. Cette fonction dans le code s'appelle "
+- Afficher les Informations Personnelles nommée dans le code "affiche_info": Cette fonctionnalité permet aux étudiants d'afficher les informations personnelles stockées sur leur carte à puce.
+
+  ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/e319c039-d4c6-4d63-ae98-d944bbe8507e)
+
 
 - Consulter les Bonus nommée dans le code "affiche_bonus" : Les étudiants peuvent consulter les bonus qui leur ont été attribués, mais qui n'ont pas encore été transférés sur leur carte. Les informations sur ces bonus sont extraites de la base de données, et la colonne "type_operation" dans la table "compte" indique "Bonus" pour les bonus non transférés.
 
+  ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/e8134883-9795-4243-9747-7fe8233b0624)
+
 - Transférer les Bonus nommée dans le code "transfert_bonus": Les étudiants peuvent utiliser la borne pour transférer les bonus disponibles sur leur carte. Une fois que les bonus ont été transférés, la colonne "type_operation" dans la table "compte" est mise à jour pour indiquer "Bonus transféré". Il est essentiel que ces transactions respectent les propriétés ACID (Atomicité, Cohérence, Isolation et Durabilité) pour garantir l'intégrité des données.
+
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/1d3e10aa-6252-49a6-a5e8-763b29b71b3e)
 
 - Consulter le crédit disponible nommée dans le code "consult_sold" : Les étudiants peuvent vérifier le solde disponible sur leur carte à puce, ce qui leur permet de suivre leurs ressources.
 
+  ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/79307f37-0f1d-4155-b8f3-0e29d0eb97f5)
+
 - Recharger le Crédit avec une Carte Bancaire nommée dans le code "recharger_carte" : Lorsqu'un étudiant a épuisé ses bonus, il a la possibilité de recharger son crédit à l'aide d'une carte bancaire. Il est important de noter que le processus de recharge avec une carte bancaire est fictif dans le cadre de ce projet, et la borne simule simplement une transaction réussie.
+
+  ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/6aa1a588-6c65-45e3-9e13-1a6f43083554)
+
 
 - Le développement du logiciel embarqué pour la borne de recharge (Berlicum) est essentiel pour offrir aux étudiants un accès facile à leurs informations, à leurs bonus et à leur crédit. Ce système contribue à la gestion efficace des ressources des étudiants, en garantissant l'intégrité des transactions et en facilitant la recharge en cas de besoin.
 
@@ -568,7 +630,10 @@ Enfin, la dernière fonctionnalité de notre site consiste à supprimer un étud
 
 - La fonction "Afficher l'historique des transactions" nommée dans le code "histo_transac" offre aux étudiants la possibilité de consulter un historique détaillé de toutes les transactions effectuées avec leur carte à puce. Cet historique est stocké dans une table "compte" de la base de données et peut être consulté à partir de la borne de recharge (Berlicum). Voici une description de cette fonctionnalité :
 
+  ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/2af2c990-b136-4ed0-84b7-e6ccf88a7187)
+
 Afficher l'historique des transactions : Les étudiants peuvent accéder à un récapitulatif de toutes les transactions effectuées avec leur carte à puce. Chaque transaction est enregistrée dans la base de données avec des détails tels que la date, l'heure, le type de transaction (retrait, bonus, recharge, etc.), le montant impliqué, et d'autres informations pertinentes. L'affichage de cet historique se fait de manière claire et organisée, permettant aux étudiants de comprendre facilement leur utilisation de la carte.
+
 
 #### Répartition classes et instructions :
 
@@ -603,6 +668,8 @@ Les principales fonctionnalités proposées par cette application sont les suiva
 - Consultation du Solde : L'utilisateur peut consulter le solde actuel de sa carte à puce en choisissant l'option correspondante dans le menu. L'application envoie une commande APDU à la carte pour récupérer cette information.
 
 - Achat d'une Boisson : L'utilisateur peut acheter une boisson (café, chocolat, thé) au coût de 0.20 €. L'application vérifie d'abord si le solde de la carte est suffisant. Si oui, elle débite le montant de la carte et met à jour les données sur la carte et dans la base de données.
+
+![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/3469a959-4266-4399-bd53-09bcd6be3c26)
 
 - Mise à Jour du Solde : Si le solde de la carte diffère de celui stocké dans la base de données, l'application met à jour le solde de la carte avec celui de la base de données. Cela garantit la cohérence des soldes entre la carte et la base de données.
 
