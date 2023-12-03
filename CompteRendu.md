@@ -915,5 +915,19 @@ Cette SAE nous a permis de refaire de la programmation et de l'algorithmique et 
 Tous les codes associés à chaque applications sont disponibles à la racine du github.
 https://github.com/mathfern/SAE-Carotte/tree/main
 
+Installation de zabbix :
+https://www.zabbix.com/fr/download?zabbix=6.0&os_distribution=debian&os_version=12&components=agent&db=&ws=
+https://www.zabbix.com/fr/download?zabbix=6.0&os_distribution=debian&os_version=12&components=server_frontend_agent&db=mysql&ws=apache
+
+Répertoire de la SAE : 
+https://perso.halim.info/iut/RT/SAE/SAE_3_12/
+
+Répertoire des cours associés à la SAE :
+https://perso.halim.info/iut/RT/SAE/SAE_3_12/carte_ap/
+
+Sujet en pdf :
+https://perso.halim.info/iut/RT/SAE/SAE_3_12/SAE_concevoir_realiser_carte_a_puce.pdf
+
+
 
 
