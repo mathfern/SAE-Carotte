@@ -370,6 +370,7 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 
 1. **Affichage de la version de la carte à puce :**
    - Vérifie la version actuelle de la carte.
+
      fonction print_version()
 
      ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/f4e907c9-a12b-45be-bb9a-2923aa1a4052)
@@ -377,6 +378,7 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 
 2. **Affichage des données de la carte à puce :**
    - Vérifie et affiche les données telles que le nom, le prénom et le numéro d'étudiant sur la carte. Si aucune donnée n'est présente, indique que la carte est vierge.
+
      fonction print_data()
 
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/9ce47349-255f-43a1-8da9-eb3430ccf51a)
@@ -384,6 +386,7 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 
 3. **Attribuer la carte à un étudiant :**
    - Permet d'ajouter le nom, le prénom et le numéro d'étudiant sur la carte.
+
      fonction assign_card()
 
      ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/3c7566e0-2e4a-49dc-abfa-34c0b296eff0)
@@ -391,12 +394,14 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 
 4. **Mettre le solde initial de 0.00€ :**
    - Initialise le solde de la carte à 0.00€.
+
      fonction init_sold()
 
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/4f802174-6ae3-42e0-9c10-f86c6bcc0164)
 
 5. **Consulter le solde :**
    - Affiche le solde actuel sur la carte.
+
      fonction consult_sold()
 
     ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/c9ff52e9-e7b2-4e92-afa6-709375928781)
@@ -404,6 +409,7 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 
 6. **Réinitialiser les données de la carte :**
    - Supprime les données de la carte, nécessaire en cas de réattribution.
+
      fonction delete_data()
 
      ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/f279b706-ba92-4685-9218-89779867a2c0)
@@ -411,16 +417,19 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 
 7. **Attribuer code PIN/PUK :**
    - Permet de définir un nouveau code PIN et génère un code PUK aléatoire.
+
      fonctions codePIN() et codePUK()
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/62f3ccb0-7c78-480c-9cdb-7515694b8ff3)
 
 8. **Consulter le code PUK :**
    - Affiche le code PUK actuel.
+
      fonction consult_PUK()
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/71f33c31-38e2-4410-b780-553de9c23677)
 
 9. **Modifier le code PIN :**
    - En cas d'oubli, permet de modifier le code PIN en utilisant le code PUK.
+
      fonction modifPIN()
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/56a2ec2b-6a2d-4f01-8a13-69918a047a01)
 
