@@ -799,11 +799,11 @@ Plan d'adressage IP :
 
 | Nom               | Adresse IP     | Service                     |
 |-------------------|----------------|-----------------------------|
-| PurpleDragon/RodelikaWeb      | 192.168.0.10   | MySQL, Apache               |
-| Lubiana           | 192.168.0.11   |                             |
-| Berlicum          | 192.168.0.12   |                             |
-| Kuroda            | 192.168.0.13   |                             |
-| Rodelika          | 192.168.0.14   |                |
+| PurpleDragon/RodelikaWeb      | 192.168.240.10   | MySQL, Apache               |
+| Lubiana           | 192.168.240.14   |                             |
+| Berlicum          | 192.168.240.11  |                             |
+| Kuroda            | 192.168.240.13   |                             |
+| Rodelika          | 192.168.240.12   |                |
 
 Schéma de l'infrastructure globale du projet : 
 
@@ -812,7 +812,7 @@ Schéma de l'infrastructure globale du projet :
 
 Certaines de ces machines virtuelles auront des fonctionnalités particulières : 
 
-Rodelika + Rodelika web devra héberger un service web apache pour pouvoir héberger Rodelika Web à l'adresse 192.168.0.14
+La machine qui héberge purple dragon et rodelika web devra héberger un service web apache pour pouvoir héberger Rodelika Web à l'adresse 192.168.0.14
 PurpleDragon devra héberger un service mysql pour pouvoir héberger la base de données purpledragon1 à l'adresse 192.168.0.10
 
 Un serveur de supervision est aussi implémenté sur la machine PurpleDragon. En effet, on a hebergé une instance de zabbix qui permet de superviser notre infrastructure.  
