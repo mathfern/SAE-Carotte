@@ -328,6 +328,26 @@ Si les APDU ne sont pas sécurisées, n'importe quel individu en possession d'un
 
 Une description des vulnérabilité plus détaillée de cette application est disponible plus bas dans le compte rendu. 
 
+#### 6. Utilisation de Rubrovitamin 
+
+Comme expliqué précedemment, Rubrovitamin s'implémente dans la mémoire flash de la carte à puce à l'aide d'un programmateur. Il faut utiliser les commandes suivantes : 
+
+``` make fuses ``` <br>
+qui permet la configuration des fusibles lors de la 1ère programmation de la carte (à faire qu'une seule fois par carte). 
+
+``` make progcarte ``` <br>
+qui permet la programmation de la carte à puce (l'import du code Rubrovitamin en mémoire flash)
+
+Ces deux commandes s'appuient sur le logiciel open sources AVRDUDE qui permet de programmer des microcontrôleurs de la famille AVR (comme notre carte à puce dans ce projet). 
+
+Les principales fonctions d'AVRDUDE sont les suivantes :
+
+- Programmation du Microcontrôleur : AVRDUDE est utilisé pour écrire le code compilé dans la mémoire flash de la carte à puce. 
+
+- Lecture du Microcontrôleur : AVRDUDE permet de lire le contenu de la mémoire de la carte à puce
+
+- Configuration des Fusibles : Les microcontrôleurs AVR ont des fusibles qui déterminent divers paramètres de configuration, tels que la fréquence d'horloge, l'activation de la protection en écriture, etc. AVRDUDE permet de configurer ces fusibles.
+
 Ici voici un exemple de l'utilisation de rubrovitamin :
 
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/15dc35fc-8d2e-4fa0-bd03-f1945691036e)
