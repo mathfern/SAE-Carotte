@@ -32,6 +32,7 @@ Pour inciter les étudiants à venir récupérer leurs cartes, on leur attribue 
 Voici ci-dessous le schéma relationnel des applications qui seront détaillées plus tard dans le compte rendu : 
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150126396/7ecb9f2a-e2a4-4579-ab8a-a54898d8bd9b)
 
+Chaque logiciel est nommé par rapport à une variété de carotte, toujours en lien avec le nom du projet (Carotte électronique)
 
 
 ## III. Organisation et Gestion du projet
@@ -465,13 +466,13 @@ Cette base de données devra être accessible par le logiciel de gestion Rodelik
 
 #### Idées implémentées :
 
-- Ajout d'une table admin avec les colonnes admin_id, nom et mot de passe en hash Bcrypt dans la base de données, ce qui permet d'avoir une authentification sur la version web de Rodelika. Cela fait en sorte que tout le monde ne puisse pas accéder à la base de donner et la modifier. 
+- Ajout d'une table admin avec les colonnes admin_id, nom et mot de passe en hash Bcrypt dans la base de données, ce qui permet d'avoir une authentification sur la version web de Rodelika. Cela fait en sorte que tout le monde ne puisse pas accéder à la base de données et la modifier. 
 
 - Ajout des colonnes etu_solde, etu_bonus dans la table étudiant pour permettre de stocker ces informations pour chaque étudiant.
   
 #### Programmation
 
-La base de données Purpledragon sera développée en sql. 
+La base de données Purpledragon a été développée à l'aide du langage sql. 
 
 #### Vulnérabilités et solutions :
 
@@ -558,7 +559,7 @@ Ce site sera codé en HTML/CSS, PHP et javascript et fera appel à la base de do
 #### Fonctionnalités implémentées <br>
 Pour démarrer RodelikaWeb, il vous suffit de vous rendre dans le répertoire SAE-Carotte/RodelikaWeb/ et d'exécuter la commande "php -S localhost:8000". Cette commande lance un serveur web local utilisant PHP sur le port 8000. Ensuite, ouvrez simplement un navigateur web et accédez à "http://localhost:8000". Vous serez dirigé vers l'interface de connexion où vous devrez saisir votre identifiant et votre mot de passe.<br>
 
-- On a ajouter une interface graphique pour chaque fonction pour l'agent administratif afin qu'ils puissent effectuer les manipulations plus facilement et interactive :
+- Nous avons ajouté une interface graphique pour chaque fonction afin que l'agent administratif puisse effectuer les manipulations plus facilement et de manière plus interactive :
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/96ac695c-26a5-4bf3-857e-296bb782ac22)
 - liste des étudiants :<br>
 Le programme Web utilise la fonctionnalité 1 du script Rodelika pour afficher les informations telles que le numéro étudiant, le nom et le prénom de l'étudiant.
@@ -826,7 +827,11 @@ Il serait intéressant de sécuriser la partie infrastructure de notre projet en
 Il serait également intéressant de répliquer certaines machines virtuelles comme la machine de base de données et le serveur web (PurpleDragon et Rodelika) pour augmenter la disponibilité de l'infrastructure et renforcer la résilience. De ce fait, si une de ces deux machines tombe en panne, une bascule automatique vers l'instance répliquée devrait se faire pour réduire les délais de panne temporairement.
 
 ## VIII. Conclusion
+Cette SAE et les cours qui allaient avec nous ont permis d'avoir une première approche de la carte à puce et de nous familiariser avec l'utilisation de celle-ci. Nous avons pu comprendre comment implémenter des programmes et les lire sur une carte à puce, à l'aide du programmeur et du lecteur, et la sécuriser.
 
+Du côté gestion de projet, nous avons pu utiliser des logiciels nous permettant de nous faciliter la gestion de projet et aussi de communiquer entre nous par le biais de réunions tous les mercredi et vendredi. 
+
+Cette SAE nous a permis de refaire de la programmation et de l'algorithmique et aussi de collaborer en équipe avec chacun des membres du groupe. 
 
 ## IX. Annexes
 Tous les codes associés à chaque applications sont disponibles à la racine du github.
