@@ -799,11 +799,11 @@ Plan d'adressage IP :
 
 | Nom               | Adresse IP     | Service                     |
 |-------------------|----------------|-----------------------------|
-| PurpleDragon      | 192.168.0.10   | MySQL, Apache               |
+| PurpleDragon/RodelikaWeb      | 192.168.0.10   | MySQL, Apache               |
 | Lubiana           | 192.168.0.11   |                             |
 | Berlicum          | 192.168.0.12   |                             |
 | Kuroda            | 192.168.0.13   |                             |
-| Rodelika+(web)    | 192.168.0.14   | Web (Apache)                |
+| Rodelika          | 192.168.0.14   |                |
 
 Schéma de l'infrastructure globale du projet : 
 
