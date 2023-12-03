@@ -440,7 +440,6 @@ Lubiana sera développé en utilisant Python 3.11. Les librairies utilisées par
 Lubiana est capable d'afficher et de gérer les erreurs de classes, d'instructions et de paramètre p3 lorsque l'APDU des données envoyées est de mauvaise taille.
 En effet, elle utilise les variables sw1 et sw2 pour stocker les codes d'erreurs 0x90 pour sw1 et 0x6X pour sw2
 
-#### Partie tests des fonctionnalités : 
 
 ### Purple Dragon (Base de données)
 
@@ -656,8 +655,6 @@ Berlicum sera développé en utilisant Python 3.11. Les librairies utilisées pa
 - pyfiglet
 - getpass
 
-#### Partie tests des fonctionnalités : 
-
 ### Application de simulateur de machine à café (Kuroda)
 
 L'application Kuroda est un simulateur de machine à café implémenté en Python, utilisant une carte à puce comme moyen d'interaction. L'objectif principal est de permettre aux utilisateurs d'effectuer des transactions, telles que consulter le solde de leur compte, acheter une boisson et mettre à jour les données de leur carte à puce.
@@ -692,7 +689,6 @@ Berlicum sera développé en utilisant Python 3.11. Les librairies utilisées pa
 - pyfiglet
 - getpass
 
-#### Partie tests des fonctionnalités : 
 
 ## VI. Évaluation de la Sécurité et analyse des Vulnérabilités
 Les logiciels de base n'étaient pas très sécurisés et comportaient plusieurs potentielles vulnérabilités. 
