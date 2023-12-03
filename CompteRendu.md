@@ -897,6 +897,31 @@ Activation de l'option de démarrage du service au démarrage de la machine : <b
 ``` systemctl enable zabbix-agent ```
 
 
+### Configuration des bases de données PurpleDragon et Zabbix :
+
+Etant donné que les bases de données PurpleDragon et Zabbix sont hebergées sur une machine qui doit être accessible à distance, il ne faut pas oublier de configurer les bases de données de manière à créer un compte qui est autorisé a communiquer avec cette base de donnée locale depuis les IP des machines virtuelles Lubiana, Rodelika, Berlicum et Kuroda. Pour ce faire, voici comment on peut procéder : 
+
+Depuis la machine qui heberge la base de données :
+
+Création d'un utilisateur : 
+``` CREATE USER 'user'@'IP_MACHINE_A_SUPERVISER' IDENTIFIED BY 'mot_de_passe'; ```
+
+Donner les privilèges pour accéder à la base de données Zabbix et PurpleDragon à distance : 
+``` GRANT ALL PRIVILEGES ON zabbix.* TO 'user'@'adresse_IP_machine'; ``` <br>
+``` GRANT ALL PRIVILEGES ON purpledragon1.* TO 'user'@'IP_MACHINE_A_SUPERVISER'; ```
+
+Conformément à notre infrastructure, on doit faire en sorte que Kuroda, Berlicum et Rodelika puissent communiquer avec la base de données PurpleDragon. 
+Pour ce qui est de zabbix, toutes les machines doivent accéder à la base de données pour pouvoir être référencées dans les machines supervisées. 
+Il faudra donc gérer les droits des utilisateurs en conséquence.
+
+
+### Supervision Zabbix :
+
+![supervision](https://github.com/mathfern/SAE-Carotte/assets/134608345/296d39f7-5084-41a9-bcaf-1124c9c313a3)
+Screenshot des machines supervisées par Zabbix
+
+On a rencontré un problème lors de la mise en place de l'outil de supervision Zabbix, on s'est rendu compte que la seule machine supervisée par Zabbix était la machine host qui héberge la base de données Zabbix et PurpleDragon. Après avoir effectué des recherches, on s'est rendu compte que c'était un problème de flux, en effet, les machines distantes n'arrivaient pas à communiquer avec la base de données Zabbix, probablement à cause d'une règle de firewall sur les machines distantes. Nous n'avons pas réussi à régler ce problème dans le temps imparti mais on peut noter qu'il s'agit d'une amélioration à développer dans notre infrastructure. 
+
 
 ### Axes de sécurisation de l'infrastructure : 
 
