@@ -875,7 +875,28 @@ restart le serveur apache
 
 ### Installation des agents Zabbix sur tous les hôtes que l'on souhaite superviser :
 
-Comme expliqué précedemment
+Comme expliqué précedemment, les machines qui devront être supervisées par notre serveur zabbix sont les machines qui contient les applications : Lubiana, Kuroda, Berlicum, Rodelika. 
+
+Le type de supervision que l'on a choisi pour notre infrastructure est une supervision par agent (on utilisera l'agent zabbix).
+
+Les agents Zabbix doivent par conséquent être installés sur toutes ces machines. Voici la procédure officielle de Zabbix pour cette installe : 
+https://www.zabbix.com/fr/download?zabbix=6.0&os_distribution=debian&os_version=12&components=agent&db=&ws=
+
+Installation du repository Zabbix : <br>
+``` wget https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_6.0-5+debian12_all.deb ``` <br>
+``` dpkg -i zabbix-release_6.0-5+debian12_all.deb ``` <br>
+``` apt update ```
+
+Installation du paquet zabbix-agent : <br>
+``` apt install zabbix-agent ```
+
+Restart du service zabbix agent : <br>
+``` systemctl restart zabbix-agent ```
+
+Activation de l'option de démarrage du service au démarrage de la machine : <br>
+``` systemctl enable zabbix-agent ```
+
+
 
 ### Axes de sécurisation de l'infrastructure : 
 
