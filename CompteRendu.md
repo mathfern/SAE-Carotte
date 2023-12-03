@@ -830,28 +830,28 @@ Pour mettre en place le serveur Zabbix de supervision, voici la procédure que n
 Procédure sur le site officiel de zabbix : 
 https://www.zabbix.com/fr/download?zabbix=6.0&os_distribution=debian&os_version=12&components=server_frontend_agent&db=mysql&ws=apache
 
-Installation du repository Zabbix :
+Installation du repository Zabbix : <br>
 ``` wget https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_6.0-5+debian12_all.deb ``` <br>
 ``` dpkg -i zabbix-release_6.0-5+debian12_all.deb ``` <br>
 ``` apt update ``` <br>
 
-Installation des packages Zabbix Server (mysql), frontend php, configuration apache pour zabbix, et zabbix agent :
+Installation des packages Zabbix Server (mysql), frontend php, configuration apache pour zabbix, et zabbix agent : <br>
 ``` apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent ``` <br>
 
-Création de la base de données initiale Zabbix :
+Création de la base de données initiale Zabbix : <br>
 ``` mysql -u root -p ``` <br>
 ``` mysql> create database zabbix character set utf8mb4 collate utf8mb4_bin; ``` <br>
 ```  create user zabbix@localhost identified by 'password'; ``` <br>
 ``` grant all privileges on zabbix.* to zabbix@localhost; ``` <br> 
 ``` set global log_bin_trust_function_creators = 1; ```
 
-Importation du schéma de la BDD et les données initiales (fournies par zabbix directement) sur l'hôte du Zabbix serveur :
+Importation du schéma de la BDD et les données initiales (fournies par zabbix directement) sur l'hôte du Zabbix serveur : <br>
 ``` zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql --default-character-set=utf8mb4 -uzabbix -p zabbix ```
 
-Désactivation de l'option log_bin_trust_function_creators
+Désactivation de l'option log_bin_trust_function_creators : <br>
 ```  set global log_bin_trust_function_creators = 0; ```
 
-Dans le fichier : /etc/zabbix/zabbix_server.conf définir le mot de passe de la base de données 
+Dans le fichier : /etc/zabbix/zabbix_server.conf définir le mot de passe de la base de données : <br>
 ``` DBPassword=password ```
 
 
