@@ -827,11 +827,11 @@ En complémentarité avec Rubrovitamin, on peut peut être penser à implémente
 
 Injection de code sur la carte à puce :
 
-- Si la carte à puce n'est pas correctement sécurisée, un attaquant pourrait tenter d'injecter du code malveillant sur la carte, compromettant ainsi le système. Assurez-vous que la carte utilise des mécanismes de sécurité robustes pour empêcher toute altération non autorisée de son contenu.
+- Si la carte à puce n'est pas correctement sécurisée, un attaquant pourrait tenter d'injecter du code malveillant sur la carte, compromettant ainsi le système. il faut sécuriser la carte de manière robuste pour empêcher toute altération non autorisée de son contenu d'ou l'implémentation de la demande d'input du mot de passe.
 
 Vulnérabilités dans les librairies utilisées :
 
-- Les bibliothèques externes, telles que pyscard, mysql-connector, pyfiglet, et getpass, peuvent avoir des vulnérabilités connues. Il est important de maintenir ces bibliothèques à jour et de surveiller les annonces de sécurité pour s'assurer que toutes les vulnérabilités connues sont corrigées.
+- Les bibliothèques externes, telles que pyscard, mysql-connector, pyfiglet, et getpass, peuvent avoir des vulnérabilités connues. Il est important de maintenir ces bibliothèques à jour et de surveiller les annonces de sécurité pour s'assurer que toutes les vulnérabilités connues sont corrigées. (cette vulnérabilité est théorique et nous ne l'avons pas traitée. On s'est simplement contenté d'utiliser les toutes dernières versions de chaque librairie lorsque l'on a monté l'environnement virtuel de chaque applications.)
 
 ## VII. Partie infrastructure
 
