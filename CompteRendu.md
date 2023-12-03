@@ -812,17 +812,17 @@ Schéma de l'infrastructure globale du projet :
 
 Certaines de ces machines virtuelles auront des fonctionnalités particulières : 
 
-La machine qui héberge purple dragon et rodelika web devra héberger un service web apache pour pouvoir héberger Rodelika Web à l'adresse 192.168.0.14
-PurpleDragon devra héberger un service mysql pour pouvoir héberger la base de données purpledragon1 à l'adresse 192.168.0.10
+La machine qui héberge purple dragon et rodelika web devra héberger un service web apache pour pouvoir héberger Rodelika Web à l'adresse 192.168.240.10
+PurpleDragon devra héberger un service mysql pour pouvoir héberger la base de données purpledragon1 à l'adresse 192.168.240.10.
 
-Un serveur de supervision est aussi implémenté sur la machine PurpleDragon. En effet, on a hebergé une instance de zabbix qui permet de superviser notre infrastructure.  
+Un serveur de supervision est aussi implémenté sur la machine PurpleDragon/Rodelika Web. En effet, on a hebergé une instance de zabbix qui permet de superviser notre infrastructure.  
 
 Les hôtes supervisés par le serveur de supervision sont : 
-- Lubiana (ping machine)
-- Berlicum (ping machine)
-- Kuroda (ping machine)
-- PurpleDragon (vérification du bon fonctionnement du service mysql)
-- Rodelika (ping machine + vérification du bon fonctionnement du service apache)
+- Lubiana, le serveur de supervision devrait pouvoir vérifier que cette machine répond bien au ping
+- Berlicum, le serveur de supervision devrait pouvoir vérifier que cette machine répond bien au ping
+- Kuroda, le serveur de supervision devrait pouvoir vérifier que cette machine répond bien au ping
+- PurpleDragon/Rodelika Web, le serveur de supervision devrait pouvoir vérifier que cette machine répond bien au ping et que les services de MySql et Apache fonctionnent correctement sur la machine.
+- Rodelika, le serveur de supervision devrait pouvoir vérifier que cette machine répond bien au ping
 
 ### Axes de sécurisation de l'infrastructure : 
 
