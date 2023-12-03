@@ -1,13 +1,16 @@
 # Compte Rendu de la SAE-Carotte
 
-![logo-UVSQ-2020-RVB (1)](https://github.com/mathfern/SAE-Carotte/assets/134608345/5be3eddd-cd52-4db3-91cd-a64719ebf504)
-![dut-reseaux-telecommunication-840x400](https://github.com/mathfern/SAE-Carotte/assets/134608345/cadb0a87-fa80-4c57-a862-0b2dba9df8e8)
+# Compte Rendu de la SAE-Carotte
+
+<img src="https://github.com/mathfern/SAE-Carotte/assets/134608345/5be3eddd-cd52-4db3-91cd-a64719ebf504" alt="logo-UVSQ-2020-RVB" width="200"/>
+<img src="https://github.com/mathfern/SAE-Carotte/assets/134608345/cadb0a87-fa80-4c57-a862-0b2dba9df8e8" alt="dut-reseaux-telecommunication-840x400" width="200"/>
 
 Projet réalisé par : 
-BOUCHER Adrien
-FERNANDES Mathias
-MACHARD Antoine
-NAMOUNE Djibril
+- BOUCHER Adrien
+- FERNANDES Mathias
+- MACHARD Antoine
+- NAMOUNE Djibril
+
 
 
 ## I. Introduction
