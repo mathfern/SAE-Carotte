@@ -330,6 +330,8 @@ Une description des vulnérabilité plus détaillée de cette application est di
 
 #### 6. Utilisation de Rubrovitamin 
 
+Si l'on reprend le contexte du projet, on imagine que la partie de programmation des fusibles et de la carte se fait en usine. En aucun cas l'agent administratif ou un utilisateur quelconque sera amené à réaliser cette tâche.
+
 Comme expliqué précedemment, Rubrovitamin s'implémente dans la mémoire flash de la carte à puce à l'aide d'un programmateur. Il faut utiliser les commandes suivantes : 
 
 ``` make fuses ``` <br>
