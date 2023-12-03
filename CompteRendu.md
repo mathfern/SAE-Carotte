@@ -321,7 +321,7 @@ De notre propre initiative et pour rendre le logiciel plus complet et ergonomiqu
 Il y a deux principaux types de vulnérabilités possibles liées aux cartes à puces directement : 
 
 ##### Vulnérabilité physique (matérielle)
-La perte ou le vol physique de la carte peuvent être considérés comme une vulnérabilité. En cas de problème, les étudiants peuvent contacter l'agent administratif qui devrait être en mesure de bloquer les transactions depuis la carte pour cela, il suffit que l'utilisateur soit bloqué sur la base de données.
+La perte ou le vol physique de la carte peuvent être considérés comme une vulnérabilité. En cas de problème, les étudiants peuvent contacter l'agent administratif qui devrait être en mesure de bloquer les transactions depuis la carte pour cela, il suffit que l'utilisateur soit bloqué sur la base de données. Ceci est bien entendu une supposition, cette fonctionnalité n'a pas encore été implémentée dans notre projet.
 
 ##### Vulnérabilité logicielle (Rubrovitamin)
 Si les APDU ne sont pas sécurisées, n'importe quel individu en possession d'une carte à puce programmée avec le code de Rubrovitamin dans la mémoire flash peut utiliser un langage de programmation pour envoyer des APDU 
