@@ -1,5 +1,15 @@
 # Compte Rendu de la SAE-Carotte
 
+![logo-UVSQ-2020-RVB (1)](https://github.com/mathfern/SAE-Carotte/assets/134608345/5be3eddd-cd52-4db3-91cd-a64719ebf504)
+![dut-reseaux-telecommunication-840x400](https://github.com/mathfern/SAE-Carotte/assets/134608345/cadb0a87-fa80-4c57-a862-0b2dba9df8e8)
+
+Projet réalisé par : 
+BOUCHER Adrien
+FERNANDES Mathias
+MACHARD Antoine
+NAMOUNE Djibril
+
+
 ## I. Introduction
 <i>"La Carotte Eléctronique"</i> est le nom de code confidentiel du projet de l'IUT de Vélizy qui consiste à récompenser les étudiants travailleurs et assidus.
 
