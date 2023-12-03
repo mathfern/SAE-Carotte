@@ -953,9 +953,9 @@ On a rencontré un problème lors de la mise en place de l'outil de supervision 
 
 ### Axes de sécurisation de l'infrastructure : 
 
-Il serait intéressant de sécuriser la partie infrastructure de notre projet en installant un pare-feu sur la machine PurpleDragon qui aurait des règles acceptant seulement les requêtes des machines Berlicum, Rodelika et Kuroda sur le port mysql : 3306. 
+Il serait intéressant de sécuriser la partie infrastructure de notre projet en installant un pare-feu sur la machine PurpleDragon qui aurait des règles acceptant seulement les requêtes des machines Berlicum, Rodelika et Kuroda sur le port mysql : 3306. C'est d'ailleurs une tâche que l'on a commencé à effectuer, à l'aide du pare feu distribué par debian du nom de ufw. 
 
-Il serait également intéressant de répliquer certaines machines virtuelles comme la machine de base de données et le serveur web (PurpleDragon et Rodelika) pour augmenter la disponibilité de l'infrastructure et renforcer la résilience. De ce fait, si une de ces deux machines tombe en panne, une bascule automatique vers l'instance répliquée devrait se faire pour réduire les délais de panne temporairement.
+Il serait également intéressant de répliquer certaines machines virtuelles comme la machine de base de données et le serveur web (PurpleDragon et Rodelika) pour augmenter la disponibilité de l'infrastructure et renforcer la résilience. De ce fait, si une de ces deux machines tombe en panne, une bascule automatique vers l'instance répliquée devrait se faire pour réduire les délais de panne temporairement. La raison pour laquelle nous n'avons pas essayé de faire de la réplication est : la consommation de mémoire RAM trop importantes pour être répliquées sur nos ordinateurs personnels et pour qu'elles puissent toutes fonctionner en même temps. 
 
 ## VIII. Conclusion
 Cette SAE et les cours qui allaient avec nous ont permis d'avoir une première approche de la carte à puce et de nous familiariser avec l'utilisation de celle-ci. Nous avons pu comprendre comment implémenter des programmes et les lire sur une carte à puce, à l'aide du programmeur et du lecteur, et la sécuriser.
