@@ -899,7 +899,7 @@ Dans le fichier : /etc/zabbix/zabbix_server.conf définir le mot de passe de la 
 ``` DBPassword=password ```
 
 
-restart le serveur apache
+restart le serveur apache avec systemctl.
 
 ### Installation des agents Zabbix sur tous les hôtes que l'on souhaite superviser :
 
@@ -907,7 +907,7 @@ Comme expliqué précedemment, les machines qui devront être supervisées par n
 
 Le type de supervision que l'on a choisi pour notre infrastructure est une supervision par agent (on utilisera l'agent zabbix).
 
-Les agents Zabbix doivent par conséquent être installés sur toutes ces machines. Voici la procédure officielle de Zabbix pour cette installe : 
+Les agents Zabbix doivent par conséquent être installés sur toutes ces machines. Voici la procédure officielle de Zabbix pour cette installation : 
 https://www.zabbix.com/fr/download?zabbix=6.0&os_distribution=debian&os_version=12&components=agent&db=&ws=
 
 Installation du repository Zabbix : <br>
