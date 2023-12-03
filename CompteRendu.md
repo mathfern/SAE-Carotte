@@ -587,7 +587,7 @@ Le programme Web utilise la fonctionnalité 1 du script Rodelika pour afficher l
 
 - liste des étudiants avec le solde et bonus:<br>
 De même que précédemment, nous allons utiliser l'option 2 de Rodelika pour afficher les informations incluant le numéro étudiant, le nom, le prénom, le solde et les bonus de l'étudiant.
-![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/83a7baa0-55cf-4547-befb-7c2451592d5a)
+![image](https://github.com/mathfern/SAE-Carotte/assets/150126517/757da539-2a84-48d8-b648-bda004fb27b1)
 
 
 - ajouter un nouvel étudiant : <br>
