@@ -797,6 +797,12 @@ Attaques par force brute sur le code PIN :
 
 - Les attaques par force brute sont possibles si les codes PIN sont relativement courts ou si la borne ne limite pas le nombre de tentatives incorrectes d'entrée du code PIN. Il est recommandé d'implémenter des mécanismes de verrouillage temporaire après un certain nombre de tentatives infructueuses.
 
+### Partie Vulnérabilités pour les applications Lubiana :
+
+L'application doit se baser sur les fonctionnalités qui nécessitent l'utilisation d'un mot de passe administrateur pour écrire sur l'EEPROM (implémenté sur Rubrovitamin). De ce fait, la seule vulnérabilité auquelle on a pensé pour Lubiana consiste à implémenter un "input" pour entrer ce mot de passe pour écrire dans l'EEPROM. Si l'input n'est pas demandé par Lubiana, alors il y a une erreur et on ne peut pas écrire dans l'EEPROM. 
+
+En complémentarité avec Rubrovitamin, on peut peut être penser à implémenter des mécanismes de confidentialité et d'intégrité 
+
 Injection de code sur la carte à puce :
 
 - Si la carte à puce n'est pas correctement sécurisée, un attaquant pourrait tenter d'injecter du code malveillant sur la carte, compromettant ainsi le système. Assurez-vous que la carte utilise des mécanismes de sécurité robustes pour empêcher toute altération non autorisée de son contenu.
