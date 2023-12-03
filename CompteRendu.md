@@ -419,7 +419,7 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 
 
 6. **Réinitialiser les données de la carte :**
-   - Supprime les données de la carte, nécessaire en cas de réattribution.
+   - Supprime les données de la carte, nécessaire en cas de réattribution. (les données supprimées sont le nom,prenom,numéro etudiant, solde)
 
      fonction delete_data()
 
