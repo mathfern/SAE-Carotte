@@ -823,7 +823,7 @@ Attaques par force brute sur le code PIN :
 
 L'application doit se baser sur les fonctionnalités qui nécessitent l'utilisation d'un mot de passe administrateur pour écrire sur l'EEPROM (implémenté sur Rubrovitamin). De ce fait, la seule vulnérabilité auquelle on a pensé pour Lubiana consiste à implémenter un "input" pour entrer ce mot de passe pour écrire dans l'EEPROM. Si l'input n'est pas demandé par Lubiana, alors il y a une erreur et on ne peut pas écrire dans l'EEPROM. 
 
-En complémentarité avec Rubrovitamin, on peut peut être penser à implémenter des mécanismes de confidentialité et d'intégrité 
+En complémentarité avec Rubrovitamin, on peut peut être penser à implémenter des mécanismes de confidentialité (on peut utiliser des mécanismes de chiffrement pour rendre les données illisibles pour toute personne non autorisée) et d'intégrité (en implémentant des fonctionnalités de hachage ou de mise en place de codes d'authentification des messages)
 
 Injection de code sur la carte à puce :
 
