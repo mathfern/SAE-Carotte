@@ -959,6 +959,7 @@ https://perso.halim.info/iut/RT/SAE/SAE_3_12/carte_ap/
 Sujet en pdf :
 https://perso.halim.info/iut/RT/SAE/SAE_3_12/SAE_concevoir_realiser_carte_a_puce.pdf
 
-
+Norme ISO officielle : 
+https://www.iso.org/fr/standard/77180.html
 
 
