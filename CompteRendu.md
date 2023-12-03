@@ -824,6 +824,24 @@ Les hôtes supervisés par le serveur de supervision sont :
 - PurpleDragon/Rodelika Web, le serveur de supervision devrait pouvoir vérifier que cette machine répond bien au ping et que les services de MySql et Apache fonctionnent correctement sur la machine.
 - Rodelika, le serveur de supervision devrait pouvoir vérifier que cette machine répond bien au ping
 
+### Mise en place du serveur de supervision : 
+
+Pour mettre en place le serveur Zabbix de supervision, voici la procédure que nous avons suivi : 
+Procédure sur le site officiel de zabbix : 
+https://www.zabbix.com/fr/download?zabbix=6.0&os_distribution=debian&os_version=12&components=server_frontend_agent&db=mysql&ws=apache
+
+``` wget https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_6.0-5+debian12_all.deb ```
+``` dpkg -i zabbix-release_6.0-5+debian12_all.deb
+apt update ```
+```  ```
+``` ```
+``` ```
+``` ```
+``` ```
+``` ```
+``` ```
+
+
 ### Axes de sécurisation de l'infrastructure : 
 
 Il serait intéressant de sécuriser la partie infrastructure de notre projet en installant un pare-feu sur la machine PurpleDragon qui aurait des règles acceptant seulement les requêtes des machines Berlicum, Rodelika et Kuroda sur le port mysql : 3306. 
