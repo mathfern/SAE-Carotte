@@ -805,6 +805,10 @@ Plan d'adressage IP :
 | Kuroda            | 192.168.0.13   |                             |
 | Rodelika+(web)    | 192.168.0.14   | Web (Apache)                |
 
+Schéma de l'infrastructure globale du projet : 
+
+![infra](https://github.com/mathfern/SAE-Carotte/assets/134608345/2ffacef0-7346-4650-ab88-544d2aaa6891)
+
 
 Certaines de ces machines virtuelles auront des fonctionnalités particulières : 
 
