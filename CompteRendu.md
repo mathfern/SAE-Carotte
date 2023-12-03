@@ -831,18 +831,18 @@ Procédure sur le site officiel de zabbix :
 https://www.zabbix.com/fr/download?zabbix=6.0&os_distribution=debian&os_version=12&components=server_frontend_agent&db=mysql&ws=apache
 
 Installation du repository Zabbix :
-``` wget https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_6.0-5+debian12_all.deb ```
-``` dpkg -i zabbix-release_6.0-5+debian12_all.deb ```
-``` apt update ```
+``` wget https://repo.zabbix.com/zabbix/6.0/debian/pool/main/z/zabbix-release/zabbix-release_6.0-5+debian12_all.deb ``` <br>
+``` dpkg -i zabbix-release_6.0-5+debian12_all.deb ``` <br>
+``` apt update ``` <br>
 
 Installation des packages Zabbix Server (mysql), frontend php, configuration apache pour zabbix, et zabbix agent :
-``` apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent ```
+``` apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent ``` <br>
 
 Création de la base de données initiale Zabbix :
-``` mysql -u root -p ```
-``` mysql> create database zabbix character set utf8mb4 collate utf8mb4_bin; ```
-```  create user zabbix@localhost identified by 'password'; ```
-``` grant all privileges on zabbix.* to zabbix@localhost; ```
+``` mysql -u root -p ``` <br>
+``` mysql> create database zabbix character set utf8mb4 collate utf8mb4_bin; ``` <br>
+```  create user zabbix@localhost identified by 'password'; ``` <br>
+``` grant all privileges on zabbix.* to zabbix@localhost; ``` <br> 
 ``` set global log_bin_trust_function_creators = 1; ```
 
 Importation du schéma de la BDD et les données initiales (fournies par zabbix directement) sur l'hôte du Zabbix serveur :
@@ -854,7 +854,12 @@ Désactivation de l'option log_bin_trust_function_creators
 Dans le fichier : /etc/zabbix/zabbix_server.conf définir le mot de passe de la base de données 
 ``` DBPassword=password ```
 
+
 restart le serveur apache
+
+### Installation des agents Zabbix sur tous les hôtes que l'on souhaite superviser :
+
+Comme expliqué précedemment
 
 ### Axes de sécurisation de l'infrastructure : 
 
