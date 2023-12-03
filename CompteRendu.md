@@ -472,10 +472,10 @@ Le logiciel Lubiana est conçu pour être utilisé par un "agent administratif" 
 #### Programmation :
 
 Lubiana sera développé en utilisant Python 3.11. Les librairies utilisées par Lubiana sont : 
-- pyscard
-- random
-- pyfiglet
-- getpass
+- pyscard (librairie qui permet l'initialisation et la connexion avec la carte à puce)
+- random (librairie qui génére un nombre random utilisé pour le code PUK)
+- pyfiglet (librairie de génération de bannière automatisée)
+- getpass (librairie pour masquer les mots de passes)
 
 #### Gestion des erreurs : 
 
