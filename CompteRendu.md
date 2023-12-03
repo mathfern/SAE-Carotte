@@ -465,11 +465,11 @@ En effet, elle utilise les variables sw1 et sw2 pour stocker les codes d'erreurs
 
 #### Concept de base de donnée carte à puce : 
 
-Une base de données (purple dragon) implémenter en mysql pour les cartes à puce est une base de données utilisée pour stocker des informations liées aux cartes à puce :
+La base de données (purple dragon) implémentée sur mysql pour les cartes à puce est une base de données utilisée pour stocker des informations liées aux cartes à puce :
 
-- Les données des étudiants comme le numéro d’étudiant et contient uniquement les informations essentielles, à savoir le nom, le prénom, le solde et les bonus. 
+- Les données des étudiants qui contient des informations comme le numéro d’étudiant et les informations essentielles, à savoir le nom, le prénom, le solde et les bonus. 
 
-- Les données du compte qui représente les opérations effectuées par les utilisateurs, elle est identifiée par la date de l’opération, et contient deux autres 
+- Les données du compte qui représentent les opérations effectuées par les utilisateurs, elles sont identifiées par la date de l’opération, et contiennent deux autres 
   champs, le montant de l’opération et sa description. Étant donné que plusieurs utilisateurs peuvent effectuer simultanément différentes opérations, nous avons 
   choisi d'associer le numéro d'étudiant à la clé primaire en utilisant une relation relative (R). Le montant de l'opération peut être positif en cas de bonus ou 
   de crédit, ou négatif en cas de débit.
@@ -477,11 +477,11 @@ Une base de données (purple dragon) implémenter en mysql pour les cartes à pu
 - Les données du type de l’opération qui permet de catégoriser les types d'opérations : Bonus, Bonus transféré, Crédit et Débit.
 
 
-Le schémas relationnel (MCD) proposé est donné ci-après : 
+Le schéma relationnel (MCD) proposé est donné ci-dessous : 
 
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150126517/3a7f34bb-3c22-4650-a28d-bbfdfdd74d67)
 
-Cette base de données devra être accessible par le logiciel de gestion Rodelika afin de permettre à l’agent administratif de gérer le suivi des cartes, des bonus, des débit etc. L’étudiant a chaque fois qu’il va insérer sa carte à puces les données de la carte à puces seront stockées dans la base de données.
+Cette base de données devra être accessible par le logiciel de gestion Rodelika afin de permettre à l’agent administratif de gérer le suivi des cartes, des bonus, des débit etc. Les données de la carte à puces seront stockées dans la base de données à chaque fois que l'étudiant inserera sa carte à puce.
 
 #### Idées implémentées :
 
@@ -507,11 +507,11 @@ Les bases de données MySQL sont sujettes à plusieurs vulnérabilités potentie
   
    Et voici la base de données qu'on a utilisé :
 
-    On a ici la table Etudiant avec notamment le solde et les bonus ainsi que les étudiants :
+    On a ici la table Etudiant avec le solde et les bonus ainsi que les étudiants :
    
    ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/2748e9a6-ec5e-4390-b02c-e2c74063dadc)
 
-   Puis on a la table Compte qui va stockées les transactions de chaque étudiant :
+   Puis on a la table Compte qui va stocker les transactions de chaque étudiant :
 
    ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/435cbd90-3066-4cad-8e76-f035148917e4)
 
@@ -527,7 +527,7 @@ Les bases de données MySQL sont sujettes à plusieurs vulnérabilités potentie
 ### Logiciel de gestion (Rodelika)
 
 #### Concept de gestion de l’administration :
-Le logiciel de gestion (Rodelika) va permettre de gérer le suivi des cartes, des bonus, des débits. Dans notre cas, l’application permettra de rentrer en communication avec la base de données PurpleDragon ou on aura accès aux informations suivante :
+Le logiciel de gestion (Rodelika) va permettre de gérer le suivi des cartes, des bonus, des débits. Dans notre cas, l’application permettra d'entrer en communication avec la base de données PurpleDragon où on aura accès aux informations suivantes :
 
 - Liste des étudiants
 - Solde des étudiants
@@ -545,7 +545,7 @@ Le logiciel de gestion va permettre plusieurs actions :
   
   ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/0706857f-2e1a-4251-85cd-51c6242a1937)
 
-- L’option 3 "saisir un nouvel étudiant" nommée dans le code "new_student" permettra d’attribuer une nouvelle carte à un étudiant. Elle ne permet pas la personnalisation de la carte. Elle se fait via le logiciel Lubiana.
+- L’option 3 "saisir un nouvel étudiant" nommée dans le code "new_student" permettra d’attribuer une nouvelle carte à un étudiant. Elle ne permet pas la personnalisation de la carte. La personnalisation se fait via le logiciel Lubiana.
   
 ![image](https://github.com/mathfern/SAE-Carotte/assets/150122701/c85a498c-8808-44dc-a8c8-b620ef3e7e7c)
 
