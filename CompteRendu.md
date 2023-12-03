@@ -155,17 +155,17 @@ Création de l'Environnement Virtuel :
 
 Utilisation de la bibliothèque standard venv pour créer un environnement virtuel.
 
-python3 -m venv "dossier"
+``` python3 -m venv "dossier" ```
 
 Activation de l'Environnement Virtuel :
 
-source "dossier"/bin/activate
+``` source "dossier"/bin/activate ```
 
 Installation de pyscard et mysql-connector via pip :
 
 Une fois l'environnement virtuel activé, l'utilisation de pip pour installer les modules devient spécifique à cet environnement.
 
-pip install pyscard mysql-connector
+``` pip install pyscard mysql-connector ```
 
 Utilisation dans le Contexte du Projet :
 
